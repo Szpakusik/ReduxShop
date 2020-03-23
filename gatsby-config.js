@@ -1,7 +1,7 @@
 module.exports = {
   pathPrefix: '/gatsby-redux-starter',
   siteMetadata: {
-    title: 'Gatsby Default Starter',
+    title: 'Sklep spożywczy online',
   },
   plugins: [
     'gatsby-plugin-react-helmet',

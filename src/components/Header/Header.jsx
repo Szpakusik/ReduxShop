@@ -10,25 +10,29 @@ import headerStyles from './header.module.scss';
 const Header = () => {
   return (
     <header className={`header header-top-transparent ${headerStyles.header}`}>
-      <Navbar className="navbar navbar-light navbar-expand-lg navbar-static-top sticky-header">
-        <Navbar.Header>
-          <Navbar.Brand className="navbar-header">
+      <div className="navbar navbar-light navbar-expand-lg navbar-static-top sticky-header p-0">
+        <div className='container-fluid p-0 overflow-hidden'>
+          <Navbar.Brand className={`banner navbar-header col-sm-4 ${headerStyles.banner}`}>
             <a className="navbar-brand" href="https://www.gatsbyjs.org/">
-              <img src="/gatsby-redux-starter/icons/gatsbyJS.png" alt="logo" className="logo-default" />
+              <i class="material-icons">
+                local_mall
+              </i>  
+              <p className='mb-0'>Spożywczy24h</p>
             </a>
           </Navbar.Brand>
-          <Nav className="navbar-nav ml-auto">
-            <a className="dropdown nav-item nav-link" key="1" href="https://github.com/AVivero/gatsby-redux-starter">
-              <img className="navbar-icon github-icon" src="/gatsby-redux-starter/icons/github.png" alt="GitHub" />
-            </a>
-            <a className="dropdown nav-item nav-link" key="2" href="mailto:alexviveropelaez@gmail.com">
-              <i className="navbar-icon material-icons">
-                email
-              </i>
+          <div className="col-sm-5 "></div>
+          <Nav className={`navbar-nav ml-auto col-sm-3 ${headerStyles.koszyk}`}>
+            <a className="dropdown nav-item nav-link p-0" key="2" href="mailto:alexviveropelaez@gmail.com">
+              <div className="row">
+                <span class="material-icons col-sm-3">
+                  shopping_cart
+                </span>
+                <p className='align-middle col-sm-6 my-auto h5 font-weight-bold'>Koszyk ( 2 ) <span>14.75zł</span></p>
+              </div>
             </a>
           </Nav>
-        </Navbar.Header>
-      </Navbar>
+        </div>
+      </div>
     </header>
   );
 };
