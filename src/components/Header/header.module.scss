@@ -5,6 +5,7 @@
     font-weight: 700;
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
     border-bottom: 1px solid black;
+    min-height: 58px;
 }
 .banner{
     color: green;
@@ -22,23 +23,14 @@
 }
 .koszyk{
     // background-color: rgb(232, 255, 195);
+    min-height: 58px;
     border-left: 2px solid green;
-    a{
-        p{
-            color: black;
-            span{
-                color: green;
-                font-size: 1.4rem;
-                margin: 0;
-                padding: 0;
-            }
-        }
-        span{
-            // margin-left: 30px;
-            font-size: 3rem;
-            color: green;
-            padding: 10px
-        }
+    span{
+        color: green;
+    }
+    div{
+        font-size: 1.0rem;
+        padding-top: 10px;
     }
 
 }
