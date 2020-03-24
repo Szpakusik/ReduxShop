@@ -25,6 +25,14 @@
     // background-color: rgb(232, 255, 195);
     min-height: 58px;
     border-left: 2px solid green;
+
+    &:first-child{
+        background-color: red;
+        &:hover{
+            background-color: red;
+        }
+    }
+
     span{
         color: green;
     }

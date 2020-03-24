@@ -2,11 +2,13 @@
 
         height: 20%;
         color: black;
-
+        border-bottom: 1px solid lightgray;
+        border-right: 1px solid lightgray;
+        
         &:hover{
                 background-color: #F7F9F9;
                 text-decoration: none;
-                border: 1px solid orangered;
+                // border: 1px solid orangered;
                 border-left: 0
         }
 
