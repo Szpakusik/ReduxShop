@@ -7,6 +7,7 @@ import categoryElem from './CategoryElem.module.scss';
 
 const CategoryElem = ( props ) => {
 
+
     let borderRight = props.category.active ? "bg-white" : 'border-right';
 
     return(

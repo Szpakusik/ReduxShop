@@ -10,14 +10,21 @@ import headerStyles from './header.module.scss';
 
 const Header = ( props ) => {
 
-  console.log( props.cart.products ) //tablica obiektow
+  console.log( props.cart ) //tablica obiektow
 
   let price;
-  price = props.cart.products > 1 ? 
-  props.cart.products.reduce(function(a, b) {
-    return a.price + b.price;
-  })
-  : props.cart.products[0].price
+  const getSum = (total, elem) => {
+    return total + elem.price;
+  }
+
+  if( props.cart.length === 0 ) price = 0;
+  else if(props.cart.length === 1) price = props.cart[0].price
+  else{
+    price = props.cart.reduce( getSum, 0)
+    price = (Math.round(price * 100) / 100).toFixed(2);
+  }
+
+  let length = props.cart.length;
 
   console.log(price)
 
@@ -46,8 +53,8 @@ const Header = ( props ) => {
             <div className="float-left my-auto col-sm-5 p-0 pl-2">
 
               <p className='align-middle my-auto font-weight-bold text-dark'>
-                Koszyk ({props.cart.products.length}) 
-                <span className="pl-2">{price}</span>
+                Koszyk ({length}) 
+                <span className="pl-2">{price}zł</span>
               </p>
 
             </div>
@@ -77,7 +84,7 @@ Header.defaultProps = {
 
 const mapStateToProps = (state) => {
   return{
-    cart: state.someReducer.cart
+    cart: state.cartReducer.cartProducts
   }
 }
 

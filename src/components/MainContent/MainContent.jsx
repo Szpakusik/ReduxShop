@@ -4,7 +4,6 @@ import Product from '../Product/Product';
 import Footer from '../Footer/Footer';
 import mainContent from './mainContent.module.scss'
 import footerCss from '../Footer/Footer.module.scss'
-
 import { connect } from 'react-redux';
 
 const MainContent = ( props ) => {
@@ -15,26 +14,12 @@ const MainContent = ( props ) => {
 
       { props.products && props.products.map( ( product )=>{
       
+      if(product.category === props.activeCategory)
         return <Product product={product} />
       
       })}
 
-{/*         
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product /> */}
+        
         <div className="clearfix" />
         <div className={`row ${footerCss.container}`}>
           <Footer />
@@ -47,7 +32,10 @@ const MainContent = ( props ) => {
 
 const mapStateToProps = (state) => {
   return{
-    products: state.someReducer.products
+    products: state.productReducer.products,
+    cart: state.cartReducer.products,
+    activeCategory: state.categoryReducer.activeCategory,
+    categories: state.categoryReducer.categories,
   }
 }
 

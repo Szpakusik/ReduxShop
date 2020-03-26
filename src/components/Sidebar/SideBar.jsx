@@ -1,35 +1,35 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
 import sideBar from './SideBar.module.scss';
 import CategoryElem from './categoryElem/CategoryElem';
-
+import { connect } from 'react-redux';
 
 
 const SideBar = ( props ) => {
-  const categories = [{id:'1', name: 'Nabiał', icon:'local_offer', active: true},
-                      {id:'2', name: 'Prod. Zbożowe', icon:'local_offer', active: false},
-                      {id:'3', name: 'Chemia', icon:'local_offer', active: false}, 
-                      {id:'4', name: 'Owoce Warzywa', icon:'local_offer', active: false}, 
-                      {id:'5', name: 'Mięso', icon:'local_offer', active: false}];
-  const [active, setActive] = useState( '1' );
-
-  const toggle = tab => {
-    if (active !== tab) {
-      setActive(tab)
-    }
-    console.log('FIRED')
-  }
 
   return(
 
         <div className={`col-md-1 ${sideBar.sideBar}`}>
-            { categories && categories.map( (category) => (
-                <CategoryElem activeTab={active} key={category.id} category={category} onClickFun= {()=>{ toggle(category.id) }}/>
+            { props.categories && props.categories.map( (category) => (
+                <CategoryElem activeTab={props.activeCategory} key={category.id} category={category} onClickFun= { ()=>{ props.setActiveCat(category.id) }}/>
             ))}
         </div>
 
   )
 };
 
-export default SideBar;
+const mapStateToProps = (state) => {
+  return{
+    activeCategory: state.categoryReducer.activeCategory,
+    categories: state.categoryReducer.categories,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return{
+    setActiveCat: ( id )=>{ dispatch( { type: "SET_CATEGORY", id: id } ) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);
+
