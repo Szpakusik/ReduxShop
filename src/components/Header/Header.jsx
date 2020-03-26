@@ -14,11 +14,12 @@ const Header = ( props ) => {
 
   let price;
   const getSum = (total, elem) => {
-    return total + elem.price;
+    return total + elem.price*elem.amount ;
   }
 
   if( props.cart.length === 0 ) price = 0;
-  else if(props.cart.length === 1) price = props.cart[0].price
+  else if(props.cart.length === 1) 
+    price = (Math.round(props.cart[0].price*props.cart[0].amount * 100) / 100).toFixed(2);
   else{
     price = props.cart.reduce( getSum, 0)
     price = (Math.round(price * 100) / 100).toFixed(2);
