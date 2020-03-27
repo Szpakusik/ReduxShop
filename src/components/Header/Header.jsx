@@ -35,7 +35,7 @@ const Header = ( props ) => {
        
         <div className='container-fluid p-0 overflow-hidden'>
           <Navbar.Brand className={`banner navbar-header col-sm-4 ${headerStyles.banner}`}>
-            <a className="navbar-brand" href="https://www.gatsbyjs.org/">
+            <a className="navbar-brand" href="//localhost:8000">
               <i className="material-icons">
                 local_mall
               </i>  

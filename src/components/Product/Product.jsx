@@ -6,11 +6,22 @@ import { connect } from 'react-redux';
 
 
 const Product = ( props ) => {
+    
+    const [productAmount, setAmount] = useState(1);
 
     const correctPrice = (Math.round(props.product.price * 100) / 100).toFixed(2);
     const handleClick = ()=>{
+
+        const amount = productAmount ? +productAmount : 1;
+        props.product.amount = amount;
         props.addToCart(props.product)
+
     }
+
+    const handleChange = (e)=>{
+        setAmount(e.currentTarget.value);
+    }
+
   return(
 
     <div className={`container card col-md-2 text-dark float-left text-center ${product.product}`}>
@@ -30,7 +41,7 @@ const Product = ( props ) => {
             </li>
             <li class="list-group-item">
                 <button class="btn btn-outline-success my-1" onClick={ ( ) => { handleClick() }} >Dodaj do koszyka</button>
-                <input placeholder="1" type="number" className={`${product.numberInput} mt-1 text-center`}/>
+                <input placeholder="1" type="number" onChange={ (e)=>{handleChange(e)}} className={`${product.numberInput} mt-1 text-center`}/>
             </li>
         </ul>
     </div>
