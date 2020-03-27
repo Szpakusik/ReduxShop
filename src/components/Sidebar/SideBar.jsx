@@ -9,7 +9,7 @@ const SideBar = ( props ) => {
 
   return(
 
-        <div className={`col-md-1 ${sideBar.sideBar}`}>
+        <div className={`col-md-1 col-xs-12 ${sideBar.sideBar}`}>
             { props.categories && props.categories.map( (category) => (
                 <CategoryElem activeTab={props.activeCategory} key={category.id} category={category} onClickFun= { ()=>{ props.setActiveCat(category.id) }}/>
             ))}

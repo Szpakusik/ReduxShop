@@ -26,19 +26,24 @@
     min-height: 58px;
     border-left: 2px solid green;
 
-    &:first-child{
-        background-color: red;
-        &:hover{
-            background-color: red;
-        }
-    }
-
     span{
         color: green;
     }
     div{
         font-size: 1.0rem;
-        padding-top: 10px;
+        cursor: pointer;
+        
+        &:hover{
+            background-color: #F7F9F9
+        }
     }
 
+}
+
+.disableSelect {
+    user-select: none; /* supported by Chrome and Opera */
+   -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer/Edge */
 }

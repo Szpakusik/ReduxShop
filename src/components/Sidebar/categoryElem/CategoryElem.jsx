@@ -11,7 +11,7 @@ const CategoryElem = ( props ) => {
     let borderRight = props.category.active ? "bg-white" : 'border-right';
 
     return(
-            <a href="#" onClick={props.onClickFun} className={`text-decoration-none`}>
+            <a href="#" onClick={props.onClickFun} className={`text-decoration-none col-xs-2`}>
                 <div className={`row ${props.activeTab === props.category.id ? categoryElem.active : ''} ${categoryElem.categoryElem}`}>
                     <div className="m-auto text-center">
                         <span class="material-icons">

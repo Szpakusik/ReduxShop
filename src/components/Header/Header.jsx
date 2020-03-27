@@ -10,6 +10,10 @@ import headerStyles from './header.module.scss';
 
 const Header = ( props ) => {
 
+  const handleClick = () => {
+    props.showCart( !props.active )
+  }
+
   console.log( props.cart ) //tablica obiektow
 
   let price;
@@ -30,7 +34,7 @@ const Header = ( props ) => {
   console.log(price)
 
   return (
-    <header className={`header header-top-transparent ${headerStyles.header}`}>
+    <header className={`header ${headerStyles.header}`}>
       <div className="navbar navbar-light navbar-expand-lg navbar-fixed-top sticky-header p-0">
        
         <div className='container-fluid p-0 overflow-hidden'>
@@ -43,29 +47,39 @@ const Header = ( props ) => {
             </a>
           </Navbar.Brand>
           <div className="col-sm-4 "></div>
-          <Nav className={`navbar-nav ml-auto col-sm-4 text-dark border-0 ${headerStyles.koszyk}`}>
+          <Nav className={`navbar-nav ml-auto text-dark col-sm-12 col-md-4 border-0 pr-0 ${headerStyles.koszyk} ${headerStyles.disableSelect}`}>
 
-            <div className="float-left my-auto pb-1 pl-4 border-left">
-              <span className="material-icons">
-                shopping_cart
-              </span>
+
+            <div onClick={ ()=>{ handleClick() } } className=" col-sm-6 p-0 border-left text-center row m-0">
+
+              <div className="my-auto p-0 mx-auto">
+
+                <p className="material-icons float-left mb-0  mr-2 my-auto">
+                  shopping_cart
+                </p>
+
+                <p className='align-middle my-auto font-weight-bold float-left mr-2 my-auto'>
+                  Koszyk ({length}) 
+                  <span className="pl-2">{price}zł</span>
+                </p>
+
+              </div>
+
             </div>
 
-            <div className="float-left my-auto col-sm-5 p-0 pl-2">
+            <div className="col-sm-6 text-right p-0 border-left text-center row m-0">
+             
+              <div className="my-auto p-0 mx-auto">
 
-              <p className='align-middle my-auto font-weight-bold text-dark'>
-                Koszyk ({length}) 
-                <span className="pl-2">{price}zł</span>
-              </p>
+                <p className="m-0 float-right pr-2 pl-2">Twoje konto</p>
+                <i className="material-icons p-0 float-right">
+                  person
+                </i>
+
+              </div>
 
             </div>
-
-            <div className="col-sm-5 text-dark text-right p-0 border-left my-auto float-left text-center">
-              <p className="m-0 float-right pr-2 pl-2">Twoje konto</p>
-              <i className="material-icons text-dark p-0 float-right">
-                person
-              </i>
-            </div>
+          
           </Nav>
         </div>
 
@@ -85,9 +99,17 @@ Header.defaultProps = {
 
 const mapStateToProps = (state) => {
   return{
-    cart: state.cartReducer.cartProducts
+    cart: state.cartReducer.cartProducts,
+    active: state.cartReducer.cartActive,
+  }
+}
+const mapDispatchToProps = ( dispatch ) => {
+  return{
+      showCart: ( status )=>{
+          dispatch({ type:"SHOW_CART", status: status })
+      }
   }
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
 

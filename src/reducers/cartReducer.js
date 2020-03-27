@@ -7,6 +7,7 @@ let tempCart;
 const initState = {
 
   cartProducts:[],
+  cartActive: false,
 
 }
 
@@ -46,6 +47,13 @@ const cartReducer = (state = initState, action) => {
 
       }
 
+    case "SHOW_CART":
+
+      return {
+        ...state,
+        
+        cartActive: action.status,
+      }
 
     default:
       return state;
