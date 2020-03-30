@@ -1,13 +1,34 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
+import signedIn from './signedIn.module.scss'
+
 const SignedIn = ( props ) => {
 
+  const handleClick = ()=>{
+    props.setActiveCat(0)
+  }
   return(
     <>
+    <div className={`container text-dark ${signedIn.signedIn} pt-3`}>
        
-       <p className="h3">Logged in</p>
-    
+        <div className="row border-bottom p-3" onClick={ ()=>{ handleClick() }}>
+          <p className="h5">Listy zakupów</p>
+        </div>
+        <div className="row border-bottom p-3" onClick={ ()=>{ handleClick() }}>
+          <p className="h5">Moje konto</p>
+        </div>
+        <div className="row border-bottom p-3" onClick={ ()=>{ handleClick() }}>
+          <p className="h5">Wyloguj</p>
+        </div>
+
+    </div>
+    <div className="row text-dark"> 
+        <div className="col-sm-12 text-right w-100 h5 mt-2 mb-0"> 
+            Zalogowany jako:<br /> <span className="text-success">szpakusik@gmail.com</span>
+            {/* <button type="button" class="ml-3 btn btn-sm btn-outline-success">Zamów</button> */}
+        </div>
+    </div>
     </>
   )
 };
@@ -18,4 +39,9 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(SignedIn);
+const mapDispatchToProps = (dispatch) => {
+  return{
+    setActiveCat: ( id )=>{ dispatch( { type: "SET_CATEGORY", id: id } ) }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SignedIn);

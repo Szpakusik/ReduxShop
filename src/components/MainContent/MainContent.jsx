@@ -12,18 +12,24 @@ const MainContent = ( props ) => {
     <>
     <div className={`container text-dark pb-0 p-3 ${mainContent.mainContent}`}>
 
-      { props.products && props.products.map( ( product )=>{
-      
-      if(product.category === props.activeCategory)
-        return <Product product={product} />
-      
-      })}
-
+      {
+        props.activeCategory === 0 ? <div className="bg-danger w-100 h-25"></div>
+        : null
+      }
+      { 
+        props.products && 
+        props.products.map( ( product )=>{
         
-        <div className="clearfix" />
-        <div className={`row ${footerCss.container}`}>
-          <Footer />
-        </div>
+          if(product.category === props.activeCategory)
+            return <Product product={product} />
+        
+        })
+      }
+
+      <div className="clearfix" />
+      <div className={`row ${footerCss.container}`}>
+        <Footer />
+      </div>
     </div>
     
     </>

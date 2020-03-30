@@ -5,7 +5,7 @@ let tempCart;
 const initState = {
 
   loginActive: false,
-  logged: false,
+  logged: !false,
 
 }
 
