@@ -4,14 +4,23 @@
     right: 0;
     top: 58px;
     z-index: 100;
+    font-size: small;
 
-    height: 600px;
+    // height: 600px;
 
     border: 1px solid green;
     background-color: #F7F9F9;
+
+    i{
+        cursor: pointer;
+    }
+
 }
 
 .photoContainer{
     width: 50px;
+}
+
+.productRow{
     height: 50px;
 }

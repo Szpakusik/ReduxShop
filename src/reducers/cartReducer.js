@@ -1,5 +1,3 @@
-const TEST_ACTION = 'TEST_ACTION';
-
 let index;
 let tempObj;
 let tempCart;
@@ -19,14 +17,12 @@ const cartReducer = (state = initState, action) => {
       if ( state.cartProducts.some(e => e.id === action.product.id) ) {
 
         index = state.cartProducts.findIndex(x => x.id === action.product.id);
-        console.log(index)
         
         tempObj = state.cartProducts[index];
-        tempObj.amount += 1;
+        // tempObj.amount += 1;
         
         tempCart = state.cartProducts;
         tempCart = tempCart.filter( elem => {
-          console.log(action.product.id !== elem.id)
           return action.product.id !== elem.id;
         });
         // tempCart.push( tempObj );
@@ -45,6 +41,16 @@ const cartReducer = (state = initState, action) => {
           cartProducts: [...state.cartProducts, action.product]
         }
 
+      }
+
+    case "REMOVE_FROM_CART":
+      
+      tempCart = state.cartProducts.filter( (elem)=>{
+        return action.id !== elem.id;
+      } )
+      return {
+        ...state,
+        cartProducts: tempCart
       }
 
     case "SHOW_CART":

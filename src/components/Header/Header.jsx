@@ -5,6 +5,7 @@ import { Link } from 'gatsby';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import { connect } from 'react-redux';
+import { getCartPrice } from './../../utils/functions/cartFunctions'
 
 import headerStyles from './header.module.scss';
 
@@ -14,20 +15,7 @@ const Header = ( props ) => {
     props.showCart( !props.active )
   }
 
-  console.log( props.cart ) //tablica obiektow
-
-  let price;
-  const getSum = (total, elem) => {
-    return total + elem.price*elem.amount ;
-  }
-
-  if( props.cart.length === 0 ) price = 0;
-  else if(props.cart.length === 1) 
-    price = (Math.round(props.cart[0].price*props.cart[0].amount * 100) / 100).toFixed(2);
-  else{
-    price = props.cart.reduce( getSum, 0)
-    price = (Math.round(price * 100) / 100).toFixed(2);
-  }
+  let price = getCartPrice(props.cart)
 
   let length = props.cart.length;
 
