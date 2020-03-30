@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 
-import someReducer from './someReducer';
 import categoryReducer from './categoryReducer';
 import productReducer from './productReducer';
 import cartReducer from './cartReducer';
+import loginReducer from './loginReducer';
+
 
 export default combineReducers({
+  loginReducer,
   categoryReducer,
   cartReducer,
   productReducer

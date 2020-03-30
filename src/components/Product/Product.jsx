@@ -19,6 +19,9 @@ const Product = ( props ) => {
     }
 
     const handleChange = (e)=>{
+        if(e.currentTarget.value !== "" && e.currentTarget.value < 1){
+            e.currentTarget.value=1;
+        }
         setAmount(e.currentTarget.value);
     }
 

@@ -5,6 +5,7 @@ import { Link } from 'gatsby';
 import SideBar from '../Sidebar/SideBar';
 import MainContent from '../MainContent/MainContent';
 import CartModal from '../CartModal/CartModal';
+import LoginModal from '../LoginModal/LoginModal';
 
 
 
@@ -17,6 +18,7 @@ const TestComponent = ( props ) => {
         <SideBar/>
         <MainContent className="col-md-11" />
         <CartModal />
+        <LoginModal />
       </div>
     </div>
 

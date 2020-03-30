@@ -45,10 +45,7 @@ const CartModal = ( props ) => {
             : <p className="pt-3" >Nie dodałeś jeszcze żadnych produktów</p>
 
         }
-        <div className="row text-dark">
-            <div className="col-sm-0 text-left w-100 h4 mt-2 mb-0">
-                
-            </div> 
+        <div className="row text-dark"> 
             <div className="col-sm-12 text-right w-100 h4 mt-2 mb-0"> 
                 Razem: <span className="text-success">{price}zł</span>
                 <button type="button" class="ml-3 btn btn-sm btn-outline-success">Zamów</button>
