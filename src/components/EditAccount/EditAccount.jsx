@@ -6,8 +6,8 @@ const EditAccount = (props) => {
     return(
         <>
         
-            <div className="row w-100">
-                
+            <div className="row w-100 text-center bg-dark align-center">
+                <p className="h1 text-light">EDIT ACCOUNT</p>
             </div>
 
         </>

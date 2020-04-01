@@ -5,6 +5,7 @@ import Footer from '../Footer/Footer';
 import mainContent from './mainContent.module.scss'
 import footerCss from '../Footer/Footer.module.scss'
 import { connect } from 'react-redux';
+import { showContent } from '../../utils/functions/contentFunctions'
 
 const MainContent = ( props ) => {
   console.log( props.products )
@@ -13,11 +14,12 @@ const MainContent = ( props ) => {
     <div className={`container text-dark pb-0 p-3 ${mainContent.mainContent}`}>
 
       {
-        props.activeCategory === 0 ? <div className="bg-danger w-100 h-25"></div>
+        props.activeCategory === 0 ? showContent(props.activePage)
+
         : null
       }
       { 
-        props.products && 
+        props.products && props.activeCategory !== 0 &&
         props.products.map( ( product )=>{
         
           if(product.category === props.activeCategory)
@@ -27,7 +29,7 @@ const MainContent = ( props ) => {
       }
 
       <div className="clearfix" />
-      <div className={`row ${footerCss.container}`}>
+      <div className={`w-100 ${footerCss.container}`}>
         <Footer />
       </div>
     </div>
@@ -42,6 +44,7 @@ const mapStateToProps = (state) => {
     cart: state.cartReducer.products,
     activeCategory: state.categoryReducer.activeCategory,
     categories: state.categoryReducer.categories,
+    activePage: state.pageReducer.activePage,
   }
 }
 

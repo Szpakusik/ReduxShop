@@ -2,7 +2,7 @@ const TEST_ACTION = 'TEST_ACTION';
 
 const initState = {
 
-  activeCategory: 1,
+  activeCategory: 0,
   categories: [ {id: 1, name: 'Nabiał', icon:'local_offer', active: true},
                 {id: 2, name: 'Produkty Zbożowe', icon:'local_offer', active: false},
                 {id: 3, name: 'Chemia', icon:'local_offer', active: false}, 

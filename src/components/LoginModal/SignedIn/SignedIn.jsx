@@ -5,20 +5,21 @@ import signedIn from './signedIn.module.scss'
 
 const SignedIn = ( props ) => {
 
-  const handleClick = ()=>{
+  const handleClick = ( page )=>{
     props.setActiveCat(0)
+    props.setActivePage( page )
   }
   return(
     <>
     <div className={`container text-dark ${signedIn.signedIn} pt-3`}>
        
-        <div className="row border-bottom p-3" onClick={ ()=>{ handleClick() }}>
+        <div className="row border-bottom p-3" onClick={ ()=>{ handleClick('homepage') }}>
           <p className="h5">Listy zakupów</p>
         </div>
-        <div className="row border-bottom p-3" onClick={ ()=>{ handleClick() }}>
+        <div className="row border-bottom p-3" onClick={ ()=>{ handleClick('editAccount') }}>
           <p className="h5">Moje konto</p>
         </div>
-        <div className="row border-bottom p-3" onClick={ ()=>{ handleClick() }}>
+        <div className="row border-bottom p-3" onClick={ ()=>{ handleClick('logout') }}>
           <p className="h5">Wyloguj</p>
         </div>
 
@@ -41,7 +42,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return{
-    setActiveCat: ( id )=>{ dispatch( { type: "SET_CATEGORY", id: id } ) }
+    setActiveCat: ( id )=>{ dispatch( { type: "SET_CATEGORY", id: id } ) },
+    setActivePage: ( name )=>{ dispatch( { type: "CHANGE_PAGE", name: name } ) },
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SignedIn);
