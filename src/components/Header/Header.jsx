@@ -32,24 +32,28 @@ const Header = ( props ) => {
       <div className="navbar navbar-light navbar-expand-lg navbar-fixed-top sticky-header p-0">
        
         <div className='container-fluid p-0 overflow-hidden'>
-          <Navbar.Brand className={`banner navbar-header col-sm-4 ${headerStyles.banner}`}>
-            <a className="navbar-brand" href="//localhost:8000">
+          <Navbar.Brand className={`banner navbar-header col-xs-12 col-sm-4 ${headerStyles.banner}`}>
+            <a className="navbar-brand text-sm-center" href="//localhost:8000">
               <i className="material-icons">
                 local_mall
               </i>  
-              <p className='mb-0'>Spożywczy24h</p>
+              <p className='mb-0'>Spożywczy<span>24h</span>.pl</p>
             </a>
           </Navbar.Brand>
-          <div className="col-sm-4 "></div>
+          <div className="col-sm-4 pr-5 pl-0">
+            
+            <input class="form-control mr-sm-2" type="search" placeholder="Wpisz nazwe produktu..." aria-label="Search" />
+
+          </div>
           <Nav className={`navbar-nav ml-auto text-dark col-sm-12 col-md-4 border-0 pr-0 ${headerStyles.koszyk} ${headerStyles.disableSelect}`}>
 
-            <div onClick={ ()=>{ handleCartClick() } } className=" col-sm-6 p-0 border-left text-center row m-0">
+            <div onClick={ ()=>{ handleCartClick() } } className=" col-sm-6 p-0 text-center row m-0">
 
               <div className="my-auto p-0 mx-auto">
 
-                <p className="material-icons float-left mb-0  mr-2 my-auto">
+                <i className="material-icons float-left mb-0 mr-2 my-auto">
                   shopping_cart
-                </p>
+                </i>
 
                 <p className='align-middle my-auto font-weight-bold float-left mr-2 my-auto'>
                   Koszyk ({length}) 
@@ -60,7 +64,7 @@ const Header = ( props ) => {
 
             </div>
 
-            <div onClick={ ()=>{ handleLoginClick() } } className="col-sm-6 text-right p-0 border-left text-center row m-0">
+            <div onClick={ ()=>{ handleLoginClick() } } className="col-sm-6 text-right p-0 text-center row m-0">
              
               <div className="my-auto p-0 mx-auto" >
 

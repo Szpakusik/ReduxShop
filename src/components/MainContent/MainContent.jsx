@@ -11,7 +11,7 @@ const MainContent = ( props ) => {
   console.log( props.products )
   return(
     <>
-    <div className={`container text-dark pb-0 p-3 ${mainContent.mainContent}`}>
+    <div className={`container mr-0 text-dark pb-0 p-3 col-md-11 ${mainContent.mainContent}`}>
 
       {
         props.activeCategory === 0 ? showContent(props.activePage)

@@ -1,11 +1,16 @@
 
 .header {
-    background: transparent;
+    background-image: url(../../images/wood_pattern.png);
     color: #fff;
     font-weight: 700;
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
     border-bottom: 1px solid black;
     min-height: 58px;
+
+    img{
+        height: 40px;
+    }
+    
 }
 .banner{
     color: green;
@@ -13,12 +18,19 @@
     i{
         font-size: 3.0rem!important;
         color: green;
-        padding-right: 15px
+        padding-right: 15px;
+        // text-shadow: 0 0 1px #FFF, 0 0 1px #FFF, 0 0 2px #FFF;
     }
 
     p{
         font-size: 2.0rem;
-        color: green;
+        // color: green;
+        color: lightyellow;
+        text-shadow: 0 0 3px #000;
+        span{
+            color: green;
+            text-shadow: none
+        }
     }
 }
 .koszyk{
@@ -29,12 +41,25 @@
     span{
         color: green;
     }
+    i{
+        color: green;
+    }
     div{
         font-size: 1.0rem;
         cursor: pointer;
-        
+        border-left: 1px solid green ;
         &:hover{
             background-color: #F7F9F9
+        }
+        div{
+            border: none;
+            p{
+                color: lightyellow;
+                text-shadow: 0 0 3px #000;
+                span{
+                    text-shadow: none;
+                }
+            }
         }
     }
 

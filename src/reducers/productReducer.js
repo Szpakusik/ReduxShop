@@ -19,6 +19,14 @@ const initState = {
     { name:"Kurczak Cały", weight: '1000g', price: 16.49, photo:"chicken.png", category:5, id:13, amount:1 },
     { name:"Szynka Sołtysowa", weight: '1000g', price: 25.49, photo:"ham.png", category:5, id:14, amount:1 },
     { name:"Kurczak Cały", weight: '1000g', price: 16.49, photo:"chicken.png", category:5, id:15, amount:1 },
+    { name:"Szynka Sołtysowa", weight: '1000g', price: 25.49, photo:"ham.png", category:5, id:16, amount:1 },
+    { name:"Kurczak Cały", weight: '1000g', price: 16.49, photo:"chicken.png", category:5, id:17, amount:1 },
+    { name:"Szynka Sołtysowa", weight: '1000g', price: 25.49, photo:"ham.png", category:5, id:18, amount:1 },
+    { name:"Kurczak Cały", weight: '1000g', price: 16.49, photo:"chicken.png", category:5, id:19, amount:1 },
+    { name:"Szynka Sołtysowa", weight: '1000g', price: 25.49, photo:"ham.png", category:5, id:20, amount:1 },
+    { name:"Kurczak Cały", weight: '1000g', price: 16.49, photo:"chicken.png", category:5, id:21, amount:1 },
+    { name:"Szynka Sołtysowa", weight: '1000g', price: 25.49, photo:"ham.png", category:5, id:22, amount:1 },
+    { name:"Kurczak Cały", weight: '1000g', price: 16.49, photo:"chicken.png", category:5, id:23, amount:1 },
   ],
 
 }

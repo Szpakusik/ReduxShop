@@ -14,13 +14,13 @@ const SignedIn = ( props ) => {
     <div className={`container text-dark ${signedIn.signedIn} pt-3`}>
        
         <div className="row border-bottom p-3" onClick={ ()=>{ handleClick('homepage') }}>
-          <p className="h5">Listy zakupów</p>
+          <p className="h5 m-0">Listy zakupów</p>
         </div>
         <div className="row border-bottom p-3" onClick={ ()=>{ handleClick('editAccount') }}>
-          <p className="h5">Moje konto</p>
+          <p className="h5 m-0">Moje konto</p>
         </div>
         <div className="row border-bottom p-3" onClick={ ()=>{ handleClick('logout') }}>
-          <p className="h5">Wyloguj</p>
+          <p className="h5 m-0">Wyloguj</p>
         </div>
 
     </div>

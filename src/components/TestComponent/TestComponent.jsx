@@ -19,7 +19,7 @@ const TestComponent = ( props ) => {
     <div className="mainContainer">
       <div className="row w-100 p-0" onClick={ ()=>{ handleClick() }}>
         <SideBar/>
-        <MainContent className="col-md-11" />
+        <MainContent />
       </div>
         <CartModal />
         <LoginModal />

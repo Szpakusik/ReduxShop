@@ -7,7 +7,10 @@ const HomeContent = (props) => {
     return(
         <>
         
-            <h1>HOMEPAGE</h1>
+            <div className={`container w-100 text-center p-4 mb-3 ${homeContent.homeContent}`}>
+                <p className="h1 text-success m-0 text-uppercase">Dowóz zakupów na terenie gminy Morawica do 2h!</p>
+            </div>
+                <div className="h-100 w-100"></div>
 
         </>
     )

@@ -2,9 +2,17 @@
     bottom: 0;
 }
 .footer {
+    background-image: url(../../images/wood_pattern.png);
     background-color: green;
     width: 100%;
+    color: black;
+    position: relative;
 
-    position: relative
+    border: 1px solid green;
+
+    p{
+        color: lightyellow;
+        text-shadow: 0 0 6px #000;
+    }
 }
 
