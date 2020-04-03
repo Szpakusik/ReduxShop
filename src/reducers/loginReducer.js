@@ -5,7 +5,7 @@ let tempCart;
 const initState = {
 
   loginActive: false,
-  logged: !false,
+  logged: false,
 
 }
 
@@ -18,6 +18,14 @@ const loginReducer = (state = initState, action) => {
         ...state,
         
         loginActive: action.status,
+      }
+
+    case "LOG_IN":
+
+      return {
+        ...state,
+        
+        logged: action.isLogged,
       }
 
     default:

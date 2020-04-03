@@ -9,6 +9,10 @@ const SignedIn = ( props ) => {
     props.setActiveCat(0)
     props.setActivePage( page )
   }
+
+  const handleClick2 = ( page )=>{
+    props.signOut();
+  }
   return(
     <>
     <div className={`container text-dark ${signedIn.signedIn} pt-3`}>
@@ -19,7 +23,7 @@ const SignedIn = ( props ) => {
         <div className="row border-bottom p-3" onClick={ ()=>{ handleClick('editAccount') }}>
           <p className="h5 m-0">Moje konto</p>
         </div>
-        <div className="row border-bottom p-3" onClick={ ()=>{ handleClick('logout') }}>
+        <div className="row border-bottom p-3" onClick={ ()=>{ handleClick2('logout') }}>
           <p className="h5 m-0">Wyloguj</p>
         </div>
 
@@ -44,6 +48,8 @@ const mapDispatchToProps = (dispatch) => {
   return{
     setActiveCat: ( id )=>{ dispatch( { type: "SET_CATEGORY", id: id } ) },
     setActivePage: ( name )=>{ dispatch( { type: "CHANGE_PAGE", name: name } ) },
+    signOut: ()=>{ dispatch( { type: "LOG_IN", isLogged: false } ) }
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(SignedIn);

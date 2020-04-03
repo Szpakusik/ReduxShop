@@ -1,9 +1,29 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import signedOut from './signedOut.module.scss'
 import { connect } from 'react-redux';
 
 const SignedOut = ( props ) => {
     
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleClick = ()=> {
+
+    axios.post('http://localhost:3000/account/login', {
+      email: email,
+      password: password,
+    })
+    .then(function (response) {
+      console.log(response);
+      props.signIn()
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  }
+
   return(
     <>
 
@@ -12,17 +32,17 @@ const SignedOut = ( props ) => {
             </div>
 
             <div className="col-sm-12 w-100 mt-2 mb-0"> 
-                <label htmlfor="login"><b>E-Mail</b></label><br />
-                <input type="text" className={`${signedOut.input} w-100`} id="login"/>
+                <label htmlfor="email"><b>E-Mail</b></label><br />
+                <input type="text" onChange={ e => setEmail(e.target.value)} className={`${signedOut.input} w-100`} id="email"/>
             </div>
             
             <div className="col-sm-12 w-100 mt-2 mb-0"> 
                 <label htmlfor="password"><b>Hasło</b></label><br />
-                <input type="password" className={`${signedOut.input} w-100`} id="password"/>
+                <input type="password" onChange={ e => setPassword(e.target.value) } className={`${signedOut.input} w-100`} id="password"/>
             </div>
 
             <div className="col-sm-12 text-right w-100 h4 mt-4 mb-0"> 
-                <button type="button" class="ml-3 btn btn-outline-success">Zaloguj</button>
+                <button type="button" class="ml-3 btn btn-outline-success" onClick={ () => handleClick() }>Zaloguj</button>
             </div>
     
     </>
@@ -35,4 +55,11 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(SignedOut);
+const mapDispatchToProps = (dispatch) => {
+  return{
+    signIn: ( isLogged )=>{ dispatch( { type: "LOG_IN", isLogged: true } ) }
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignedOut);
