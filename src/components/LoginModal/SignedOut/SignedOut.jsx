@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import signedOut from './signedOut.module.scss'
 import { connect } from 'react-redux';
+import { GoogleLoginButton } from '../loginGoogle/LoginGoogle'
 
 const SignedOut = ( props ) => {
     
@@ -10,7 +11,7 @@ const SignedOut = ( props ) => {
 
   const handleClick = ()=> {
 
-    axios.post('http://localhost:3000/account/login', {
+    axios.get('http://localhost:3000/order/create', {
       email: email,
       password: password,
     })
@@ -22,6 +23,11 @@ const SignedOut = ( props ) => {
       console.log(error);
     });
 
+  }
+
+  const handleClick2 = ( page )=>{
+    props.setActiveCat(0)
+    props.setActivePage( page )
   }
 
   return(
@@ -41,10 +47,26 @@ const SignedOut = ( props ) => {
                 <input type="password" onChange={ e => setPassword(e.target.value) } className={`${signedOut.input} w-100`} id="password"/>
             </div>
 
-            <div className="col-sm-12 text-right w-100 h4 mt-4 mb-0"> 
-                <button type="button" class="ml-3 btn btn-outline-success" onClick={ () => handleClick() }>Zaloguj</button>
+            <div className="row px-3">
+
+              <div className="col-sm-12 text-left h4 mt-4 mb-0"> 
+                <GoogleLoginButton />
+              </div>
+
+            </div>
+
+            <div className="row px-3">
+
+            <div className="col-sm-6 text-center h4 mt-3 mb-0"> 
+                <button type="button" class="w-100 btn btn-outline-success" onClick={ () => handleClick2('editAccount') }>Zarejestruj</button>
+            </div>
+
+
+            <div className="col-sm-6 text-center h4 mt-3 mb-0"> 
+                <button type="button" class="w-100 btn btn-outline-success" onClick={ () => handleClick() }>Zaloguj</button>
             </div>
     
+          </div>
     </>
   )
 };
@@ -57,9 +79,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return{
-    signIn: ( isLogged )=>{ dispatch( { type: "LOG_IN", isLogged: true } ) }
+    signIn: ( isLogged )=>{ dispatch( { type: "LOG_IN", isLogged: true } ) },
+    setActivePage: ( name )=>{ dispatch( { type: "CHANGE_PAGE", name: name } ) },
+    setActiveCat: ( id )=>{ dispatch( { type: "SET_CATEGORY", id: id } ) },
   }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignedOut);

@@ -3,12 +3,14 @@
 
 @import url('./components/header.scss');
 @import url('./components/footer.scss');
+@import url('https://fonts.googleapis.com/css?family=Titan+One');
 
 body {
     font-family: Lato,Helvetica Neue,Arial,Helvetica,sans-serif;
     background-image: url('/gatsby-redux-starter/background.jpg');
     background-size: cover;
     background-position: center;
+    overflow: hidden;
 }
 
 .mainContainer {
