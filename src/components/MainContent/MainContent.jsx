@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Product from '../Product/Product';
 import Footer from '../Footer/Footer';
 import mainContent from './mainContent.module.scss'
-import footerCss from '../Footer/Footer.module.scss'
+import footerCss from '../Footer/footer.module.scss'
 import { connect } from 'react-redux';
 import { showContent } from '../../utils/functions/contentFunctions'
 

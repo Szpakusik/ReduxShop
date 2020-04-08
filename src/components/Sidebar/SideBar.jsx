@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import sideBar from './SideBar.module.scss';
+import sideBar from './sideBar.module.scss';
 import CategoryElem from './categoryElem/CategoryElem';
 import { connect } from 'react-redux';
 
