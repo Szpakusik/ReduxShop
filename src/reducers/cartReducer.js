@@ -53,6 +53,13 @@ const cartReducer = (state = initState, action) => {
         cartProducts: tempCart
       }
 
+    case "CLEAR_CART":
+
+      return {
+        ...state,
+        cartProducts: [],
+      }
+
     case "SHOW_CART":
 
       return {

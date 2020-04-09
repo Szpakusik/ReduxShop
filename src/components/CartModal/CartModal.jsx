@@ -1,11 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
-import { Link } from 'gatsby';
-import Navbar from 'react-bootstrap/lib/Navbar';
-import Nav from 'react-bootstrap/lib/Nav';
+import axios from 'axios';
 import { connect } from 'react-redux';
-
 import { getCartPrice } from './../../utils/functions/cartFunctions'
 import cartModal from './cartModal.module.scss';
 
@@ -14,7 +9,22 @@ const CartModal = ( props ) => {
     let price = getCartPrice(props.cart)
 
     const handleClick = (id) => {
-        removeFromCart(id)
+        props.removeFromCart(id)
+    }
+
+    const handleClick2 = ()=> {
+
+        axios.post('http://localhost:3000/order/create', {
+            cart: props.cart,
+        })
+        .then(function (response) {
+            console.log(response);
+            props.clearCart();
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    
     }
 
   return (
@@ -29,14 +39,14 @@ const CartModal = ( props ) => {
                 price = (Math.round(price * 100) / 100).toFixed(2);
 
                 return(
-                    <div className={`my-1 row ${cartModal.productRow} border-bottom`}>
+                    <div key={product.id} className={`my-1 row ${cartModal.productRow} border-bottom`}>
                         <div className={`${cartModal.photoContainer} align-self-center mr-1 p-1`}>
                             <img class="card-img my-auto" src={require(`./../../images/${product.photo}`)} alt="Product" />
                         </div>
                         <p className="text-dark align-middle my-auto m-0">
                             {product.name} - {product.amount} x {product.price}zł = {price}
                         </p>
-                        <i class="material-icons text-danger my-auto" onClick={ ( ) => { props.removeFromCart(product.id) }}>
+                        <i class="material-icons text-danger my-auto" onClick={ ( ) => { handleClick(product.id) }}>
                             clear
                         </i>
                     </div>
@@ -48,7 +58,7 @@ const CartModal = ( props ) => {
         <div className="row text-dark"> 
             <div className="col-sm-12 text-right w-100 h4 mt-2 mb-0"> 
                 Razem: <span className="text-success">{price}zł</span>
-                <button type="button" class="ml-3 btn btn-sm btn-outline-success">Zamów</button>
+                <button type="button" onClick={ ()=> { handleClick2() }} class="ml-3 btn btn-sm btn-outline-success">Zamów</button>
             </div>
         </div>
     </div>
@@ -68,7 +78,8 @@ const mapStateToProps = ( state ) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        removeFromCart: ( id )=>{ dispatch( { type: "REMOVE_FROM_CART", id: id } ) }
+        removeFromCart: ( id )=>{ dispatch( { type: "REMOVE_FROM_CART", id: id } ) },
+        clearCart: ()=>{ dispatch( { type: "CLEAR_CART" } ) },
     }
 }
 

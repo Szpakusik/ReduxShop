@@ -11,7 +11,7 @@ const SignedOut = ( props ) => {
 
   const handleClick = ()=> {
 
-    axios.get('http://localhost:3000/order/create', {
+    axios.get('http://localhost:3000/account', {
       email: email,
       password: password,
     })
@@ -22,7 +22,7 @@ const SignedOut = ( props ) => {
     .catch(function (error) {
       console.log(error);
     });
-
+    
   }
 
   const handleClick2 = ( page )=>{
@@ -73,7 +73,7 @@ const SignedOut = ( props ) => {
 
 const mapStateToProps = (state) => {
   return{
-    products: state.loginReducer.logged,
+    products: state.productReducer.products,
   }
 }
 
