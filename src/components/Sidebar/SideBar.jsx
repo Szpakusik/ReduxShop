@@ -5,9 +5,20 @@ import { connect } from 'react-redux';
 
 const SideBar = ( props ) => {
   
+  const [height, setDimensions] = React.useState(window.innerHeight)
+  
   const sidebarStyle = {
-    height: window.innerHeight-58 +'px',
+    height: height-58 +'px',
   }
+  
+  function handleResize() {
+    setDimensions( window.innerHeight )
+    console.log('resize fired')
+  }
+
+  React.useEffect(() => {
+    window.addEventListener('resize', handleResize)
+  })
 
   return(
 
