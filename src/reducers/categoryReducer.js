@@ -3,11 +3,11 @@ const TEST_ACTION = 'TEST_ACTION';
 const initState = {
 
   activeCategory: 0,
-  categories: [ {id: 1, name: 'Nabiał', icon:'local_offer', active: true},
-                {id: 2, name: 'Produkty Zbożowe', icon:'local_offer', active: false},
-                {id: 3, name: 'Chemia', icon:'local_offer', active: false}, 
-                {id: 4, name: 'Warzywa Owoce', icon:'local_offer', active: false}, 
-                {id: 5, name: 'Mięso', icon:'local_offer', active: false}],
+  categories: [ {id: 'nabial', name: 'Nabiał', icon:'local_offer', active: true},
+                {id: 'produkty-zbozowe', name: 'Produkty Zbożowe', icon:'local_offer', active: false},
+                {id: 'chemia', name: 'Chemia', icon:'local_offer', active: false}, 
+                {id: 'owoce', name: 'Warzywa Owoce', icon:'local_offer', active: false}, 
+                {id: 'mieso', name: 'Mięso', icon:'local_offer', active: false}],
 }
 
 const cartReducer = (state = initState, action) => {
