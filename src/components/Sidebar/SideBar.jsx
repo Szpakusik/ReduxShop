@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import sideBar from './SideBar.module.scss';
 import CategoryElem from './categoryElem/CategoryElem';
 import { connect } from 'react-redux';
 
-
 const SideBar = ( props ) => {
+  
+  const sidebarStyle = {
+    height: window.innerHeight-58 +'px',
+  }
 
   return(
 
-        <div className={`col-md-1 col-xs-12 ${sideBar.sideBar}`}>
+        <div style={sidebarStyle} className={`col-md-1 col-xs-12 ${sideBar.sideBar}`}>
             { props.categories && props.categories.map( (category) => (
                 <CategoryElem activeTab={props.activeCategory} key={category.id} category={category} onClickFun= { ()=>{ props.setActiveCat(category.id) }}/>
             ))}
