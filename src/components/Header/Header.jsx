@@ -42,10 +42,10 @@ const Header = ( props ) => {
           </Navbar.Brand>
           <div className="col-sm-4 pr-5 pl-0">
             
-            <input class="form-control mr-sm-2" type="search" placeholder="Wpisz nazwe produktu..." aria-label="Search" />
+            <input className="form-control mr-sm-2" type="search" placeholder="Wpisz nazwe produktu..." aria-label="Search" />
 
           </div>
-          <Nav className={`navbar-nav ml-auto text-dark col-sm-12 col-md-4 border-0 pr-0 ${headerStyles.koszyk} ${headerStyles.disableSelect}`}>
+          <div className={`navbar-nav ml-auto text-dark col-sm-12 col-md-4 border-0 pr-0 ${headerStyles.koszyk} ${headerStyles.disableSelect}`}>
 
             <div onClick={ ()=>{ handleCartClick() } } className=" col-sm-6 p-0 text-center row m-0">
 
@@ -77,7 +77,7 @@ const Header = ( props ) => {
 
             </div>
           
-          </Nav>
+          </div>
         </div>
 
 

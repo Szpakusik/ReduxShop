@@ -14,7 +14,7 @@ const CategoryElem = ( props ) => {
             <a href="#" onClick={props.onClickFun} className={`text-decoration-none col-xs-2`}>
                 <div className={`row ${props.activeTab === props.category.id ? categoryElem.active : ''} ${categoryElem.categoryElem}`}>
                     <div className="m-auto text-center">
-                        <span class="material-icons">
+                        <span className="material-icons">
                             {props.category.icon}
                         </span>
                         <p className='d-block m-0'>{props.category.name}</p>

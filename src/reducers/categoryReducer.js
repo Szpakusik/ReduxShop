@@ -13,7 +13,6 @@ const initState = {
 const cartReducer = (state = initState, action) => {
   switch (action.type) {
     case "SET_CATEGORY":
-      console.log(action)
       return {
         ...state,
         activeCategory: action.id,
