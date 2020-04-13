@@ -1,0 +1,28 @@
+.createAccount{
+    font-family: 'Titan One';
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+.introduce{
+    // height: 500px;
+    background-color: black;
+    border-radius: 40px;
+    color: green;
+    img{
+        width: 100%;
+    }
+
+}
+.form{
+    padding-left: 7%;
+    padding-right: 0;
+    div{
+        text-align: left;
+    }
+    input{
+        width: 100%;
+    }
+    button{
+        font-family: 'Arial';
+    }
+}

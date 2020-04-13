@@ -20,7 +20,7 @@ const SignedIn = ( props ) => {
         <div className="row border-bottom p-3" onClick={ ()=>{ handleClick('homepage') }}>
           <p className="h5 m-0">Listy zakupów</p>
         </div>
-        <div className="row border-bottom p-3" onClick={ ()=>{ handleClick('editAccount') }}>
+        <div className="row border-bottom p-3" onClick={ ()=>{ handleClick('myAccount') }}>
           <p className="h5 m-0">Moje konto</p>
         </div>
         <div className="row border-bottom p-3" onClick={ ()=>{ handleClick2('logout') }}>

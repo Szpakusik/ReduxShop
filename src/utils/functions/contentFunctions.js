@@ -1,7 +1,7 @@
 import React from 'react';
 
 import HomeContent from '../../components/HomeContent/HomeContent';
-import EditAccount from '../../components/EditAccount/EditAccount';
+import MyAccount from '../../components/MyAccount/MyAccount';
 export function showContent(activePage){
     
     switch(activePage){
@@ -9,8 +9,8 @@ export function showContent(activePage){
         case "homepage":
             return <HomeContent />
 
-        case "editAccount":
-            return <EditAccount />
+        case "myAccount":
+            return <MyAccount />
 
         default:
             return <p className="h1">Coś poszło nie tak! Odśwież stronę.</p>

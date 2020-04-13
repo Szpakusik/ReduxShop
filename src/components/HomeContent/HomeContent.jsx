@@ -3,7 +3,7 @@ import homeContent from './homeContent.module.scss';
 import StepCard from './stepCard/StepCard'
 import { connect } from 'react-redux';
 import { cardData } from '../../utils/content/cardData'
-import EditAccount from '../EditAccount/EditAccount';
+import CreateAccount from '../CreateAccount/CreateAccount';
 
 
 const HomeContent = (props) => {
@@ -25,7 +25,22 @@ const HomeContent = (props) => {
 
                 </div>
 
-                <EditAccount />
+                <CreateAccount />
+
+                
+                <div className="row w-100 mb-5">
+
+                    <div className={`col-md-3 ${homeContent.icon}`}>
+                        <span class="material-icons">
+                            reply
+                        </span>
+                    </div>
+
+                    <div className="text-right h1 my-3 text-dark col-md-9">
+                        Albo wybierz kategorię... <br /> i zacznij  <span className="text-success">bez zakładania konta</span>!
+                    </div>
+
+                </div>
 
             </div>
             
