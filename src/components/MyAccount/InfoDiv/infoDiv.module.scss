@@ -1,0 +1,14 @@
+.adress{
+
+    border: 1px solid lightgray;
+    cursor: pointer;
+
+    &:hover{
+        border: 1px solid black;
+    }
+
+}
+.active{
+    border: 1px solid black;
+    cursor: inherit;
+}
