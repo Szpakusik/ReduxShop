@@ -33,13 +33,16 @@ const MainContent = ( props ) => {
         : null
       }
       { 
+
         props.products.length > 0 && props.activeCategory !== 0 &&
+
         props.products.map( ( product )=>{
         
-          if(product.category === props.activeCategory)
-            return <Product product={product} />
+          if( (product.category === props.activeCategory || props.activeCategory === -1) && product.name.toLowerCase().includes( props.searchString.toLowerCase() ) )
+            return <Product key={product.id} product={product} />
         
         })
+
       }
 
       <div className="clearfix" />
@@ -55,6 +58,7 @@ const MainContent = ( props ) => {
 const mapStateToProps = (state) => {
   return{
     products: state.productReducer.products,
+    searchString: state.productReducer.searchString,
     cart: state.cartReducer.products,
     activeCategory: state.categoryReducer.activeCategory,
     categories: state.categoryReducer.categories,
