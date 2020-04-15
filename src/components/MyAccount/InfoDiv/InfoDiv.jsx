@@ -25,9 +25,9 @@ const InfoDiv = (props) => {
         <div className="row w-100 mx-auto">
             <div className="mt-4 card w-100 ">
                 <div className="card-header text-center">
-                    <span className="h3 card-title">Informacje</span>
+                    <span className="h4 card-title">Informacje</span>
                 </div>
-                <div className="p-4">
+                <div className={`p-4`}>
                     <div className="row">
                         <div className="col-md-6">
                             <p><b>Imie:</b></p>

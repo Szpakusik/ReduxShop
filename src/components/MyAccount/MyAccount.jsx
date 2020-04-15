@@ -12,9 +12,9 @@ const MyAccount = (props) => {
         <>
             <div className={`container ${myAccount.index} mb-5`}>
 
-                <div className={`row w-100 ${myAccount.header} pt-2 mx-auto px-1`}>
+                <div className={`row w-100 ${myAccount.header} pt-2 mx-auto px-1 bg-light`}>
                 
-                    <div className="text-center h2 my-2 text-dark col-md-6 mx-auto pb-3">
+                    <div className="text-center h3 my-2 text-dark col-md-6 mx-auto pb-3">
                         Twoje konto
                     </div>
 
@@ -25,7 +25,8 @@ const MyAccount = (props) => {
                     <div className="col-md-7 pr-1">
 
                         <InfoDiv />
-                        
+                        <ShoppingListsDiv />
+
                     </div>
                     
 
@@ -34,7 +35,7 @@ const MyAccount = (props) => {
 
                         <OrdersDiv />
 
-                        <ShoppingListsDiv />
+                        
 
                     </div>
                 

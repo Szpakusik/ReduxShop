@@ -9,7 +9,21 @@ const OrderComponent = (props) => {
         { name:"Szynka Sołtysowa", weight: '1000g', price: 25.49, photo:"ham.png", category:"mieso", id:22, amount:1 },
         { name:"Kurczak Cały", weight: '1000g', price: 16.49, photo:"chicken.png", category:"mieso", id:23, amount:1 },
     ]
-
+    let statusColor;
+    switch(props.order.status){
+        case 'Nieopłacone':
+            statusColor='dark';
+            break;
+        case 'W trakcie':
+            statusColor='warning';
+            break;
+        case 'Odrzucone':
+            statusColor='danger';
+            break;
+        case 'Dostarczone':
+            statusColor='success';
+            break;
+    }
     return(
         <>
 
@@ -22,17 +36,19 @@ const OrderComponent = (props) => {
 
             <div className="row pb-2">
                 <div className="col-sm-6 border-right">
-                    <p className='border-0'>Ilość produktów: <br />1</p>
+                    <p className='border-0'>Ilość produktów: <br />{products.length}</p>
                 </div>
                 <div className="col-sm-6">
-                    <p className='border-0'>Cena końcowa: <br />125.50zł</p>
+                    <p className='border-0'>Cena końcowa: <br />{getCartPrice(products)}</p>
                 </div>
             </div>
 
             <div className="row w-100 px-2 border-top pt-2 pb-2 bg-light mx-auto">
                 <div className="col-sm-6 my-auto">
-                    <div className={`rounded-circle bg-success mr-2 mt-1 float-left ${orderComponent.statusCircle}`}></div>
-                    <span className="text-success float-left" >Dostarczone</span>
+
+                <div className={`rounded-circle bg-${statusColor} mr-2 mt-1 float-left ${orderComponent.statusCircle}`}></div>
+                    
+                    <span className={`float-left text-${statusColor}`} >{props.order.status}</span>
                 </div>
                 <div className="col-sm-6">
                     <button className="btn-outline-success btn btn-sm w-75 float-right">Szczegóły</button>
