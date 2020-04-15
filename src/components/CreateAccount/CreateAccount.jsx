@@ -1,7 +1,41 @@
-import React from 'react';
+import React, {useState} from 'react';
 import createAccount from './createAccount.module.scss';
+import axios from 'axios';
 
 const CreateAccount = (props) => {
+
+    const [firstName, setFirstName] = useState("");
+    const [secondName, setSecondName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [repeatedPassword, setRepeatedPassword] = useState("");
+
+    const [street, setStreet] = useState("");
+    const [postCode, setPostCode] = useState("");
+    const [city, setCity] = useState("");
+    
+    const handleClick = ()=> {
+
+        axios.post('http://localhost:3000/account', {
+            firstName: firstName,
+            secondName: secondName,
+            phone: phone,
+            email: email,
+            password: password,
+            repeatedPassword: repeatedPassword,
+            street: street,
+            postCode: postCode,
+            city: city,
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        
+      }
 
     return(
         <>
@@ -37,11 +71,11 @@ const CreateAccount = (props) => {
 
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="email"><b>Imię</b></label><br />
-                                <input type="text" id="email"/>
+                                <input type="text" id="email" onChange={ e => setFirstName(e.target.value) }/>
                             </div>
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="email"><b>Nazwisko</b></label><br />
-                                <input type="text" id="email"/>
+                                <input type="text" id="email" onChange={ e => setSecondName(e.target.value) }/>
                             </div>
 
                         </div>
@@ -49,11 +83,11 @@ const CreateAccount = (props) => {
 
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="email"><b>Numer telefonu</b></label><br />
-                                <input type="text" id="email"/>
+                                <input type="text" id="email" onChange={ e => setPhone(e.target.value) }/>
                             </div>
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="email"><b>E-mail</b></label><br />
-                                <input type="text" id="email"/>
+                                <input type="text" id="email" onChange={ e => setEmail(e.target.value) }/>
                             </div>
 
                         </div>
@@ -61,11 +95,11 @@ const CreateAccount = (props) => {
 
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="email"><b>Hasło</b></label><br />
-                                <input type="text" id="email"/>
+                                <input type="text" id="email" onChange={ e => setPassword(e.target.value) }/>
                             </div>
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="email"><b>Powtórz hasło</b></label><br />
-                                <input type="text" id="email"/>
+                                <input type="text" id="email" onChange={ e => setRepeatedPassword(e.target.value) }/>
                             </div>
 
                         </div>
@@ -76,15 +110,15 @@ const CreateAccount = (props) => {
 
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="email"><b>Kod pocztowy</b></label><br />
-                                <input type="text" id="email"/>
+                                <input type="text" id="email" onChange={ e => setPostCode(e.target.value) }/>
                             </div>
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="email"><b>Miejscowość</b></label><br />
-                                <input type="text" id="email"/>
+                                <input type="text" id="email" onChange={ e => setCity(e.target.value) }/>
                             </div>
                             <div className="col-sm-12 w-100 mt-3 mb-0 text-center"> 
                                 <label htmlfor="email"><b>Ulica i/lub numer domu</b></label><br />
-                                <input className='w-100' type="text" id="email"/>
+                                <input className='w-100' type="text" id="email" onChange={ e => setStreet(e.target.value) }/>
                             </div>
                             {/* <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="email"><b>Miejscowość</b></label><br />
@@ -101,7 +135,7 @@ const CreateAccount = (props) => {
             <div className="row w-100">
 
                 <div className="mx-auto mt-5">
-                    <button className='w-100 btn btn-outline-success'>Zarejestruj się i odbierz dostawy za darmo</button>
+                    <button className='w-100 btn btn-outline-success' onClick={ ()=>{ handleClick() } }>Zarejestruj się i odbierz dostawy za darmo</button>
                 </div>
 
             </div>
