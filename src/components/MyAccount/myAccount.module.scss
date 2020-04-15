@@ -1,7 +1,12 @@
 .index{
-    font-family: 'Titan One';
+    font-family: 'Ubuntu';
     p{
         border-bottom: 1px solid lightgray;
         font-size: 120%;
     }
+}
+.header{
+    background-color: rgba($color: white, $alpha: 1.0);
+    // border: 1px solid gray;
+    border: 1px solid rgba(0, 0, 0, 0.1)
 }

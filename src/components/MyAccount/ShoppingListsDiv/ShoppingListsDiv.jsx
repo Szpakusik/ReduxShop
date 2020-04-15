@@ -7,7 +7,7 @@ const ShoppingListsDiv = (props) => {
     return(
         <>
         <div className="row w-100 mx-auto">
-                            <div className="my-3 card w-100 h-50 text-center">
+                            <div className="my-2 card w-100 h-50 text-center">
                                 <div className="card-header">
                                     <span className="h3 card-title">Listy zakupów</span>
                                 </div>

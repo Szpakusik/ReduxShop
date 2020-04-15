@@ -20,17 +20,19 @@ const CreateAccount = (props) => {
 
                 <div className={`col-md-5 ${createAccount.introduce}`}>
                     <div className="w-100 h-100 p-4">
-                        <p className="h3">Jesteśmy</p>
+                        <span className="h3">Jesteśmy</span>
                         <img src={require('./../../images/z-dowozem-text.png')} alt=""/>
-                        <p className="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam possimus explicabo illum asperiores dolore neque nam sequi inventore ex delectus mollitia ea reiciendis voluptatibus iure, ut debitis quibusdam consectetur quia?</p>
-                        <p className="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam possimus explicabo illum asperiores dolore neque nam sequi inventore ex delectus mollitia ea reiciendis voluptatibus iure, ut debitis quibusdam consectetur quia?</p>
-                        <p className="h3">A Ty?</p>
+                        <div className='py-4'>
+                            <p className="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam possimus explicabo illum asperiores dolore neque nam sequi inventore ex delectus mollitia ea reiciendis voluptatibus iure, ut debitis quibusdam consectetur quia?</p>
+                            <p className="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam possimus explicabo illum asperiores dolore neque nam sequi inventore ex delectus mollitia ea reiciendis voluptatibus iure, ut debitis quibusdam consectetur quia?</p>
+                        </div>
+                        <span className="h3">A Ty?</span>
                     </div>
                 </div>
 
                 <div className={`col-md-7 pl-5 pt-4 ${createAccount.form}`}>
                     <div className="text-left">
-                        <p className="h1">Przedstaw się!</p>
+                        <p className="h1 titan-font">Przedstaw się!</p>
                         <div className="row pt-3 mt-4 border-top">
 
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
@@ -68,7 +70,7 @@ const CreateAccount = (props) => {
 
                         </div>
 
-                        <h3 className="mt-4 w-100 text-center">Adres</h3>
+                        <h3 className="mt-4 w-100 text-center titan-font">Adres</h3>
 
                         <div className="row">
 
