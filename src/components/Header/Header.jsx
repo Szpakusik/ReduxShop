@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Link } from 'gatsby';
@@ -12,14 +12,23 @@ import headerStyles from './header.module.scss';
 const Header = ( props ) => {
 
   const handleCartClick = () => {
-    props.showCart( !props.cartActive )
-    props.showLogin( false )
+    props.showCart( !props.cartActive );
+    props.showLogin( false );
   }
 
   const handleLoginClick = () => {
-    props.showLogin( !props.loginActive )
-    props.showCart( false )
+    props.showLogin( !props.loginActive );
+    props.showCart( false );
   }
+
+  const handleChange = ( value ) => {
+    // setSearchString( value )
+    props.setActiveCat(-1);
+    props.sendSearchString( value )
+    console.log(searchString)
+  }
+
+  const [ searchString, setSearchString ] = useState('');
 
   let price = getCartPrice(props.cart)
 
@@ -42,7 +51,7 @@ const Header = ( props ) => {
           </Navbar.Brand>
           <div className="col-sm-4 pr-5 pl-0">
             
-            <input className="form-control mr-sm-2" type="search" placeholder="Wpisz nazwe produktu..." aria-label="Search" />
+            <input className="form-control mr-sm-2" type="search" placeholder="Wpisz nazwe produktu..." aria-label="Search" onChange={ e => handleChange(e.target.value) }/>
 
           </div>
           <div className={`navbar-nav ml-auto text-dark col-sm-12 col-md-4 border-0 pr-0 ${headerStyles.koszyk} ${headerStyles.disableSelect}`}>
@@ -108,7 +117,13 @@ const mapDispatchToProps = ( dispatch ) => {
       },
       showLogin: ( status )=>{
           dispatch({ type:"SHOW_LOGIN", status: status })
-      }
+      },
+      sendSearchString: ( searchString )=>{
+          dispatch({ type:"SET_SEARCH", searchString: searchString })
+      },
+      setActiveCat: ( id )=>{ 
+        dispatch( { type: "SET_CATEGORY", id: id } ) 
+      },
   }
 }
 
