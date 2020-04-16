@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { Link } from 'gatsby';
@@ -10,6 +10,22 @@ import { getCartPrice } from './../../utils/functions/cartFunctions'
 import headerStyles from './header.module.scss';
 
 const Header = ( props ) => {
+
+  useEffect( () => {
+
+    let localCart = JSON.parse( localStorage.getItem('cart') );
+
+
+    if( props.cart.length === 0 && localCart && localCart.products.length > 0 ){
+
+      console.log(JSON.parse( localStorage.getItem('cart') ))
+      props.fillCart( localCart.products );
+
+    }
+
+    localStorage.setItem('cart', JSON.stringify( { products: props.cart } ) );
+    // console.log(localStorage)
+  } );
 
   const handleCartClick = () => {
     props.showCart( !props.cartActive );
@@ -115,6 +131,9 @@ const mapDispatchToProps = ( dispatch ) => {
       showCart: ( status )=>{
           dispatch({ type:"SHOW_CART", status: status })
       },
+      fillCart: (data) => {
+        dispatch( { type: 'FILL_CART', cart: data} )
+      },
       showLogin: ( status )=>{
           dispatch({ type:"SHOW_LOGIN", status: status })
       },
@@ -122,7 +141,7 @@ const mapDispatchToProps = ( dispatch ) => {
           dispatch({ type:"SET_SEARCH", searchString: searchString })
       },
       setActiveCat: ( id )=>{ 
-        dispatch( { type: "SET_CATEGORY", id: id } ) 
+          dispatch( { type: "SET_CATEGORY", id: id } ) 
       },
   }
 }
