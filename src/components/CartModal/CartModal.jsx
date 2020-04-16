@@ -9,6 +9,11 @@ const CartModal = ( props ) => {
     let price = getCartPrice(props.cart)
 
     const handleClick = (id) => {
+
+        if( props.cart.length === 1 ) localStorage.removeItem('cart');
+
+        console.log(localStorage)
+
         props.removeFromCart(id)
     }
 
@@ -72,13 +77,15 @@ const CartModal = ( props ) => {
 const mapStateToProps = ( state ) => {
   return{
     cart: state.cartReducer.cartProducts,
-    active: state.cartReducer.cartActive
+    active: state.cartReducer.cartActive,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        removeFromCart: ( id )=>{ dispatch( { type: "REMOVE_FROM_CART", id: id } ) },
+        removeFromCart: ( id )=>{ 
+            dispatch( { type: "REMOVE_FROM_CART", id: id } ) 
+        },
         clearCart: ()=>{ dispatch( { type: "CLEAR_CART" } ) },
     }
 }

@@ -12,6 +12,14 @@ const initState = {
 const cartReducer = (state = initState, action) => {
   switch (action.type) {
 
+    case "FILL_CART":
+
+      return {
+        ...state,
+        
+        cartProducts: action.cart,
+      }
+
     case "ADD_TO_CART":
 
       if ( state.cartProducts.some(e => e.id === action.product.id) ) {
@@ -27,6 +35,9 @@ const cartReducer = (state = initState, action) => {
         });
         // tempCart.push( tempObj );
 
+        localStorage.setItem('cart', JSON.stringify( { products: [...tempCart, tempObj] } ) );
+        console.log( localStorage.cart )
+
         return {
           ...state,
           
@@ -34,7 +45,7 @@ const cartReducer = (state = initState, action) => {
         }
       }
       else{
-        
+        localStorage.setItem('cart', JSON.stringify( { products: [...state.cartProducts, action.product] } ) );
         return {
           ...state,
           
