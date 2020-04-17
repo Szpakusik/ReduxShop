@@ -19,12 +19,15 @@ const CartModal = ( props ) => {
 
     const handleClick2 = ()=> {
 
+
+
         axios.post('http://localhost:3000/order/create', {
             cart: props.cart,
         })
         .then(function (response) {
             console.log(response);
             props.clearCart();
+            props.setActivePage('sendOrder');
         })
         .catch(function (error) {
             console.log(error);
@@ -87,6 +90,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch( { type: "REMOVE_FROM_CART", id: id } ) 
         },
         clearCart: ()=>{ dispatch( { type: "CLEAR_CART" } ) },
+        setActivePage: ( name )=>{ dispatch( { type: "CHANGE_PAGE", name: name } ) },
     }
 }
 
