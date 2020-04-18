@@ -71,3 +71,11 @@ body {
               user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome, Opera and Firefox */
   }
+
+.transparent-darker{
+    background-color: rgba(0, 0, 0, 0.59);
+}
+
+.radius-none{
+    border-radius: 0 !important;
+}

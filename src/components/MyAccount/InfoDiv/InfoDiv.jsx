@@ -23,11 +23,11 @@ const InfoDiv = (props) => {
         <>
         
         <div className="row w-100 mx-auto">
-            <div className="mt-4 card w-100 ">
-                <div className="card-header text-center">
-                    <span className="h4 card-title">Informacje</span>
+            <div className="mt-4 w-100 ">
+                <div className="card-header radius-none text-center transparent-darker">
+                    <span className="h4 card-title text-white">Informacje</span>
                 </div>
-                <div className={`p-4`}>
+                <div className={`p-4 mt-2 bg-white border`}>
                     <div className="row">
                         <div className="col-md-6">
                             <p><b>Imie:</b></p>
@@ -71,7 +71,7 @@ const InfoDiv = (props) => {
                                 const active = adress.active ? infoDiv.active : ''
                                 return(
                                     <div className={`col-md-6 text-center no-select`}>
-                                        <div className={`pt-3 p-2 mb-3 rounded bg-light ${infoDiv.adress} ${active}`}>
+                                        <div className={`pt-3 p-2 mb-3 bg-light ${infoDiv.adress} ${active}`}>
                                             <p className='border-0'><span className="text-success">{adress.postCode} {adress.city}</span></p>
                                             <p className='border-0'><span className="text-success">{adress.street}</span></p>
                                         </div>

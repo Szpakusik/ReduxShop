@@ -39,15 +39,15 @@ const OrdersDiv = (props) => {
     return(
         <>
         <div className="row w-100 mx-auto">
-            <div className="mt-4 card text-center w-100">
-                <div className="card-header">
-                    <span className="h4 card-title">Ostatnie zamówienia</span>
+            <div className="mt-4 text-center w-100">
+                <div className="card-header radius-none transparent-darker">
+                    <span className="h4 card-title text-white">Ostatnie zamówienia</span>
                 </div>
-                <ul class="list-group list-group-flush">
+                <ul class="list-group list-group-flush  bg-white">
 
-                    {orders.length > 0 && orders.map( (order)=>{
+                    {orders.length > 0 && orders.map( (order, index)=>{
                         return(
-                            <OrderComponent order={order}/>
+                            <OrderComponent order={order} key={index}/>
                         )
                     } )}
 
@@ -66,7 +66,7 @@ const OrdersDiv = (props) => {
             </div>
 
             
-            <button className="w-75 btn btn-light border mx-auto my-3">Pokaż więcej</button>
+            <button className="w-75 btn bg-white border mx-auto my-3">Pokaż więcej</button>
 
         </div>
 

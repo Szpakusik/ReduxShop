@@ -27,8 +27,8 @@ const OrderComponent = (props) => {
     return(
         <>
 
-        <li class={`list-group-item  py-0 px-0 ${orderComponent.orderComponent}`}>
-            <div className={`row px-2 text-left text-secondary p-1 ${orderComponent.detail}`}>
+        <li class={`list-group-item  py-0 px-0 border ${orderComponent.orderComponent} mt-2`}>
+            <div className={`row px-2 text-left text-secondaryp-1 ${orderComponent.detail}`}>
                 <div className="col-sm-12 mb-2 text-center">
                     {props.order.date.getDate()}-{props.order.date.getMonth()+1}-{props.order.date.getFullYear()} {props.order.date.getHours()}:{props.order.date.getMinutes() > 9 ? props.order.date.getMinutes() : '0'+props.order.date.getMinutes() }
                 </div>
@@ -43,7 +43,7 @@ const OrderComponent = (props) => {
                 </div>
             </div>
 
-            <div className="row w-100 px-2 border-top pt-2 pb-2 bg-light mx-auto">
+            <div className="row w-100 px-2 border-top pt-2 pb-2 transparent-darker mx-auto">
                 <div className="col-sm-6 my-auto">
 
                 <div className={`rounded-circle bg-${statusColor} mr-2 mt-1 float-left ${orderComponent.statusCircle}`}></div>

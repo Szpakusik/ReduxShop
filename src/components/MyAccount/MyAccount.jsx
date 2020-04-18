@@ -12,9 +12,9 @@ const MyAccount = (props) => {
         <>
             <div className={`container ${myAccount.index} mb-5`}>
 
-                <div className={`row w-100 ${myAccount.header} pt-2 mx-auto px-1 bg-light`}>
+                <div className={`row w-100 ${myAccount.header} pt-2 mx-auto px-1 transparent-darker`}>
                 
-                    <div className="text-center h3 my-2 text-dark col-md-6 mx-auto pb-3">
+                    <div className="text-center h3 my-2 text-white col-md-6 mx-auto pb-3">
                         Twoje konto
                     </div>
 
