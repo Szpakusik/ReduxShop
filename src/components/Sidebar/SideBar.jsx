@@ -3,16 +3,20 @@ import sideBar from './SideBar.module.scss';
 import CategoryElem from './categoryElem/CategoryElem';
 import { connect } from 'react-redux';
 
-const SideBar = ( props ) => {
-  
-  const [height, setDimensions] = React.useState(window.innerHeight)
-  
-  const sidebarStyle = {
-    height: height-58 +'px',
+const SideBar = (props) => {
+
+  if (typeof window === 'undefined') {
+    global.window = {}
   }
-  
+
+  const [height, setDimensions] = React.useState(window.innerHeight)
+
+  const sidebarStyle = {
+    height: height - 58 + 'px',
+  }
+
   function handleResize() {
-    setDimensions( window.innerHeight )
+    setDimensions(window.innerHeight)
     console.log('resize fired')
   }
 
@@ -20,27 +24,27 @@ const SideBar = ( props ) => {
     window.addEventListener('resize', handleResize)
   })
 
-  return(
+  return (
 
-        <div style={sidebarStyle} className={`col-md-1 col-xs-12 ${sideBar.sideBar}`}>
-            { props.categories && props.categories.map( (category) => (
-                <CategoryElem activeTab={props.activeCategory} key={category.id} category={category} onClickFun= { ()=>{ props.setActiveCat(category.id) }}/>
-            ))}
-        </div>
+    <div style={sidebarStyle} className={`col-md-1 col-xs-12 ${sideBar.sideBar}`}>
+      {props.categories && props.categories.map((category) => (
+        <CategoryElem activeTab={props.activeCategory} key={category.id} category={category} onClickFun={() => { props.setActiveCat(category.id) }} />
+      ))}
+    </div>
 
   )
 };
 
 const mapStateToProps = (state) => {
-  return{
+  return {
     activeCategory: state.categoryReducer.activeCategory,
     categories: state.categoryReducer.categories,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return{
-    setActiveCat: ( id )=>{ dispatch( { type: "SET_CATEGORY", id: id } ) }
+  return {
+    setActiveCat: (id) => { dispatch({ type: "SET_CATEGORY", id: id }) }
   }
 }
 
