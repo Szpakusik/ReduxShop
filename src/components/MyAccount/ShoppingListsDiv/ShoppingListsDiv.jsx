@@ -8,14 +8,14 @@ const ShoppingListsDiv = (props) => {
         <>
         <div className="row w-100 mx-auto">
             
-                            <div className="my-2 w-100 h-50 text-center">
+                            <div className="w-100 h-50 text-center">
                                 
-                                <div className="card-header radius-none transparent-darker">
+                                <div className="mt-4 card-header radius-none transparent-darker">
                                     <span className="h4 card-title text-white">Listy zakupów</span>
                                 </div>
                                 
                                 { lists.length == 0 ? 
-                                    <div className="bg-white border pb-2">
+                                    <div className="bg-white border pb-2 mt-2">
                                         <div className="col-sm-12 p-4">
                                             <p className="border-0 mb-0">Nie masz jeszcze żadnych list zakupowych</p>
                                         </div>

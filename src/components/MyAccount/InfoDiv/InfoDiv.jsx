@@ -68,12 +68,12 @@ const InfoDiv = (props) => {
 
                         {
                             adresses && adresses.map( (adress) => {
-                                const active = adress.active ? infoDiv.active : ''
+                                const active = adress.active ? infoDiv.active : '';
                                 return(
                                     <div className={`col-md-6 text-center no-select`}>
-                                        <div className={`pt-3 p-2 mb-3 bg-light ${infoDiv.adress} ${active}`}>
-                                            <p className='border-0'><span className="text-success">{adress.postCode} {adress.city}</span></p>
-                                            <p className='border-0'><span className="text-success">{adress.street}</span></p>
+                                        <div className={`pt-3 p-2 mb-3 bg-white ${infoDiv.adress} ${active}`}>
+                                            <p className='border-0'><span className="text-dark">{adress.postCode} {adress.city}</span></p>
+                                            <p className='border-0'><span className="text-dark">{adress.street}</span></p>
                                         </div>
                                     </div>
                                 )
@@ -82,9 +82,9 @@ const InfoDiv = (props) => {
 
                         {/* Add button */}
                         <div className="col-md-6 text-center">
-                            <div className={`pt-3 p-2 mb-3 rounded bg-light ${infoDiv.adress}`}>
-                                <p className='border-0'><span className="text-success">Dodaj adres</span></p>
-                                <p className='border-0'><span className="text-success material-icons">add</span></p>
+                            <div className={`pt-3 p-2 mb-3 rounded bg-white ${infoDiv.adress}`}>
+                                <p className='border-0'><span className="text-dark">Dodaj adres</span></p>
+                                <p className='border-0'><span className="text-dark material-icons">add</span></p>
                             </div>
                         </div>
 
