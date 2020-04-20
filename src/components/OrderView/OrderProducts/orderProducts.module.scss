@@ -1,0 +1,34 @@
+.orderProducts{
+    p{
+        border-bottom: 0;
+    }
+}
+.cartModal{
+    width: 33.3333333%;
+    position: absolute;
+    right: 0;
+    top: 58px;
+    z-index: 100;
+    font-size: small;
+
+    max-height: 90%;
+    overflow: auto;
+
+    // height: 600px;
+
+    border: 1px solid green;
+    background-color: #F7F9F9;
+
+    i{
+        cursor: pointer;
+    }
+
+}
+
+.photoContainer{
+    width: 50px;
+}
+
+.productRow{
+    height: 50px;
+}
