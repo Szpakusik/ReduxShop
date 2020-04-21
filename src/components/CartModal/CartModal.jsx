@@ -26,6 +26,7 @@ const CartModal = ( props ) => {
         })
         .then(function (response) {
             console.log(response);
+            props.clearActiveCategory();
             props.clearCart();
             props.setActivePage('sendOrder');
         })
@@ -90,6 +91,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch( { type: "REMOVE_FROM_CART", id: id } ) 
         },
         clearCart: ()=>{ dispatch( { type: "CLEAR_CART" } ) },
+        clearActiveCategory: ()=>{ dispatch( { type: "SET_CATEGORY", id: 0 } ) },
         setActivePage: ( name )=>{ dispatch( { type: "CHANGE_PAGE", name: name } ) },
     }
 }
