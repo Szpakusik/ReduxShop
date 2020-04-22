@@ -4,6 +4,8 @@ import infoDiv from './infoDiv.module.scss'
 
 const InfoDiv = (props) => {
 
+    const  { user } = props;
+
     let adresses = [
         {
             postCode: '26-026',
@@ -33,7 +35,7 @@ const InfoDiv = (props) => {
                             <p><b>Imie:</b></p>
                         </div>
                         <div className="col-md-6">
-                            <p><span className="text-success">Norbert</span></p>
+                            <p><span className="text-success">{user.name}</span></p>
                         </div>
                     </div>
                     <div className="row">
@@ -41,7 +43,7 @@ const InfoDiv = (props) => {
                             <p><b>Nazwisko:</b></p>
                         </div>
                         <div className="col-md-6">
-                            <p><span className="text-success">Szpakowski</span></p>
+                            <p><span className="text-success">{user.surname}</span></p>
                         </div>
                     </div>
                     <div className="row">
@@ -49,7 +51,7 @@ const InfoDiv = (props) => {
                             <p><b>Numer Telefonu:</b></p>
                         </div>
                         <div className="col-md-6">
-                            <p><span className="text-success">570546193</span></p>
+                            <p><span className="text-success">{user.phone}</span></p>
                         </div>
                     </div>
                     <div className="row">
@@ -57,7 +59,7 @@ const InfoDiv = (props) => {
                             <p><b>Email:</b></p>
                         </div>
                         <div className="col-md-6">
-                            <p><span className="text-success">szpakusik@gmail.com</span></p>
+                            <p><span className="text-success">{user.email}</span></p>
                         </div>
                     </div>
 

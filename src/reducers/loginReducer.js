@@ -1,3 +1,5 @@
+import { exact } from "prop-types";
+
 let index;
 let tempObj;
 let tempCart;
@@ -5,8 +7,17 @@ let tempCart;
 const initState = {
 
   loginActive: false,
-  logged: false,
-
+  logged: true,
+  user: {
+      id: 0,
+      email: "example@email.com",
+      phone: "000-000-000",
+      adress: "Kielce",
+      name: "Jan",
+      surname: "Kowalski",
+      post_code: "26-015",
+      city: "Kielce"
+    },
 }
 
 const loginReducer = (state = initState, action) => {
@@ -16,7 +27,7 @@ const loginReducer = (state = initState, action) => {
 
       return {
         ...state,
-        
+
         loginActive: action.status,
       }
 
@@ -24,7 +35,7 @@ const loginReducer = (state = initState, action) => {
 
       return {
         ...state,
-        
+
         logged: action.isLogged,
       }
 
