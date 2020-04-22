@@ -6,7 +6,7 @@ import OrdersDiv from './OrdersDiv/OrdersDiv';
 import ShoppingListsDiv from './ShoppingListsDiv/ShoppingListsDiv';
 
 
-const MyAccount = (props) => {
+const MyAccount = ({user}) => {
 
     return(
         <>
@@ -24,7 +24,7 @@ const MyAccount = (props) => {
 
                     <div className="col-md-7 pr-1">
 
-                        <InfoDiv />
+                        <InfoDiv user={user} />
                         <ShoppingListsDiv />
 
                     </div>
@@ -49,7 +49,7 @@ const MyAccount = (props) => {
 
 const mapStateToProps = (state) => {
     return{
-
+    user: state.loginReducer.user
     }
 }
 
