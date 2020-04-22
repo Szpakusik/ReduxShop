@@ -54,15 +54,12 @@ const Header = ( props ) => {
 
   return (
     <header className={`header ${headerStyles.header}`}>
-      <div className="navbar navbar-light navbar-expand-lg navbar-fixed-top sticky-header p-0">
+      <nav className="navbar navbar-light navbar-expand-lg navbar-fixed-top sticky-header p-0">
        
-        <div className='container-fluid p-0 overflow-hidden'>
+        <div className='container-fluid p-0 overflow-hidden d-none d-sm-flex'>
           <Navbar.Brand className={`banner navbar-header col-xs-12 col-sm-4 ${headerStyles.banner}`}>
             <a className="navbar-brand text-sm-center" href="//localhost:8000">
-              <i className="material-icons">
-                local_mall
-              </i>  
-              <p className='mb-0'>Spożywczy<span>24h</span>.pl</p>
+              <img src={require('./../../images/logo-transparent2.png')} alt=""/>
             </a>
           </Navbar.Brand>
           <div className="col-sm-4 pr-5 pl-0">
@@ -70,7 +67,7 @@ const Header = ( props ) => {
             <input className="form-control mr-sm-2" type="search" placeholder="Wpisz nazwe produktu..." aria-label="Search" onChange={ e => handleChange(e.target.value) }/>
 
           </div>
-          <div className={`navbar-nav ml-auto text-dark col-sm-12 col-md-4 border-0 pr-0 ${headerStyles.koszyk} ${headerStyles.disableSelect}`}>
+          <nav className={`navbar-nav ml-auto text-dark col-sm-12 col-md-4 border-0 pr-0 d-none d-sm-flex ${headerStyles.koszyk} ${headerStyles.disableSelect}`}>
 
             <div onClick={ ()=>{ handleCartClick() } } className=" col-sm-6 p-0 text-center row m-0">
 
@@ -102,12 +99,51 @@ const Header = ( props ) => {
 
             </div>
           
+          </nav>
+          
+          <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
+            aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i
+            class="fas fa-bars fa-1x"></i></span>
+
+          </button>
+
+        </div>
+        
+        <div className={`container-fluid p-0 overflow-hidden d-flex d-sm-none row h-100 ${headerStyles.navbarXS}`}>
+
+          <div className="col-7 border-right h-100">
+
+            <div className="row h-100">
+
+              <div className="col-3 m-auto pt-3 pr-0 pl-4">
+                <span class="material-icons">
+                  menu
+                </span>
+              </div>
+
+              <div className="col-9">
+                <Navbar.Brand className={`banner navbar-header ${headerStyles.banner}`}>
+                  <a className="navbar-brand text-sm-center mt-1 p-0 pt-2" href="//localhost:8000">
+                    <img src={require('./../../images/logo-transparentCut.png')}  alt=""/>
+                  </a>
+                </Navbar.Brand>
+              </div>
+
+            </div>
+
           </div>
+
+          <div className="col-5">
+            <div className="row h-100">
+              <div className="col-4 border-right h-100"></div>
+              <div className="col-4 border-right h-100"></div>
+              <div className="col-4 border-right h-100"></div>
+            </div>
+          </div>
+
         </div>
 
-
-        
-      </div>
+      </nav>
     </header>
   );
 };

@@ -26,7 +26,7 @@ const SideBar = (props) => {
 
   return (
 
-    <div style={sidebarStyle} className={`col-md-1 col-xs-12 ${sideBar.sideBar}`}>
+    <div style={sidebarStyle} className={`col-md-1 col-xs-12 d-none d-sm-block ${sideBar.sideBar}`}>
       {props.categories && props.categories.map((category) => (
         <CategoryElem activeTab={props.activeCategory} key={category.id} category={category} onClickFun={() => { props.setActiveCat(category.id) }} />
       ))}
