@@ -109,21 +109,22 @@ const Header = ( props ) => {
 
         </div>
         
-        <div className={`container-fluid p-0 overflow-hidden d-flex d-sm-none row h-100 ${headerStyles.navbarXS}`}>
+        {/* Mobile */}
+        <div className={`row p-0 overflow-hidden d-flex d-sm-none row h-100 ${headerStyles.navbarXS}`}>
 
-          <div className="col-7 border-right h-100">
+          <div className="col-7 h-100">
 
             <div className="row h-100">
 
-              <div className="col-3 m-auto pt-3 pr-0 pl-4">
-                <span class="material-icons">
+              <div className="col-3 m-auto pt-2 pr-0 pl-4">
+                <span class="material-icons text-success">
                   menu
                 </span>
               </div>
 
-              <div className="col-9">
+              <div className="col-9 px-1">
                 <Navbar.Brand className={`banner navbar-header ${headerStyles.banner}`}>
-                  <a className="navbar-brand text-sm-center mt-1 p-0 pt-2" href="//localhost:8000">
+                  <a className="navbar-brand text-sm-center p-0 py-2" href="//localhost:8000">
                     <img src={require('./../../images/logo-transparentCut.png')}  alt=""/>
                   </a>
                 </Navbar.Brand>
@@ -134,10 +135,25 @@ const Header = ( props ) => {
           </div>
 
           <div className="col-5">
-            <div className="row h-100">
-              <div className="col-4 border-right h-100"></div>
-              <div className="col-4 border-right h-100"></div>
-              <div className="col-4 border-right h-100"></div>
+            <div className="row pr-3 h-100">
+              <div className="col-4 my-auto ">
+                <i className="material-icons float-right">
+                  person
+                </i>
+              </div>
+              
+              <div className="col-4 my-auto">
+                <i className="material-icons p-0 float-right">
+                  search
+                </i>
+              </div>
+              
+              <div className="col-4 m-auto text-left pl-0">
+                <i className="material-icons float-right my-auto">
+                  shopping_cart
+                </i>
+              </div>
+              
             </div>
           </div>
 

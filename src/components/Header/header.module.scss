@@ -5,13 +5,15 @@
     font-weight: 700;
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
     border-bottom: 1px solid black;
-    min-height: 58px;
+    height: 59px;
 
     img{
         height: 50px;
     }
 
     @media only screen and (max-width: 580px){
+        height: inherit;
+        min-height: 1px;
         img{
             height: 32px;
         }
