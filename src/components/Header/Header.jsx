@@ -15,7 +15,6 @@ const Header = ( props ) => {
 
     let localCart = JSON.parse( localStorage.getItem('cart') );
 
-
     if( props.cart.length === 0 && localCart && localCart.products.length > 0 ){
 
       console.log(JSON.parse( localStorage.getItem('cart') ))
@@ -35,6 +34,10 @@ const Header = ( props ) => {
   const handleLoginClick = () => {
     props.showLogin( !props.loginActive );
     props.showCart( false );
+  }
+
+  const handleMenuClick = () => {
+    props.showSidebar( !props.sidebarActive );
   }
 
   const handleChange = ( value ) => {
@@ -110,21 +113,21 @@ const Header = ( props ) => {
         </div>
         
         {/* Mobile */}
-        <div className={`row p-0 overflow-hidden d-flex d-sm-none row h-100 ${headerStyles.navbarXS}`}>
+        <div className={`row p-0 overflow-hidden d-flex d-sm-none row h-100 mx-auto ${headerStyles.navbarXS}`}>
 
-          <div className="col-7 h-100">
+          <div className="col-7 h-100 pr-0">
 
             <div className="row h-100">
 
-              <div className="col-3 m-auto pt-2 pr-0 pl-4">
-                <span class="material-icons text-success">
+              <div className="col-2 m-auto pt-2 pr-0 pl-2" onClick={ () => { handleMenuClick() } }>
+                <span class="material-icons text-success" >
                   menu
                 </span>
               </div>
 
-              <div className="col-9 px-1">
+              <div className="col-10 pl-0">
                 <Navbar.Brand className={`banner navbar-header ${headerStyles.banner}`}>
-                  <a className="navbar-brand text-sm-center p-0 py-2" href="//localhost:8000">
+                  <a className="navbar-brand text-sm-center px-1 py-2" href="//localhost:8000">
                     <img src={require('./../../images/logo-transparentCut.png')}  alt=""/>
                   </a>
                 </Navbar.Brand>
@@ -134,8 +137,8 @@ const Header = ( props ) => {
 
           </div>
 
-          <div className="col-5">
-            <div className="row pr-3 h-100">
+          <div className="col-5 ">
+            <div className="row h-100">
               <div className="col-4 my-auto ">
                 <i className="material-icons float-right">
                   person
@@ -176,6 +179,7 @@ const mapStateToProps = (state) => {
     cart: state.cartReducer.cartProducts,
     cartActive: state.cartReducer.cartActive,
     loginActive: state.loginReducer.loginActive,
+    sidebarActive: state.categoryReducer.showSidebarMobile,
   }
 }
 const mapDispatchToProps = ( dispatch ) => {
@@ -188,6 +192,9 @@ const mapDispatchToProps = ( dispatch ) => {
       },
       showLogin: ( status )=>{
           dispatch({ type:"SHOW_LOGIN", status: status })
+      },
+      showSidebar: ( status )=>{
+          dispatch( { type:"SHOW_SIDEBAR", status: status } )
       },
       sendSearchString: ( searchString )=>{
           dispatch({ type:"SET_SEARCH", searchString: searchString })

@@ -6,12 +6,16 @@ import categoryElem from './CategoryElem.module.scss';
 
 
 const CategoryElem = ( props ) => {
+    console.log( props )
+    console.log( props.lp % 2 === 0 )
+    // let borderRight = props.category.active ? "bg-white" : 'border-right';
+    let isFullWidth='';
 
-
-    let borderRight = props.category.active ? "bg-white" : 'border-right';
+    if( props.lp % 2 === 0 && props.lp+1 === props.length) isFullWidth = "w-100" 
 
     return(
-            <a href="#" onClick={props.onClickFun} className={`text-decoration-none col-xs-2`}>
+        <>
+            <a href="#" onClick={props.onClickFun} className={`d-none text-decoration-none col-xs-2`}>
                 <div className={`row ${props.activeTab === props.category.id ? categoryElem.active : ''} ${categoryElem.categoryElem}`}>
                     <div className="m-auto text-center">
                         <span className="material-icons">
@@ -21,6 +25,16 @@ const CategoryElem = ( props ) => {
                     </div>
                 </div>
             </a>
+
+            <a href="#" onClick={props.onClickFun} className={`${categoryElem.categoryElem} ${isFullWidth} p-1 text-decoration-none pt-2`}>
+                    <div className="text-center">
+                        <span className="material-icons">
+                            {props.category.icon}
+                        </span>
+                        <p className='d-block m-0'>{props.category.name}</p>
+                    </div>
+            </a>
+        </>
     )
 };
 

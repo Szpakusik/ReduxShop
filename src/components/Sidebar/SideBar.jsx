@@ -9,11 +9,12 @@ const SideBar = (props) => {
     global.window = {}
   }
 
+  const displayProperty = props.showSidebarMobile ? "block" : "none" ;
   const [height, setDimensions] = React.useState(window.innerHeight)
 
-  const sidebarStyle = {
+  const sidebarStyle = window.innerWidth > 580 ? {
     height: height - 58 + 'px',
-  }
+  } : {display: displayProperty};
 
   function handleResize() {
     setDimensions(window.innerHeight)
@@ -26,10 +27,13 @@ const SideBar = (props) => {
 
   return (
 
-    <div style={sidebarStyle} className={`col-md-1 col-xs-12 d-none d-sm-block ${sideBar.sideBar}`}>
-      {props.categories && props.categories.map((category) => (
-        <CategoryElem activeTab={props.activeCategory} key={category.id} category={category} onClickFun={() => { props.setActiveCat(category.id) }} />
-      ))}
+    <div style={sidebarStyle} className={`col-sm-1 col-12 ${sideBar.sideBar}`}>
+      <div className="row h-100">
+        {props.categories && props.categories.map((category, index) => (
+          <CategoryElem activeTab={props.activeCategory} lp={index} length={props.categories.length} key={category.id} category={category} onClickFun={() => { props.setActiveCat(category.id) }} />
+        ))}
+
+      </div>
     </div>
 
   )
@@ -38,6 +42,7 @@ const SideBar = (props) => {
 const mapStateToProps = (state) => {
   return {
     activeCategory: state.categoryReducer.activeCategory,
+    showSidebarMobile: state.categoryReducer.showSidebarMobile,
     categories: state.categoryReducer.categories,
   }
 }
