@@ -1,13 +1,13 @@
 .categoryElem{
 
-        height: 20%;
         color: black;
         // color: white;
         font-weight: bold;
         // background-color: cornsilk;
         background-image: url(../../../images/clean_textile.png);
         background-color: rgba( 128, 128, 128, 0.1);
-
+        height: 20%;
+        width: 100%;
         // color: lightyellow;
         // text-shadow: 0 0 3px #000;
         border-bottom: 1px solid lightgray;
@@ -20,6 +20,15 @@
                 text-decoration: none;
                 // border: 1px solid orangered;
                 border-left: 0
+        }
+
+        @media only screen and (max-width: 580px){
+                line-height: 90%;
+                width: 50%;
+                height: 60px;
+                font-weight: 100;
+                padding-top: 5px;
+                background-image:none;
         }
 
 }

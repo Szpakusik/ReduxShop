@@ -21,6 +21,18 @@
     img{
         height: 150px
     }
+
+    @media only screen and (max-width: 580px){
+        margin-left: 0;
+        margin-right: 0;
+        min-height: 0px;
+        p{
+            height: none;
+        }
+        img{
+            height: 100px
+        }
+    }
 }
 
 .numberInput{
@@ -32,6 +44,9 @@
 
 .photoContainer{
     height: 150px;
+    @media only screen and (max-width: 580px){
+        height: 100px
+    }
 }
 .title{
     height: 50px

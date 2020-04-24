@@ -27,7 +27,7 @@ const Product = ( props ) => {
 
   return(
 
-    <div className={`container card col-xs-2 col-md-2 text-dark float-left text-center ${product.product}`}>
+    <div className={`container card col-6 col-sm-2 text-dark float-left text-center ${product.product}`}>
         <div className={`${product.photoContainer} row my-2`}>
             <img class="card-img-top" src={require(`./../../images/${props.product.photo}`)} alt="Product" />
         </div>
@@ -37,8 +37,8 @@ const Product = ( props ) => {
             <li class="list-group-item">
                 
                 <div className="row">
-                    <div className="col-sm-6 px-2 text-secondary">{correctPrice}zł</div>
-                    <div className="col-sm-6 px-2 text-secondary">{props.product.weight}</div>                   
+                    <div className="col-6 px-2 text-secondary">{correctPrice}zł</div>
+                    <div className="col-6 px-2 text-secondary">{props.product.weight}</div>                   
                 </div>
 
             </li>

@@ -19,6 +19,10 @@ const CartModal = ( props ) => {
 
     const handleClick2 = ()=> {
 
+        props.clearActiveCategory();
+        props.clearCart();
+        props.showCart( false );
+        props.setActivePage('sendOrder');
 
 
         axios.post('http://localhost:3000/order/create', {
@@ -26,9 +30,6 @@ const CartModal = ( props ) => {
         })
         .then(function (response) {
             console.log(response);
-            props.clearActiveCategory();
-            props.clearCart();
-            props.setActivePage('sendOrder');
         })
         .catch(function (error) {
             console.log(error);
@@ -87,9 +88,8 @@ const mapStateToProps = ( state ) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        removeFromCart: ( id )=>{ 
-            dispatch( { type: "REMOVE_FROM_CART", id: id } ) 
-        },
+        removeFromCart: ( id )=>{ dispatch( { type: "REMOVE_FROM_CART", id: id } ) },
+        showCart: ( status )=>{ dispatch({ type:"SHOW_CART", status: status } ) },
         clearCart: ()=>{ dispatch( { type: "CLEAR_CART" } ) },
         clearActiveCategory: ()=>{ dispatch( { type: "SET_CATEGORY", id: 0 } ) },
         setActivePage: ( name )=>{ dispatch( { type: "CHANGE_PAGE", name: name } ) },

@@ -3,7 +3,7 @@
     position: absolute;
     right: 0;
     top: 58px;
-    z-index: 100;
+    z-index: 2;
     font-size: small;
 
     // height: 600px;
@@ -13,6 +13,12 @@
 
     i{
         cursor: pointer;
+    }
+
+    @media only screen and (max-width: 580px){
+        width: 100%;
+        top: 49px;
+        border-top: 1px;
     }
 
 }

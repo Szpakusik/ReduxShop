@@ -10,6 +10,10 @@ import axios from 'axios'
 
 const MainContent = ( props ) => {
 
+  const handleClick = () => {
+    props.showSidebar( false );
+  };
+
   useEffect(() => {
 
         axios.get('http://localhost:3000/product', {})
@@ -25,7 +29,7 @@ const MainContent = ( props ) => {
 
   return(
     <>
-    <div className={`container mr-0 text-dark pb-0 p-3 col-md-11 ${mainContent.mainContent}`}>
+    <div className={`container mr-0 text-dark pb-0 p-3 col-md-11 ${mainContent.mainContent}`} onClick={ ()=>{ handleClick() } }>
       
       {
         props.activeCategory === 0 ? showContent(props.activePage)
@@ -68,7 +72,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return{
-    getAllProducts: ( data )=>{ dispatch( { type: "GET_PRODUCTS", data: data } ) }
+    getAllProducts: ( data )=>{ dispatch( { type: "GET_PRODUCTS", data: data } ) },
+    showSidebar: ( status )=>{
+      dispatch( { type:"SHOW_SIDEBAR", status: status } )
+    },
   } 
 }
 
