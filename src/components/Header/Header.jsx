@@ -35,6 +35,16 @@ const Header = ( props ) => {
     props.showLogin( !props.loginActive );
     props.showCart( false );
   }
+  const handleSearchboxMobileClick = () => {
+    props.showSearchboxMobile( !props.searchboxMobileActive );
+    console.log(displayProperty)
+    console.log(props.searchboxMobileActive)
+    // props.sendSearchString( value )
+
+    props.showCart( false );
+    props.showLogin( false );
+    props.showSidebar( false )
+  }
 
   const handleMenuClick = () => {
     props.showSidebar( !props.sidebarActive );
@@ -49,8 +59,9 @@ const Header = ( props ) => {
 
   const [ searchString, setSearchString ] = useState('');
 
+  let displayProperty = props.searchboxMobileActive ? "block" : "none" ;
+  
   let price = getCartPrice(props.cart)
-
   let length = props.cart.length;
 
   console.log(price)
@@ -140,18 +151,18 @@ const Header = ( props ) => {
           <div className="col-5 ">
             <div className="row h-100">
               <div className="col-4 my-auto ">
-                <i className="material-icons float-right">
+                <i className="material-icons float-right" onClick={ () => { handleLoginClick() } }>
                   person
                 </i>
               </div>
               
-              <div className="col-4 my-auto">
-                <i className="material-icons p-0 float-right">
+              <div className="col-4 my-auto" onClick={ () => { handleSearchboxMobileClick() } }>
+                <i className={`material-icons p-0 float-right`}>
                   search
                 </i>
               </div>
               
-              <div className="col-4 m-auto text-left pl-0">
+              <div className="col-4 m-auto text-left pl-0" onClick={ ()=>{ handleCartClick() } }>
                 <i className="material-icons float-right my-auto">
                   shopping_cart
                 </i>
@@ -163,6 +174,13 @@ const Header = ( props ) => {
         </div>
 
       </nav>
+
+      <div className={`w-100 ${headerStyles.searchbarXS} d-${displayProperty} `}>
+            
+        <input className="form-control mr-sm-2" type="search" placeholder="Wpisz nazwe produktu..." aria-label="Search" onChange={ e => handleChange(e.target.value) }/>
+
+      </div>
+
     </header>
   );
 };
@@ -180,21 +198,25 @@ const mapStateToProps = (state) => {
     cartActive: state.cartReducer.cartActive,
     loginActive: state.loginReducer.loginActive,
     sidebarActive: state.categoryReducer.showSidebarMobile,
+    searchboxMobileActive: state.productReducer.showSearchboxMobile,
   }
 }
 const mapDispatchToProps = ( dispatch ) => {
   return{
-      showCart: ( status )=>{
-          dispatch({ type:"SHOW_CART", status: status })
-      },
       fillCart: (data) => {
         dispatch( { type: 'FILL_CART', cart: data} )
+      },
+      showCart: ( status )=>{
+          dispatch({ type:"SHOW_CART", status: status })
       },
       showLogin: ( status )=>{
           dispatch({ type:"SHOW_LOGIN", status: status })
       },
       showSidebar: ( status )=>{
           dispatch( { type:"SHOW_SIDEBAR", status: status } )
+      },
+      showSearchboxMobile: ( status )=>{
+          dispatch( { type:"SHOW_SEARCHBOX_MOBILE", status: status } )
       },
       sendSearchString: ( searchString )=>{
           dispatch({ type:"SET_SEARCH", searchString: searchString })

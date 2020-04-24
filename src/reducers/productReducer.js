@@ -3,6 +3,7 @@ const TEST_ACTION = 'TEST_ACTION';
 const initState = {
 
   searchString: "",
+  showSearchboxMobile: false,
   products: [
     { name:"Mleko Łęckie", weight: '1000ml', price: 4.49, photo:"mleko.jpg", category:"nabial", id:1, amount:1 },
     { name:"Czekolada Wedel Truskawka", weight: '100g', price: 3.79, photo:"czekolada.png", category:"nabial", id:2, amount:1 },
@@ -34,16 +35,25 @@ const initState = {
 
 const productReducer = (state = initState, action) => {
   switch (action.type) {
+
     case 'GET_PRODUCTS':
       return {
         ...state,
         products: action.data,
       }
+
     case "SET_SEARCH":
       return {
         ...state,
         searchString: action.searchString
       }
+
+    case "SHOW_SEARCHBOX_MOBILE":
+      return {
+        ...state,
+        showSearchboxMobile: action.status,
+      }
+      
     default:
       return state;
   }
