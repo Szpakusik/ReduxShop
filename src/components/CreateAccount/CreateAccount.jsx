@@ -17,12 +17,12 @@ const CreateAccount = (props) => {
     
     const handleClick = ()=> {
 
-        axios.post('http://localhost:3000/account', {
+        axios.post('http://localhost:3000/account/register', {
             firstName: firstName,
             secondName: secondName,
-            phone: phone,
             email: email,
             password: password,
+            phone: phone,
             repeatedPassword: repeatedPassword,
             street: street,
             postCode: postCode,

@@ -6,8 +6,6 @@ import categoryElem from './CategoryElem.module.scss';
 
 
 const CategoryElem = ( props ) => {
-    console.log( props )
-    console.log( props.lp % 2 === 0 )
     // let borderRight = props.category.active ? "bg-white" : 'border-right';
     let isFullWidth='';
 
