@@ -19,16 +19,16 @@ const CartModal = ( props ) => {
 
     const handleClick2 = ()=> {
 
-
+        props.clearActiveCategory();
+        props.clearCart();
+        props.setActivePage('sendOrder');
 
         axios.post('http://localhost:3000/order/create', {
             cart: props.cart,
         })
         .then(function (response) {
             console.log(response);
-            props.clearActiveCategory();
-            props.clearCart();
-            props.setActivePage('sendOrder');
+           
         })
         .catch(function (error) {
             console.log(error);
