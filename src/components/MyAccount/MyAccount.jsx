@@ -6,7 +6,7 @@ import OrdersDiv from './OrdersDiv/OrdersDiv';
 import ShoppingListsDiv from './ShoppingListsDiv/ShoppingListsDiv';
 
 
-const MyAccount = ({user}) => {
+const MyAccount = ({user, editUser}) => {
 
     return(
         <>
@@ -24,18 +24,15 @@ const MyAccount = ({user}) => {
 
                     <div className="col-md-7 pr-1">
 
-                        <InfoDiv user={user} />
+                        <InfoDiv editUser={editUser} user={user} />
+
                         <ShoppingListsDiv />
 
                     </div>
                     
-
-                    
                     <div className="col-md-5 pl-1">
 
                         <OrdersDiv />
-
-                        
 
                     </div>
                 
@@ -48,9 +45,16 @@ const MyAccount = ({user}) => {
 }
 
 const mapStateToProps = (state) => {
+    console.log(state)
     return{
-    user: state.loginReducer.user
+        user: state.loginReducer.user
     }
 }
 
-export default connect(mapStateToProps)(MyAccount)
+const mapDispatchToProps = (dispatch) => {
+    return{
+         editUser: ( ...data )=>{ dispatch( { type: "EDIT_USER", data: data } ) },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyAccount)

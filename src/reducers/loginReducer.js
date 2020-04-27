@@ -10,17 +10,29 @@ const initState = {
   logged: true,
   user: {
       id: 0,
-      email: "example@email.com",
-      phone: "000-000-000",
-      adress: "Kielce",
       name: "Jan",
       surname: "Kowalski",
-      post_code: "26-015",
-      city: "Kielce"
-    },
+      phone: "000-000-000",
+      email: "example@email.com",
+      addresses:[
+        {
+            street: "Skrzelczyce 116",
+            postCode: "26-015",
+            city: "Pierzchnica",
+            active: 1,
+        },
+        {
+            street: "Skrzelczyce 143",
+            postCode: "26-026",
+            city: "Morawica",
+            active: 0,
+        }
+     ]
+  },
 }
 
 const loginReducer = (state = initState, action) => {
+
   switch (action.type) {
 
     case "SHOW_LOGIN":
@@ -38,6 +50,21 @@ const loginReducer = (state = initState, action) => {
 
         logged: action.isLogged,
       }
+
+     case "EDIT_USER" :
+
+      return{
+        ...state,
+
+        user:{
+         ...state.user,
+         name: action.data[0],
+         surname: action.data[1],
+         email: action.data[2],
+         phone: action.data[3],
+       }
+     
+     }
 
     default:
       return state;

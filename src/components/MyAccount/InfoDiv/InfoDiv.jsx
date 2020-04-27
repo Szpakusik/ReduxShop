@@ -1,26 +1,61 @@
-import React from 'react';
+import React, { useReducer, useState } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import infoDiv from './infoDiv.module.scss'
 
 const InfoDiv = (props) => {
 
-    const  { user } = props;
+    const  { user, editUser } = props;
 
-    let adresses = [
-        {
-            postCode: '26-026',
-            city: 'Radomice',
-            street: 'ul. Żytnia 5',
-            active: 1,
-        },
-        {
-            postCode: '26-026',
-            city: 'Morawica',
-            street: 'Skrzelczyce 143',
-            active: 0,
-        }
-    ]
+    const URL = 'http://localhost:3000/account/edit';
 
+    const [isEditing, setEditMode] = useState(false);
+    const [name, handleGetName] = useState(user.name);
+    const [surname, handleGetSurname] = useState(user.surname);
+    const [phone, handleGetPhone] = useState(user.phone);
+    const [email, handleGetEmail] = useState(user.email);
+
+    const handleEditUser = () => setEditMode(!isEditing);
+
+    const handleConfirmUser = () => {
+
+        if(isEditing === true){
+            setEditMode(!isEditing);
+            editUser(name, surname, email, phone);
+        } else
+        return;   
+
+        axios.post(URL, {
+            name,
+            surname,
+            phone,
+            email,
+        })
+        .then(response => {
+            if(response.ok){
+                console.log(response);     
+            }
+            throw Error("Błąd")
+        })
+        .catch(error => {
+            console.log(error);
+        });    
+    }
+  
+    const dataUserTag = {
+        name: <span className="text-success">{user.name}</span>,
+        surname: <span className="text-success">{user.surname}</span>,
+        phone: <span className="text-success">{user.phone}</span>,
+        email: <span className="text-success">{user.email}</span>,
+    } 
+
+    const dataUserEditTag = {
+        name: <input onChange={ e => handleGetName(e.target.value)} value={name} className="text-success"></input>,
+        surname: <input onChange={ e => handleGetSurname(e.target.value)} value={surname} className="text-success"></input>,
+        phone: <input onChange={ e => handleGetPhone(e.target.value)} value={phone} className="text-success"></input>,
+        email: <input onChange={ e => handleGetEmail(e.target.value)} value={email} className="text-success"></input>,
+    } 
+    
     return(
         <>
         
@@ -35,7 +70,7 @@ const InfoDiv = (props) => {
                             <p><b>Imie:</b></p>
                         </div>
                         <div className="col-md-6">
-                            <p><span className="text-success">{user.name}</span></p>
+                            <p>{isEditing ? dataUserEditTag.name : dataUserTag.name}</p>
                         </div>
                     </div>
                     <div className="row">
@@ -43,7 +78,7 @@ const InfoDiv = (props) => {
                             <p><b>Nazwisko:</b></p>
                         </div>
                         <div className="col-md-6">
-                            <p><span className="text-success">{user.surname}</span></p>
+                            <p>{isEditing ? dataUserEditTag.surname : dataUserTag.surname}</p>
                         </div>
                     </div>
                     <div className="row">
@@ -51,7 +86,7 @@ const InfoDiv = (props) => {
                             <p><b>Numer Telefonu:</b></p>
                         </div>
                         <div className="col-md-6">
-                            <p><span className="text-success">{user.phone}</span></p>
+                            <p>{isEditing ? dataUserEditTag.phone : dataUserTag.phone}</p>
                         </div>
                     </div>
                     <div className="row">
@@ -59,7 +94,7 @@ const InfoDiv = (props) => {
                             <p><b>Email:</b></p>
                         </div>
                         <div className="col-md-6">
-                            <p><span className="text-success">{user.email}</span></p>
+                            <p>{isEditing ? dataUserEditTag.email : dataUserTag.email}</p>
                         </div>
                     </div>
 
@@ -69,7 +104,7 @@ const InfoDiv = (props) => {
                     <div className="row">
 
                         {
-                            adresses && adresses.map( (adress) => {
+                            user.addresses && user.addresses.map( (adress) => {
                                 const active = adress.active ? infoDiv.active : '';
                                 return(
                                     <div className={`col-md-6 text-center no-select`}>
@@ -91,6 +126,10 @@ const InfoDiv = (props) => {
                         </div>
 
                     </div>
+
+                    <button class="w-50 btn btn-outline-success" onClick={ () => handleEditUser()}>Edytuj dane</button>
+                    <button class="w-50 btn btn-outline-success" onClick={ () => handleConfirmUser()}>Zapisz zmiany</button>
+
                 </div>
             </div>
         </div>
