@@ -3,6 +3,7 @@ import { exact } from "prop-types";
 let index;
 let tempObj;
 let tempCart;
+let addresses;
 
 const initState = {
 
@@ -16,12 +17,14 @@ const initState = {
       email: "example@email.com",
       addresses:[
         {
+            id:0,
             street: "Skrzelczyce 116",
             postCode: "26-015",
             city: "Pierzchnica",
             active: 1,
         },
         {
+            id:1,
             street: "Skrzelczyce 143",
             postCode: "26-026",
             city: "Morawica",
@@ -58,10 +61,30 @@ const loginReducer = (state = initState, action) => {
 
         user:{
          ...state.user,
-         name: action.data[0],
-         surname: action.data[1],
-         email: action.data[2],
-         phone: action.data[3],
+         name: action.name,
+         surname: action.surname,
+         email: action.email,
+         phone: action.phone,
+       }
+     
+     }
+
+     case "EDIT_ADDRESS" :
+
+       addresses = [...state.user.addresses];
+       addresses[action.id] = {
+        ...state.user.addresses[action.id],
+        city: action.city,
+        postCode: action.postCode,
+        street: action.street,
+       }
+
+      return{
+        ...state,
+
+        user:{
+         ...state.user,
+            addresses,
        }
      
      }
