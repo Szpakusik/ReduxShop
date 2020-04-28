@@ -6,7 +6,7 @@ import OrdersDiv from './OrdersDiv/OrdersDiv';
 import ShoppingListsDiv from './ShoppingListsDiv/ShoppingListsDiv';
 
 
-const MyAccount = ({user, editUser}) => {
+const MyAccount = ({user, editUser, editAddress}) => {
 
     return(
         <>
@@ -24,7 +24,7 @@ const MyAccount = ({user, editUser}) => {
 
                     <div className="col-md-7 pr-1">
 
-                        <InfoDiv editUser={editUser} user={user} />
+                        <InfoDiv editAddress={editAddress} editUser={editUser} user={user} />
 
                         <ShoppingListsDiv />
 
@@ -45,7 +45,6 @@ const MyAccount = ({user, editUser}) => {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
     return{
         user: state.loginReducer.user
     }
@@ -53,7 +52,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-         editUser: ( ...data )=>{ dispatch( { type: "EDIT_USER", data: data } ) },
+         editUser: ( name, surname, email, phone ) => { dispatch( { type: "EDIT_USER", name: name, surname: surname, email: email, phone: phone } ) },
+         editAddress: ( id, city, postCode, street ) => { dispatch( { type: "EDIT_ADDRESS", id: id, city: city, postCode: postCode, street: street, } ) },
     }
 }
 
