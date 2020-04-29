@@ -14,5 +14,9 @@
         color: lightyellow;
         text-shadow: 0 0 6px #000;
     }
+
+    @media only screen and (max-width: 580px){
+        margin-top: 1rem;
+    }
 }
 

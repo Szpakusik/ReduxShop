@@ -15,7 +15,6 @@ const Header = ( props ) => {
 
     let localCart = JSON.parse( localStorage.getItem('cart') );
 
-
     if( props.cart.length === 0 && localCart && localCart.products.length > 0 ){
 
       console.log(JSON.parse( localStorage.getItem('cart') ))
@@ -36,6 +35,20 @@ const Header = ( props ) => {
     props.showLogin( !props.loginActive );
     props.showCart( false );
   }
+  const handleSearchboxMobileClick = () => {
+    props.showSearchboxMobile( !props.searchboxMobileActive );
+    console.log(displayProperty)
+    console.log(props.searchboxMobileActive)
+    // props.sendSearchString( value )
+
+    props.showCart( false );
+    props.showLogin( false );
+    props.showSidebar( false )
+  }
+
+  const handleMenuClick = () => {
+    props.showSidebar( !props.sidebarActive );
+  }
 
   const handleChange = ( value ) => {
     // setSearchString( value )
@@ -46,23 +59,21 @@ const Header = ( props ) => {
 
   const [ searchString, setSearchString ] = useState('');
 
+  let displayProperty = props.searchboxMobileActive ? "block" : "none" ;
+  
   let price = getCartPrice(props.cart)
-
   let length = props.cart.length;
 
   console.log(price)
 
   return (
     <header className={`header ${headerStyles.header}`}>
-      <div className="navbar navbar-light navbar-expand-lg navbar-fixed-top sticky-header p-0">
+      <nav className="navbar navbar-light navbar-expand-lg navbar-fixed-top sticky-header p-0">
        
-        <div className='container-fluid p-0 overflow-hidden'>
+        <div className='container-fluid p-0 overflow-hidden d-none d-sm-flex'>
           <Navbar.Brand className={`banner navbar-header col-xs-12 col-sm-4 ${headerStyles.banner}`}>
             <a className="navbar-brand text-sm-center" href="//localhost:8000">
-              <i className="material-icons">
-                local_mall
-              </i>  
-              <p className='mb-0'>Spożywczy<span>24h</span>.pl</p>
+              <img src={require('./../../images/logo-transparent2.png')} alt=""/>
             </a>
           </Navbar.Brand>
           <div className="col-sm-4 pr-5 pl-0">
@@ -70,7 +81,7 @@ const Header = ( props ) => {
             <input className="form-control mr-sm-2" type="search" placeholder="Wpisz nazwe produktu..." aria-label="Search" onChange={ e => handleChange(e.target.value) }/>
 
           </div>
-          <div className={`navbar-nav ml-auto text-dark col-sm-12 col-md-4 border-0 pr-0 ${headerStyles.koszyk} ${headerStyles.disableSelect}`}>
+          <nav className={`navbar-nav ml-auto text-dark col-sm-12 col-md-4 border-0 pr-0 d-none d-sm-flex ${headerStyles.koszyk} ${headerStyles.disableSelect}`}>
 
             <div onClick={ ()=>{ handleCartClick() } } className=" col-sm-6 p-0 text-center row m-0">
 
@@ -102,12 +113,74 @@ const Header = ( props ) => {
 
             </div>
           
+          </nav>
+          
+          <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
+            aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i
+            class="fas fa-bars fa-1x"></i></span>
+
+          </button>
+
+        </div>
+        
+        {/* Mobile */}
+        <div className={`row p-0 overflow-hidden d-flex d-sm-none row h-100 mx-auto ${headerStyles.navbarXS}`}>
+
+          <div className="col-7 h-100 pr-0">
+
+            <div className="row h-100">
+
+              <div className="col-2 m-auto pt-2 pr-0 pl-2" onClick={ () => { handleMenuClick() } }>
+                <span class="material-icons text-success" >
+                  menu
+                </span>
+              </div>
+
+              <div className="col-10 pl-0">
+                <Navbar.Brand className={`banner navbar-header ${headerStyles.banner}`}>
+                  <a className="navbar-brand text-sm-center px-1 py-2" href="//localhost:8000">
+                    <img src={require('./../../images/logo-transparentCut.png')}  alt=""/>
+                  </a>
+                </Navbar.Brand>
+              </div>
+
+            </div>
+
           </div>
+
+          <div className="col-5 ">
+            <div className="row h-100">
+              <div className="col-4 my-auto ">
+                <i className="material-icons float-right" onClick={ () => { handleLoginClick() } }>
+                  person
+                </i>
+              </div>
+              
+              <div className="col-4 my-auto" onClick={ () => { handleSearchboxMobileClick() } }>
+                <i className={`material-icons p-0 float-right`}>
+                  search
+                </i>
+              </div>
+              
+              <div className="col-4 m-auto text-left pl-0" onClick={ ()=>{ handleCartClick() } }>
+                <i className="material-icons float-right my-auto">
+                  shopping_cart
+                </i>
+              </div>
+              
+            </div>
+          </div>
+
         </div>
 
+      </nav>
 
-        
+      <div className={`w-100 ${headerStyles.searchbarXS} d-${displayProperty} `}>
+            
+        <input className="form-control mr-sm-2" type="search" placeholder="Wpisz nazwe produktu..." aria-label="Search" onChange={ e => handleChange(e.target.value) }/>
+
       </div>
+
     </header>
   );
 };
@@ -124,18 +197,26 @@ const mapStateToProps = (state) => {
     cart: state.cartReducer.cartProducts,
     cartActive: state.cartReducer.cartActive,
     loginActive: state.loginReducer.loginActive,
+    sidebarActive: state.categoryReducer.showSidebarMobile,
+    searchboxMobileActive: state.productReducer.showSearchboxMobile,
   }
 }
 const mapDispatchToProps = ( dispatch ) => {
   return{
-      showCart: ( status )=>{
-          dispatch({ type:"SHOW_CART", status: status })
-      },
       fillCart: (data) => {
         dispatch( { type: 'FILL_CART', cart: data} )
       },
+      showCart: ( status )=>{
+          dispatch({ type:"SHOW_CART", status: status })
+      },
       showLogin: ( status )=>{
           dispatch({ type:"SHOW_LOGIN", status: status })
+      },
+      showSidebar: ( status )=>{
+          dispatch( { type:"SHOW_SIDEBAR", status: status } )
+      },
+      showSearchboxMobile: ( status )=>{
+          dispatch( { type:"SHOW_SEARCHBOX_MOBILE", status: status } )
       },
       sendSearchString: ( searchString )=>{
           dispatch({ type:"SET_SEARCH", searchString: searchString })
