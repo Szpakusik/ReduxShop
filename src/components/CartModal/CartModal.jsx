@@ -24,7 +24,6 @@ const CartModal = ( props ) => {
         props.showCart( false );
         props.setActivePage('sendOrder');
 
-
         axios.post('http://localhost:3000/order/create', {
             cart: props.cart,
         })

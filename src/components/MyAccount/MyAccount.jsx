@@ -6,7 +6,7 @@ import OrdersDiv from './OrdersDiv/OrdersDiv';
 import ShoppingListsDiv from './ShoppingListsDiv/ShoppingListsDiv';
 
 
-const MyAccount = ({user}) => {
+const MyAccount = ({user, editUser, editAddress, addAddress, setActiveAddress}) => {
 
     return(
         <>
@@ -24,18 +24,21 @@ const MyAccount = ({user}) => {
 
                     <div className="col-md-7 pr-1">
 
-                        <InfoDiv user={user} />
+                        <InfoDiv
+                         addAddress={addAddress}
+                         editAddress={editAddress}
+                         editUser={editUser}
+                         user={user}
+                         setActiveAddress={setActiveAddress}
+                         />
+
                         <ShoppingListsDiv />
 
                     </div>
                     
-
-                    
                     <div className="col-md-5 pl-1">
 
                         <OrdersDiv />
-
-                        
 
                     </div>
                 
@@ -49,8 +52,17 @@ const MyAccount = ({user}) => {
 
 const mapStateToProps = (state) => {
     return{
-    user: state.loginReducer.user
+        user: state.loginReducer.user
     }
 }
 
-export default connect(mapStateToProps)(MyAccount)
+const mapDispatchToProps = (dispatch) => {
+    return{
+         editUser: ( name, surname, email, phone ) => { dispatch( { type: "EDIT_USER", name: name, surname: surname, email: email, phone: phone } ) },
+         editAddress: ( id, city, postCode, street ) => { dispatch( { type: "EDIT_ADDRESS", id: id, city: city, postCode: postCode, street: street } ) },
+         addAddress: ( city, postCode, street, ) => { dispatch( { type: "ADD_ADDRESS", city: city, postCode: postCode, street: street, } ) },
+         setActiveAddress: (id) => { dispatch( { type: "CHANGE_ACTIVE_ADDRESS", id: id, } ) },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyAccount)
