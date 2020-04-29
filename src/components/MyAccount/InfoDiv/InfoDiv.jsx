@@ -6,7 +6,7 @@ import Address from './Address'
 
 const InfoDiv = (props) => {
 
-    const  { user, editUser, editAddress } = props;
+    const  { user, editUser, editAddress, addAddress } = props;
 
     const URL = 'http://localhost:3000/account/edit';
 
@@ -16,7 +16,13 @@ const InfoDiv = (props) => {
     const [phone, handleGetPhone] = useState(user.phone);
     const [email, handleGetEmail] = useState(user.email);
 
+    const [addingAddress, setAddAddress] = useState(false);
+    const [city, handleGetCity] = useState();
+    const [postCode, handleGetPostCode] = useState();
+    const [street, handleGetStreet] = useState();
+
     const handleEditUser = () => setEditUser(!editingUser);
+    const handleAddAddress = () => setAddAddress(!addingAddress);
 
     const handleConfirmUser = () => {
 
@@ -42,6 +48,44 @@ const InfoDiv = (props) => {
             console.log(error);
         });    
     }
+
+    const handleSendAddress = () => {
+
+        if(addingAddress === true){
+            setAddAddress(!addingAddress);
+            addAddress(city, postCode, street);
+        } else
+        return;   
+
+        axios.post(URL, {
+            city,
+            postCode,
+            street,
+        })
+        .then(response => {
+            if(response.ok){
+                console.log(response);     
+            }
+            throw Error("Błąd")
+        })
+        .catch(error => {
+            console.log(error);
+        });    
+    }
+
+   const dataAddAddressTag = {
+    default:
+        <>
+            <p className='border-0'><span className="text-dark">Dodaj adres</span></p>
+            <p className='border-0'><span className="text-dark material-icons">add</span></p>
+        </>,
+    addAddress: 
+        <>
+        <input onChange={ e => handleGetPostCode(e.target.value)} value={postCode} className="text-success" placeholder={`Kod pocztowy`}></input>
+        <input onChange={ e => handleGetCity(e.target.value)} value={city} className="text-success" placeholder={`Miasto`}></input>
+        <input onChange={ e => handleGetStreet(e.target.value)} value={street} className="text-success" placeholder={`Ulica`}></input>
+        </>
+   }
   
     const dataUserTag = {
         name: <span className="text-success">{user.name}</span>,
@@ -97,7 +141,7 @@ const InfoDiv = (props) => {
                             <p><b>Email:</b></p>
                         </div>
                         <div className="col-md-6">
-                            <p>{editingUser ? dataUserEditTag.email : dataUserTag.email}</p>
+                            <p>{editingUser ? dataUserEditTag.email  : dataUserTag.email}</p>
                         </div>
                     </div>
 
@@ -113,13 +157,12 @@ const InfoDiv = (props) => {
                         {/* Add button */}
                         <div className="col-md-6 text-center">
                             <div className={`pt-3 p-2 mb-3 rounded bg-white ${infoDiv.adress}`}>
-                                <p className='border-0'><span className="text-dark">Dodaj adres</span></p>
-                                <p className='border-0'><span className="text-dark material-icons">add</span></p>
+                                {addingAddress ? dataAddAddressTag.addAddress : dataAddAddressTag.default  }
+                                <button class="w-50 btn btn-outline-success" onClick={ () => handleAddAddress()}>Dodaj</button>
+                                <button class="w-50 btn btn-outline-success" onClick={ () => handleSendAddress()}>Zapisz zmiany</button>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>

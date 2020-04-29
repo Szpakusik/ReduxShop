@@ -68,6 +68,7 @@ const Address = (props) => {
             <button class="w-50 btn btn-outline-success" onClick={ () => handleConfirmAddress(address.id)}>Zapisz zmiany</button>  
         </div>
     )
+    
 }
 
 export default Address;
