@@ -28,19 +28,17 @@ const Header = ( props ) => {
 
   const handleCartClick = () => {
     props.showCart( !props.cartActive );
+    props.showSidebar( false )
     props.showLogin( false );
   }
 
   const handleLoginClick = () => {
     props.showLogin( !props.loginActive );
     props.showCart( false );
+    props.showSidebar( false )
   }
   const handleSearchboxMobileClick = () => {
     props.showSearchboxMobile( !props.searchboxMobileActive );
-    console.log(displayProperty)
-    console.log(props.searchboxMobileActive)
-    // props.sendSearchString( value )
-
     props.showCart( false );
     props.showLogin( false );
     props.showSidebar( false )
@@ -48,6 +46,8 @@ const Header = ( props ) => {
 
   const handleMenuClick = () => {
     props.showSidebar( !props.sidebarActive );
+    props.showCart( false );
+    props.showLogin( false );
   }
 
   const handleChange = ( value ) => {
