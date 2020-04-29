@@ -7,9 +7,24 @@
     img{
         width: 15%
     }
+
+    @media only screen and (max-width: 580px){
+
+        img{
+            width: 80%
+        }
+        
+    }
 }
 
 .icon{
+    @media only screen and (max-width: 580px){
+        img{
+            width:10%;
+            position: absolute;
+            top: 0;
+        }
+    }
     span{
         font-size: 98px;
         
