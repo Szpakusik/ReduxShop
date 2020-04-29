@@ -1,9 +1,11 @@
 import { exact } from "prop-types";
+import { connect } from "react-redux";
 
 let index;
 let tempObj;
 let tempCart;
 let addresses;
+let defaultActive = 0;
 
 const initState = {
 
@@ -87,6 +89,26 @@ const loginReducer = (state = initState, action) => {
             addresses,
        }
      
+     }
+
+     case "ADD_ADDRESS" :
+
+      addresses = [...state.user.addresses]
+      addresses.push({
+        id: addresses.length,
+        city: action.city,
+        postCode: action.postCode,
+        street: action.street,
+        active: defaultActive,
+      });
+
+     return{
+       ...state,
+
+      user:{
+        ...state.user,
+           addresses,
+      }
      }
 
     default:
