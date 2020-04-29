@@ -4,7 +4,7 @@ import infoDiv from './infoDiv.module.scss';
 
 const Address = (props) => {
 
-    const { address, editAddress, userAddresses } = props;
+    const { address, editAddress, userAddresses, setActiveAddress } = props;
 
     const active = address.active ? infoDiv.active : '';
 
@@ -13,6 +13,9 @@ const Address = (props) => {
     const [street, handleGetStreet] = useState(address.street);
 
     const [editingAddress, setEditAddress] = useState(false);
+
+    const handleSetActiveAddress = id => setActiveAddress(id);
+    
 
     const handleEditAddress = (id) => {   
         const index = userAddresses.findIndex(address => address.id === id);
@@ -57,14 +60,14 @@ const Address = (props) => {
     } 
     
     return(
-        <div key={address.id} className={`col-md-6 text-center no-select`}>  
+        <div className={`col-md-6 text-center no-select`}>  
 
-            <div className={`pt-3 p-2 mb-3 bg-white ${infoDiv.adress} ${active}`}>
+            <div onClick={() => handleSetActiveAddress(address.id)} className={`pt-3 p-2 mb-3 bg-white ${infoDiv.adress} ${active}`}>
                 {editingAddress ? dataAddressEditTag.postCode : dataAddressTag.postCode}
                 {editingAddress ? dataAddressEditTag.city : dataAddressTag.city}                             
                 {editingAddress ? dataAddressEditTag.street : dataAddressTag.street}
             </div>
-            <button class="w-50 btn btn-outline-success" onClick={() => handleEditAddress(address.id)}>Edytuj</button>
+            <button class="w-50 btn btn-outline-success" onClick={() => handleEditAddress(address.id)}>{editingAddress ? 'Anuluj' : 'Edytuj'}</button>
             <button class="w-50 btn btn-outline-success" onClick={ () => handleConfirmAddress(address.id)}>Zapisz zmiany</button>  
         </div>
     )

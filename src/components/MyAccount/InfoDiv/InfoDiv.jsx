@@ -6,7 +6,7 @@ import Address from './Address'
 
 const InfoDiv = (props) => {
 
-    const  { user, editUser, editAddress, addAddress } = props;
+    const  { user, editUser, editAddress, addAddress, setActiveAddress } = props;
 
     const URL = 'http://localhost:3000/account/edit';
 
@@ -101,7 +101,7 @@ const InfoDiv = (props) => {
         email: <input onChange={ e => handleGetEmail(e.target.value)} value={email} className="text-success"></input>,
     }
 
-    const addresses = user.addresses.map(address => <Address userAddresses={user.addresses} editAddress={editAddress} address={address}/> );
+    const addresses = user.addresses.map(address => <Address key={address.id} userAddresses={user.addresses} editAddress={editAddress} address={address} setActiveAddress={setActiveAddress} /> );
 
     return(
         <>
@@ -145,7 +145,7 @@ const InfoDiv = (props) => {
                         </div>
                     </div>
 
-                    <button class="w-50 btn btn-outline-success" onClick={ () => handleEditUser()}>Edytuj dane</button>
+                    <button class="w-50 btn btn-outline-success" onClick={ () => handleEditUser()}>{editingUser ? 'Anuluj' : 'Edytuj'}</button>
                     <button class="w-50 btn btn-outline-success" onClick={ () => handleConfirmUser()}>Zapisz zmiany</button>
 
                     <div className="row col-sm-12 pt-3 w-100">
@@ -158,7 +158,7 @@ const InfoDiv = (props) => {
                         <div className="col-md-6 text-center">
                             <div className={`pt-3 p-2 mb-3 rounded bg-white ${infoDiv.adress}`}>
                                 {addingAddress ? dataAddAddressTag.addAddress : dataAddAddressTag.default  }
-                                <button class="w-50 btn btn-outline-success" onClick={ () => handleAddAddress()}>Dodaj</button>
+                                <button class="w-50 btn btn-outline-success" onClick={ () => handleAddAddress()}>{addingAddress ? 'Anuluj' : 'Dodaj'}</button>
                                 <button class="w-50 btn btn-outline-success" onClick={ () => handleSendAddress()}>Zapisz zmiany</button>
                             </div>
                         </div>

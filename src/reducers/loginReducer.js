@@ -111,6 +111,24 @@ const loginReducer = (state = initState, action) => {
       }
      }
 
+     case "CHANGE_ACTIVE_ADDRESS":
+
+      addresses = [...state.user.addresses];
+      addresses = addresses.map((address) => {
+        if(address.id === action.id) address.active = 1;
+        else address.active = 0; 
+        return address
+      })
+      
+     return{
+      ...state,
+
+      user:{
+        ...state.user,
+           addresses,
+      }
+     }
+
     default:
       return state;
   }
