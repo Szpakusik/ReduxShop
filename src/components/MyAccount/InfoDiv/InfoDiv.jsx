@@ -6,7 +6,7 @@ import Address from './Address'
 
 const InfoDiv = (props) => {
 
-    const  { user, editUser, editAddress, addAddress, setActiveAddress } = props;
+    const  { user, editUser, editAddress, addAddress, setActiveAddress, deleteAddress } = props;
 
     const URL = 'http://localhost:3000/account/edit';
 
@@ -22,7 +22,6 @@ const InfoDiv = (props) => {
     const [street, handleGetStreet] = useState();
 
     const handleEditUser = () => setEditUser(!editingUser);
-    const handleAddAddress = () => setAddAddress(!addingAddress);
 
     const handleConfirmUser = () => {
 
@@ -73,20 +72,8 @@ const InfoDiv = (props) => {
         });    
     }
 
-   const dataAddAddressTag = {
-    default:
-        <>
-            <p className='border-0'><span className="text-dark">Dodaj adres</span></p>
-            <p className='border-0'><span className="text-dark material-icons">add</span></p>
-        </>,
-    addAddress: 
-        <>
-        <input onChange={ e => handleGetPostCode(e.target.value)} value={postCode} className="text-success" placeholder={`Kod pocztowy`}></input>
-        <input onChange={ e => handleGetCity(e.target.value)} value={city} className="text-success" placeholder={`Miasto`}></input>
-        <input onChange={ e => handleGetStreet(e.target.value)} value={street} className="text-success" placeholder={`Ulica`}></input>
-        </>
-   }
-  
+    const handleAddAddress = () => setAddAddress(!addingAddress);
+
     const dataUserTag = {
         name: <span className="text-success">{user.name}</span>,
         surname: <span className="text-success">{user.surname}</span>,
@@ -101,7 +88,34 @@ const InfoDiv = (props) => {
         email: <input onChange={ e => handleGetEmail(e.target.value)} value={email} className="text-success"></input>,
     }
 
-    const addresses = user.addresses.map(address => <Address key={address.id} userAddresses={user.addresses} editAddress={editAddress} address={address} setActiveAddress={setActiveAddress} /> );
+    const dataAddAddressTag = {
+        default:
+            <>
+                <p className='border-0'><span className="text-dark">Dodaj adres</span></p>
+                <p className='border-0'><span className="text-dark material-icons">add</span></p>
+            </>,
+        inputs:
+            <>
+            <input onChange={ e => handleGetPostCode(e.target.value)} value={postCode} className="text-success" placeholder={`Kod pocztowy`}></input>
+            <input onChange={ e => handleGetCity(e.target.value)} value={city} className="text-success" placeholder={`Miasto`}></input>
+            <input onChange={ e => handleGetStreet(e.target.value)} value={street} className="text-success" placeholder={`Ulica`}></input>   
+            </>,
+        buttons:
+            <>
+            <button class="w-50 btn btn-outline-success" onClick={ () => handleAddAddress()}>{addingAddress ? 'Anuluj' : 'Dodaj'}</button>
+            <button class="w-50 btn btn-outline-success" onClick={ () => handleSendAddress()}>Dodaj adres</button>
+            </>    
+       }
+
+    const addresses = user.addresses.map(address => 
+        <Address
+         key={address.id}
+         userAddresses={user.addresses}
+         editAddress={editAddress}
+         address={address}
+         setActiveAddress={setActiveAddress}
+         deleteAddress={deleteAddress} 
+         /> );
 
     return(
         <>
@@ -146,7 +160,7 @@ const InfoDiv = (props) => {
                     </div>
 
                     <button class="w-50 btn btn-outline-success" onClick={ () => handleEditUser()}>{editingUser ? 'Anuluj' : 'Edytuj'}</button>
-                    <button class="w-50 btn btn-outline-success" onClick={ () => handleConfirmUser()}>Zapisz zmiany</button>
+                    {editingUser ? <button class="w-50 btn btn-outline-success" onClick={ () => handleConfirmUser()}>Zapisz zmiany</button> : null}
 
                     <div className="row col-sm-12 pt-3 w-100">
                         <p className='border-0 mb-3'><b>Adresy:</b></p>
@@ -154,22 +168,18 @@ const InfoDiv = (props) => {
 
                     <div className="row">
                         { addresses }
-                        {/* Add button */}
                         <div className="col-md-6 text-center">
-                            <div className={`pt-3 p-2 mb-3 rounded bg-white ${infoDiv.adress}`}>
-                                {addingAddress ? dataAddAddressTag.addAddress : dataAddAddressTag.default  }
-                                <button class="w-50 btn btn-outline-success" onClick={ () => handleAddAddress()}>{addingAddress ? 'Anuluj' : 'Dodaj'}</button>
-                                <button class="w-50 btn btn-outline-success" onClick={ () => handleSendAddress()}>Zapisz zmiany</button>
+                            <div onClick={ () => {addingAddress ? null : handleAddAddress()}} className={`pt-3 p-2 mb-3 rounded bg-white ${infoDiv.adress}`}>
+                            {addingAddress ? dataAddAddressTag.inputs : dataAddAddressTag.default}
                             </div>
-                        </div>
+                            {addingAddress ? dataAddAddressTag.buttons : null}
+                        </div>                       
                     </div>
                 </div>
             </div>
         </div>
-
         </>
     )
-
 }
 
 export default InfoDiv

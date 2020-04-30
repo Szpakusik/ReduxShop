@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 let index;
 let tempObj;
 let tempCart;
-let addresses;
+let addresses, address;
 let defaultActive = 0;
+let couterId = 2;
 
 const initState = {
 
@@ -74,12 +75,15 @@ const loginReducer = (state = initState, action) => {
      case "EDIT_ADDRESS" :
 
        addresses = [...state.user.addresses];
-       addresses[action.id] = {
-        ...state.user.addresses[action.id],
-        city: action.city,
-        postCode: action.postCode,
-        street: action.street,
-       }
+
+       addresses.filter( address => {
+         if(address.id === action.id){
+          address.city = action.city;
+          address.postCode = action.postCode;
+          address.street = action.street;
+          return address;
+         }       
+        });
 
       return{
         ...state,
@@ -95,13 +99,14 @@ const loginReducer = (state = initState, action) => {
 
       addresses = [...state.user.addresses]
       addresses.push({
-        id: addresses.length,
+        id: couterId,
         city: action.city,
         postCode: action.postCode,
         street: action.street,
         active: defaultActive,
       });
-
+      couterId++;
+      
      return{
        ...state,
 
@@ -124,6 +129,20 @@ const loginReducer = (state = initState, action) => {
       ...state,
 
       user:{
+        ...state.user,
+           addresses,
+      }
+     }
+
+     case "DELETE_ADDRESS":
+
+      addresses = [...state.user.addresses];
+      addresses = addresses.filter((address) => address.id !== action.id);
+
+     return{
+       ...state,
+
+       user:{
         ...state.user,
            addresses,
       }

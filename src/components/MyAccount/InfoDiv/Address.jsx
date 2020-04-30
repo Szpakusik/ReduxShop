@@ -4,7 +4,7 @@ import infoDiv from './infoDiv.module.scss';
 
 const Address = (props) => {
 
-    const { address, editAddress, userAddresses, setActiveAddress } = props;
+    const { address, editAddress, userAddresses, setActiveAddress, deleteAddress } = props;
 
     const active = address.active ? infoDiv.active : '';
 
@@ -15,11 +15,13 @@ const Address = (props) => {
     const [editingAddress, setEditAddress] = useState(false);
 
     const handleSetActiveAddress = id => setActiveAddress(id);
-    
+
+    const handleDeleteAddress = id => deleteAddress(id)
 
     const handleEditAddress = (id) => {   
         const index = userAddresses.findIndex(address => address.id === id);
-        if(index >=0 ) setEditAddress(!editingAddress)
+        if(index >=0 ) 
+        setEditAddress(!editingAddress)
         else 
         return;
     }
@@ -66,9 +68,10 @@ const Address = (props) => {
                 {editingAddress ? dataAddressEditTag.postCode : dataAddressTag.postCode}
                 {editingAddress ? dataAddressEditTag.city : dataAddressTag.city}                             
                 {editingAddress ? dataAddressEditTag.street : dataAddressTag.street}
+                {editingAddress ? <button onClick={ () => handleDeleteAddress(address.id)} class="w-50 btn btn-outline-success">Usuń adres</button> : null}
             </div>
             <button class="w-50 btn btn-outline-success" onClick={() => handleEditAddress(address.id)}>{editingAddress ? 'Anuluj' : 'Edytuj'}</button>
-            <button class="w-50 btn btn-outline-success" onClick={ () => handleConfirmAddress(address.id)}>Zapisz zmiany</button>  
+            {editingAddress ? <button class="w-50 btn btn-outline-success" onClick={ () => handleConfirmAddress(address.id)}>Zapisz zmiany</button> : null}  
         </div>
     )
     
