@@ -70,7 +70,7 @@ const Header = ( props ) => {
     <header className={`header ${headerStyles.header}`}>
       <nav className="navbar navbar-light navbar-expand-lg navbar-fixed-top sticky-header p-0">
        
-        <div className='container-fluid p-0 overflow-hidden d-none d-sm-flex'>
+        <div className='container-fluid p-0 overflow-hidden d-none d-md-flex'>
           <Navbar.Brand className={`banner navbar-header col-xs-12 col-sm-4 ${headerStyles.banner}`}>
             <a className="navbar-brand text-sm-center" href="//localhost:8000">
               <img src={require('./../../images/logo-transparent2.png')} alt=""/>
@@ -81,7 +81,7 @@ const Header = ( props ) => {
             <input className="form-control mr-sm-2" type="search" placeholder="Wpisz nazwe produktu..." aria-label="Search" onChange={ e => handleChange(e.target.value) }/>
 
           </div>
-          <nav className={`navbar-nav ml-auto text-dark col-sm-12 col-md-4 border-0 pr-0 d-none d-sm-flex ${headerStyles.koszyk} ${headerStyles.disableSelect}`}>
+          <nav className={`navbar-nav text-dark col-xs-12 col-sm-4 border-0 pr-0 d-none d-sm-flex ${headerStyles.koszyk} ${headerStyles.disableSelect}`}>
 
             <div onClick={ ()=>{ handleCartClick() } } className=" col-sm-6 p-0 text-center row m-0">
 
@@ -115,16 +115,10 @@ const Header = ( props ) => {
           
           </nav>
           
-          <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
-            aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i
-            class="fas fa-bars fa-1x"></i></span>
-
-          </button>
-
         </div>
         
         {/* Mobile */}
-        <div className={`row p-0 overflow-hidden d-flex d-sm-none row h-100 mx-auto ${headerStyles.navbarXS}`}>
+        <div className={`row p-0 overflow-hidden d-flex d-md-none row h-100 mx-auto ${headerStyles.navbarXS}`}>
 
           <div className="col-7 h-100 pr-0">
 

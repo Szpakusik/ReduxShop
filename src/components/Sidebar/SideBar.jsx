@@ -12,7 +12,7 @@ const SideBar = (props) => {
   const displayProperty = props.showSidebarMobile ? "block" : "none" ;
   const [height, setDimensions] = React.useState(window.innerHeight)
 
-  const sidebarStyle = window.innerWidth > 580 ? {
+  const sidebarStyle = window.innerWidth > 845 ? {
     height: height - 58 + 'px',
   } : {display: displayProperty};
 
@@ -27,7 +27,7 @@ const SideBar = (props) => {
 
   return (
 
-    <div style={sidebarStyle} className={`col-sm-1 col-12 ${sideBar.sideBar}`}>
+    <div style={sidebarStyle} className={`col-md-1 col-12 ${sideBar.sideBar}`}>
       <div className="row h-100">
         {props.categories && props.categories.map((category, index) => (
           <CategoryElem activeTab={props.activeCategory} lp={index} length={props.categories.length} key={category.id} category={category} onClickFun={() => { props.setActiveCat(category.id) }} />

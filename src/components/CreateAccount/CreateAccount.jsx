@@ -52,7 +52,7 @@ const CreateAccount = (props) => {
 
             <div className="row w-100 mx-auto">
 
-                <div className={`col-0 col-md-5 ${createAccount.introduce} d-none d-sm-block`}>
+                <div className={`col-0 col-md-5 ${createAccount.introduce} d-none d-sm-block my-sm-5 `}>
                     <div className="w-100 h-100 p-4">
                         <span className="h3">Jesteśmy</span>
                         <img src={require('./../../images/z-dowozem-text.png')} alt=""/>
