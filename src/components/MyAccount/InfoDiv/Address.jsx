@@ -4,7 +4,7 @@ import infoDiv from './infoDiv.module.scss';
 
 const Address = (props) => {
 
-    const { address, editAddress, userAddresses, setActiveAddress, deleteAddress } = props;
+    const { address, editAddress, userAddresses, setActiveAddress, deleteAddress, management} = props;
 
     const active = address.active ? infoDiv.active : '';
 
@@ -61,6 +61,7 @@ const Address = (props) => {
         street: <input onChange={ e => handleGetStreet(e.target.value)} value={street} className="text-success"></input>,
     } 
     
+    if(management)
     return(
         <div className={`col-md-6 text-center no-select`}>  
 
@@ -74,6 +75,16 @@ const Address = (props) => {
             {editingAddress ? <button class="w-50 btn btn-outline-success" onClick={ () => handleConfirmAddress(address.id)}>Zapisz zmiany</button> : null}  
         </div>
     )
+    else{
+        return(
+        <div className={`col-md-6 text-center no-select`}>  
+            <div onClick={() => handleSetActiveAddress(address.id)} className={`pt-3 p-2 mb-3 bg-white ${infoDiv.adress} ${active}`}>
+            {dataAddressTag.postCode}   
+            {dataAddressTag.city}
+            {dataAddressTag.street}
+            </div>
+        </div>
+    )}
     
 }
 

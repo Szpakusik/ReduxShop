@@ -17,9 +17,9 @@ const InfoDiv = (props) => {
     const [email, handleGetEmail] = useState(user.email);
 
     const [addingAddress, setAddAddress] = useState(false);
-    const [city, handleGetCity] = useState();
-    const [postCode, handleGetPostCode] = useState();
-    const [street, handleGetStreet] = useState();
+    const [city, handleGetCity] = useState("");
+    const [postCode, handleGetPostCode] = useState("");
+    const [street, handleGetStreet] = useState("");
 
     const handleEditUser = () => setEditUser(!editingUser);
 
@@ -109,6 +109,7 @@ const InfoDiv = (props) => {
 
     const addresses = user.addresses.map(address => 
         <Address
+         management={true} 
          key={address.id}
          userAddresses={user.addresses}
          editAddress={editAddress}

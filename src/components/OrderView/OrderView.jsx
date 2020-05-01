@@ -5,7 +5,21 @@ import ChooseAddress from './ChooseAddress/ChooseAddress';
 import PaymentComponent from './PaymentComponent/PaymentComponent';
 import OrderProducts from './OrderProducts/OrderProducts';
 
+import Address from '../MyAccount/InfoDiv/Address';
+import { connect } from 'react-redux';
+
 const OrderView = (props) => {
+
+    const { addresses, setActiveAddress } = props
+
+    const userAddresses = addresses.map(address => 
+        <Address         
+         management={false}   
+         key={address.id}
+         userAddresses={addresses}
+         address={address}
+         setActiveAddress={setActiveAddress}
+         /> );
 
     return (
         <>
@@ -32,7 +46,8 @@ const OrderView = (props) => {
                 
                 <div className="col-md-5 pl-1">
 
-                    <ChooseAddress />
+                    {userAddresses}
+                    {/* <ChooseAddress /> */}
                     <PaymentComponent />
 
                 </div>
@@ -46,5 +61,16 @@ const OrderView = (props) => {
 
 }
 
+const mapStateToProps = (state) => {
+    return{
+        addresses: state.loginReducer.user.addresses
+    }
+}
 
-export default OrderView;
+const mapDispatchToProps = (dispatch) => {
+    return{
+         setActiveAddress: (id) => { dispatch( { type: "CHANGE_ACTIVE_ADDRESS", id: id, } ) },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderView);
