@@ -11,8 +11,8 @@ const SignedOut = ( props ) => {
 
   const handleClick = ()=> {
 
-    axios.get('http://localhost:3000/account', {
-      email: email,
+    axios.post('http://localhost:3000/account/login', {
+      username: email,
       password: password,
     })
     .then(function (response) {
