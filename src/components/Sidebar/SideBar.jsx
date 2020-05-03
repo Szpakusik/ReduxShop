@@ -25,8 +25,7 @@ const SideBar = (props) => {
     setDimensions(window.innerHeight);
     setDisplayProperty( window.innerWidth > 770 ? 'block' : 
     props.showSidebarMobile ? 'block' : 'none' );
-    props.showSearchboxMobile(window.innerWidth < 770 ? 'block' : 
-    props.showSidebarMobile ? true : false )
+    props.showSearchboxMobile(window.innerWidth < 770 ? props.searchboxMobileActive : false )
 
   }
 
@@ -67,6 +66,7 @@ const mapStateToProps = (state) => {
     activeCategory: state.categoryReducer.activeCategory,
     showSidebarMobile: state.categoryReducer.showSidebarMobile,
     categories: state.categoryReducer.categories,
+    searchboxMobileActive: state.productReducer.showSearchboxMobile,
   }
 }
 
