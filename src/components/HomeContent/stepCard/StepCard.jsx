@@ -8,7 +8,7 @@ const StepCard = (props) => {
     return(
         <>
 
-                    <div className={`col-md-4 ${stepCard.col}`}>
+                    <div className={`col-lg-4 col-12 col-md-6 mx-auto ${stepCard.col}`}>
 
                         <div className={`card m-1 ${stepCard.card}`}>
                             <div className={`row mx-auto`}>
@@ -16,7 +16,7 @@ const StepCard = (props) => {
                             </div>
                             
                             <div className="text-center px-2 py-3 bg-light">
-                                <p className="h3 mb-0 text-success"> {props.data.shortDesc} </p>
+                                <p className="h4 mb-0 text-success"> {props.data.shortDesc} </p>
                             </div>
 
                             <div className="">

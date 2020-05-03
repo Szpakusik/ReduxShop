@@ -52,7 +52,7 @@ const CreateAccount = (props) => {
 
             <div className="row w-100 mx-auto">
 
-                <div className={`col-0 col-md-5 ${createAccount.introduce} d-none d-sm-block my-sm-5 `}>
+                <div className={`col-0 col-md-6 col-lg-5 ${createAccount.introduce} d-none d-sm-block my-sm-5`}>
                     <div className="w-100 h-100 p-4">
                         <span className="h3">Jesteśmy</span>
                         <img src={require('./../../images/z-dowozem-text.png')} alt=""/>
@@ -64,7 +64,7 @@ const CreateAccount = (props) => {
                     </div>
                 </div>
 
-                <div className={`col-12 col-md-7 pl-5 pt-4 ${createAccount.form}`}>
+                <div className={`col-12 col-md-6 col-lg-7 pl-5 pt-4 ${createAccount.form} my-auto`}>
                     <div className="text-left">
                         <p className="h1 titan-font d-none d-sm-inline">Przedstaw się!</p>
                         <div className="row pt-3 mt-4 border-top">

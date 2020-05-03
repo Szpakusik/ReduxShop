@@ -1,5 +1,5 @@
-import React from 'react';
-import sideBar from './SideBar.module.scss';
+ import React, {useState, useEffect} from 'react';
+import sideBar from './sideBar.module.scss';
 import CategoryElem from './categoryElem/CategoryElem';
 import { connect } from 'react-redux';
 
@@ -9,20 +9,43 @@ const SideBar = (props) => {
     global.window = {}
   }
 
-  const displayProperty = props.showSidebarMobile ? "block" : "none" ;
-  const [height, setDimensions] = React.useState(window.innerHeight)
+  
 
-  const sidebarStyle = window.innerWidth > 845 ? {
+  // const [ displayProperty, setDisplayProperty ] = useState(props.showSidebarMobile ? "block" : "none");
+  const [ displayProperty, setDisplayProperty ] = useState('block');
+
+  const [height, setDimensions] = useState(window.innerHeight)
+
+  let sidebarStyle = window.innerWidth > 770 ? {
     height: height - 58 + 'px',
+    display: 'block'
   } : {display: displayProperty};
 
   function handleResize() {
-    setDimensions(window.innerHeight)
-    console.log('resize fired')
+    setDimensions(window.innerHeight);
+    setDisplayProperty( window.innerWidth > 770 ? 'block' : 
+    props.showSidebarMobile ? 'block' : 'none' );
+    props.showSearchboxMobile(window.innerWidth < 770 ? 'block' : 
+    props.showSidebarMobile ? true : false )
+
   }
 
-  React.useEffect(() => {
-    window.addEventListener('resize', handleResize)
+  useEffect(() => {
+    let resizeId;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeId);
+      resizeId = setTimeout(handleResize, 500);
+    });
+
+        
+    sidebarStyle = window.innerWidth > 770 ? {
+      height: height - 58 + 'px',
+      display: 'block'
+    } : {display: displayProperty};
+    
+    setDisplayProperty( window.innerWidth > 770 ? 'block' : 
+    props.showSidebarMobile ? 'block' : 'none' )
+    console.log(displayProperty)
   })
 
   return (
@@ -49,7 +72,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setActiveCat: (id) => { dispatch({ type: "SET_CATEGORY", id: id }) }
+    setActiveCat: (id) => { dispatch({ type: "SET_CATEGORY", id: id }) },
+    showSearchboxMobile: ( status )=>{
+      dispatch( { type:"SHOW_SEARCHBOX_MOBILE", status: status } )
+  },
   }
 }
 

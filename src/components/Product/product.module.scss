@@ -22,6 +22,32 @@
         height: 150px
     }
 
+    
+    @media only screen and (max-width: 992px){
+        width: 24%!important;
+        margin-left: 0;
+        margin-right: 1%;
+        min-height: 0px;
+        p{
+            height: none;
+        }
+        img{
+            height: 100px
+        }
+    }
+    @media only screen and (max-width: 767px){
+        width: 32%!important;
+        margin-left: 0;
+        margin-right: 1%;
+        min-height: 0px;
+        p{
+            height: none;
+        }
+        img{
+            height: 100px
+        }
+    }
+
     @media only screen and (max-width: 580px){
         width: 49%!important;
         margin-left: 0;

@@ -76,12 +76,12 @@ const Header = ( props ) => {
               <img src={require('./../../images/logo-transparent2.png')} alt=""/>
             </a>
           </Navbar.Brand>
-          <div className="col-sm-4 pr-5 pl-0">
+          <div className="col-md-3 col-lg-4 pr-lg-5 pl-sm-4 pl-0">
             
             <input className="form-control mr-sm-2" type="search" placeholder="Wpisz nazwe produktu..." aria-label="Search" onChange={ e => handleChange(e.target.value) }/>
 
           </div>
-          <nav className={`navbar-nav text-dark col-xs-12 col-sm-4 border-0 pr-0 d-none d-sm-flex ${headerStyles.koszyk} ${headerStyles.disableSelect}`}>
+          <nav className={`navbar-nav text-dark col-xs-12 col-sm-4 border-0 pr-0 d-none d-sm-flex ${headerStyles.cart} ${headerStyles.disableSelect}`}>
 
             <div onClick={ ()=>{ handleCartClick() } } className=" col-sm-6 p-0 text-center row m-0">
 
@@ -92,8 +92,8 @@ const Header = ( props ) => {
                 </i>
 
                 <p className='align-middle my-auto font-weight-bold float-left mr-2 my-auto'>
-                  Koszyk ({length}) 
-                  <span className="pl-2">{price}zł</span>
+                  <span className={`text-shadow ${headerStyles.cartFix}`}>Koszyk</span> ({length}) 
+                  <span className="pl-2 text-green">{price}zł</span>
                 </p>
 
               </div>
