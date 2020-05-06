@@ -83,6 +83,12 @@ const Address = (props) => {
             {dataAddressTag.city}
             {dataAddressTag.street}
             </div>
+            {/* <div className="col-md-6 text-center">
+                            <div onClick={ () => {addingAddress ? null : handleAddAddress()}} className={`pt-3 p-2 mb-3 rounded bg-white ${infoDiv.adress}`}>
+                            {addingAddress ? dataAddAddressTag.inputs : dataAddAddressTag.default}
+                            </div>
+                            {addingAddress ? dataAddAddressTag.buttons : null}
+            </div>    */}
         </div>
     )}
     

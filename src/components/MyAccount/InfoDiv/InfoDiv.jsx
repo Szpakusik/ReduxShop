@@ -115,7 +115,7 @@ const InfoDiv = (props) => {
          editAddress={editAddress}
          address={address}
          setActiveAddress={setActiveAddress}
-         deleteAddress={deleteAddress} 
+         deleteAddress={deleteAddress}
          /> );
 
     return(

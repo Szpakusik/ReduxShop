@@ -1,6 +1,8 @@
 import React from 'react';
 
-const PaymentComponent = (props) => {
+const PaymentComponent = ({price}) => {
+
+    let deliveryPrice = 16.80;
 
     return(
         <>
@@ -21,7 +23,14 @@ const PaymentComponent = (props) => {
                         { [].length == 0 ? 
                             "Nie udało się zainicjować transakcji, spróbuj ponownie!"
                         : '' }
-                    
+
+                        <div class="col-sm-12 text-left w-100 h4 mt-2 mb-0">Kwota: <span class="text-success">{price + " zł"}</span></div>
+                        <div class="col-sm-12 text-left w-100 h4 mt-2 mb-0">Wysyłka: <span class="text-success">{deliveryPrice.toFixed(2) + " zł"}</span></div> 
+                        <div class="col-sm-12 text-left w-100 h4 mt-2 mb-0">Suma: <span class="text-success">{parseFloat(price) + deliveryPrice + " zł"}</span></div>     
+                        
+
+                        <button>Kupuję i płacę</button>                        
+                                                        
                     </div>
                 </ul>
             </div>

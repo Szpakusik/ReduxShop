@@ -4,13 +4,15 @@ import myAccount from '../MyAccount/myAccount.module.scss'
 import ChooseAddress from './ChooseAddress/ChooseAddress';
 import PaymentComponent from './PaymentComponent/PaymentComponent';
 import OrderProducts from './OrderProducts/OrderProducts';
-
 import Address from '../MyAccount/InfoDiv/Address';
 import { connect } from 'react-redux';
+import { getCartPrice } from '../../utils/functions/cartFunctions'
 
 const OrderView = (props) => {
 
-    const { addresses, setActiveAddress } = props
+    const { addresses, setActiveAddress, cart } = props;
+
+    let price = getCartPrice(cart)
 
     const userAddresses = addresses.map(address => 
         <Address         
@@ -39,7 +41,7 @@ const OrderView = (props) => {
                 <div className="col-md-7 pr-1">
                     
                     <OrderProducts />
-
+                  
                 </div>
                 
 
@@ -48,7 +50,7 @@ const OrderView = (props) => {
 
                     {userAddresses}
                     {/* <ChooseAddress /> */}
-                    <PaymentComponent />
+                    <PaymentComponent price={price} />
 
                 </div>
 
@@ -63,7 +65,8 @@ const OrderView = (props) => {
 
 const mapStateToProps = (state) => {
     return{
-        addresses: state.loginReducer.user.addresses
+        addresses: state.loginReducer.user.addresses,
+        cart: state.cartReducer.cartProducts,
     }
 }
 
