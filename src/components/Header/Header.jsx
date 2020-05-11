@@ -5,7 +5,9 @@ import { Link } from 'gatsby';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import { connect } from 'react-redux';
-import { getCartPrice } from './../../utils/functions/cartFunctions'
+import { getCartPrice } from './../../utils/functions/cartFunctions';
+import { clientUrl } from '../../utils/content/url';
+
 
 import headerStyles from './header.module.scss';
 
@@ -72,7 +74,7 @@ const Header = ( props ) => {
        
         <div className='container-fluid p-0 overflow-hidden d-none d-md-flex'>
           <Navbar.Brand className={`banner navbar-header col-xs-12 col-sm-4 ${headerStyles.banner}`}>
-            <a className="navbar-brand text-sm-center" href="//localhost:8000">
+            <a className="navbar-brand text-sm-center" href={ clientUrl } >
               <img src={require('./../../images/logo-transparent2.png')} alt=""/>
             </a>
           </Navbar.Brand>
@@ -132,7 +134,7 @@ const Header = ( props ) => {
 
               <div className="col-10 pl-0">
                 <Navbar.Brand className={`banner navbar-header ${headerStyles.banner}`}>
-                  <a className="navbar-brand text-sm-center px-1 py-2" href="//localhost:8000">
+                  <a className="navbar-brand text-sm-center px-1 py-2" href={ clientUrl }>
                     <img src={require('./../../images/logo-transparentCut.png')}  alt=""/>
                   </a>
                 </Navbar.Brand>

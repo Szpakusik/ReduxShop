@@ -21,7 +21,7 @@ const OrderProducts = ( props ) => {
 
 
 
-        axios.post('http://localhost:3000/order/create', {
+        axios.post( serverUrl + '/order/create', {
             cart: props.cart,
         })
         .then(function (response) {

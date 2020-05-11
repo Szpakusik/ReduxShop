@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import createAccount from './createAccount.module.scss';
 import axios from 'axios';
+import { serverUrl } from '../../utils/content/url'
+
 
 const CreateAccount = (props) => {
 
@@ -17,7 +19,7 @@ const CreateAccount = (props) => {
     
     const handleClick = ()=> {
 
-        axios.post('http://localhost:3000/account/register', {
+        axios.post( serverUrl + '/account/register', {
             firstName: firstName,
             secondName: secondName,
             email: email,
