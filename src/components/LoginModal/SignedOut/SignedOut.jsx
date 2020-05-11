@@ -2,25 +2,30 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import signedOut from './signedOut.module.scss'
 import { connect } from 'react-redux';
-import { GoogleLoginButton } from '../loginGoogle/LoginGoogle'
+import { GoogleLoginButton } from '../loginGoogle/LoginGoogle';
+import { serverUrl } from '../../../utils/content/url';
 
 const SignedOut = ( props ) => {
     
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleClick = ()=> {
 
-    axios.post('http://localhost:3000/account/login', {
+    axios.post( serverUrl + '/account/login', {
       username: email,
       password: password,
     })
     .then(function (response) {
       console.log(response);
-      props.signIn()
+      localStorage.setItem('JWT', response.data.token)
+      props.signIn();
+      setMessage( '' );
     })
     .catch(function (error) {
       console.log(error);
+      setMessage( 'Błąd logowania, spróbuj ponownie' );
     });
     
   }
@@ -46,7 +51,7 @@ const SignedOut = ( props ) => {
                 <label htmlfor="password"><b>Hasło</b></label><br />
                 <input type="password" onChange={ e => setPassword(e.target.value) } className={`${signedOut.input} w-100`} id="password"/>
             </div>
-
+            <div className="row m-0 text-center w-100"><p className="text-danger w-100 pt-3 mb-0">{message}</p></div>
             <div className="row px-3">
 
               <div className="col-sm-12 text-left h4 mt-4 mb-0"> 

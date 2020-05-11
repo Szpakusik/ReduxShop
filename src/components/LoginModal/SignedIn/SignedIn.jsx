@@ -1,24 +1,64 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import signedIn from './signedIn.module.scss'
+
+import { serverUrl } from '../../../utils/content/url';
+import { getCartPrice } from '../../../utils/functions/cartFunctions';
+
 
 const SignedIn = ( props ) => {
 
   const handleClick = ( page )=>{
-    props.setActiveCat(0)
-    props.setActivePage( page )
+    props.setActiveCat(0);
+    props.setActivePage( page );
+
+    let accessString = localStorage.getItem('JWT')
+
+    axios.get( serverUrl + '/account/findUser', {
+      headers: { 
+        Authorization: `JWT ${accessString}`,
+      }
+    })
+    .then(function (response) {
+      console.log(response.body);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
   }
 
   const handleClick2 = ( page )=>{
+    localStorage.removeItem('JWT')
     props.signOut();
+  }
+
+  const handleTestClick = ( )=>{
+    
+    axios.post( serverUrl + '/payment/sendorder',{
+
+      price: getCartPrice(props.cart),
+      cart: props.cart
+
+    })
+    .then( (response) => {
+      console.log(response);
+
+      if(response.data.redirectUri) 
+        window.open(response.data.redirectUri, "_blank")
+
+    }, err => console.log(err) )
+
+
   }
   return(
     <>
     <div className={`container text-dark ${signedIn.signedIn} pt-3`}>
        
-        <div className="row border-bottom p-3" onClick={ ()=>{ handleClick('homepage') }}>
-          <p className="h5 m-0">Listy zakupów</p>
+        <div className="row border-bottom p-3" onClick={ ()=>{ handleTestClick() }}>
+          <p className="h5 m-0">Test Button</p>
         </div>
         <div className="row border-bottom p-3" onClick={ ()=>{ handleClick('myAccount') }}>
           <p className="h5 m-0">Moje konto</p>
@@ -40,7 +80,7 @@ const SignedIn = ( props ) => {
 
 const mapStateToProps = (state) => {
   return{
-    products: state.loginReducer.logged,
+    cart: state.cartReducer.cartProducts,
   }
 }
 
