@@ -17,13 +17,17 @@
     i{
         cursor: pointer;
     }
-
+    
+    
+    @media only screen and (max-width: 890px){
+        width: 50%;
+    }
+    
     @media only screen and (max-width: 580px){
         width: 100%;
         top: 49px;
         border-top: 1px;
     }
-
 }
 
 .photoContainer{
@@ -31,5 +35,5 @@
 }
 
 .productRow{
-    height: 50px;
+    min-height: 50px;
 }

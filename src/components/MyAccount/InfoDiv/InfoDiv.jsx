@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import infoDiv from './infoDiv.module.scss';
 import Address from './Address'
+import { serverUrl } from '../../../utils/content/url';
 
 const InfoDiv = (props) => {
 
     const  { user, editUser, editAddress, addAddress, setActiveAddress, deleteAddress } = props;
 
-    const URL = 'http://localhost:3000/account/edit';
+    const URL = serverUrl + '/account/edit';
 
     const [editingUser, setEditUser] = useState(false);
     const [name, handleGetName] = useState(user.name);

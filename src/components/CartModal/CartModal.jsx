@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { getCartPrice } from './../../utils/functions/cartFunctions'
 import cartModal from './cartModal.module.scss';
+import { serverUrl } from '../../utils/content/url'
 
 const CartModal = ( props ) => {
 
@@ -24,7 +25,7 @@ const CartModal = ( props ) => {
         props.showCart( false );
         props.setActivePage('sendOrder');
 
-        axios.post('http://localhost:3000/order/create', {
+        axios.post( serverUrl + '/order/create', {
             cart: props.cart,
         })
         .then(function (response) {

@@ -11,7 +11,7 @@
         height: 50px;
     }
 
-    @media only screen and (max-width: 580px){
+    @media only screen and (max-width: 992px){
         height: inherit;
         min-height: 1px;
         img{
@@ -42,13 +42,13 @@
         }
     }
 }
-.koszyk{
+.cart{
     // background-color: rgb(232, 255, 195);
     min-height: 58px;
     border-left: 2px solid green;
-
+    flex-direction: row;
     span{
-        color: green;
+        // color: green;
     }
     i{
         color: green;
@@ -89,4 +89,9 @@
 .searchbarXS{
     top: 49px;
     z-index: 2;
+}
+.cartFix{
+    @media only screen and (max-width: 1200px){
+        display: none;
+    }
 }

@@ -5,7 +5,9 @@ import { Link } from 'gatsby';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import { connect } from 'react-redux';
-import { getCartPrice } from './../../utils/functions/cartFunctions'
+import { getCartPrice } from './../../utils/functions/cartFunctions';
+import { clientUrl } from '../../utils/content/url';
+
 
 import headerStyles from './header.module.scss';
 
@@ -28,19 +30,17 @@ const Header = ( props ) => {
 
   const handleCartClick = () => {
     props.showCart( !props.cartActive );
+    props.showSidebar( false )
     props.showLogin( false );
   }
 
   const handleLoginClick = () => {
     props.showLogin( !props.loginActive );
     props.showCart( false );
+    props.showSidebar( false )
   }
   const handleSearchboxMobileClick = () => {
     props.showSearchboxMobile( !props.searchboxMobileActive );
-    console.log(displayProperty)
-    console.log(props.searchboxMobileActive)
-    // props.sendSearchString( value )
-
     props.showCart( false );
     props.showLogin( false );
     props.showSidebar( false )
@@ -48,6 +48,8 @@ const Header = ( props ) => {
 
   const handleMenuClick = () => {
     props.showSidebar( !props.sidebarActive );
+    props.showCart( false );
+    props.showLogin( false );
   }
 
   const handleChange = ( value ) => {
@@ -70,18 +72,18 @@ const Header = ( props ) => {
     <header className={`header ${headerStyles.header}`}>
       <nav className="navbar navbar-light navbar-expand-lg navbar-fixed-top sticky-header p-0">
        
-        <div className='container-fluid p-0 overflow-hidden d-none d-sm-flex'>
+        <div className='container-fluid p-0 overflow-hidden d-none d-md-flex'>
           <Navbar.Brand className={`banner navbar-header col-xs-12 col-sm-4 ${headerStyles.banner}`}>
-            <a className="navbar-brand text-sm-center" href="//localhost:8000">
+            <a className="navbar-brand text-sm-center" href={ clientUrl } >
               <img src={require('./../../images/logo-transparent2.png')} alt=""/>
             </a>
           </Navbar.Brand>
-          <div className="col-sm-4 pr-5 pl-0">
+          <div className="col-md-3 col-lg-4 pr-lg-5 pl-sm-4 pl-0">
             
             <input className="form-control mr-sm-2" type="search" placeholder="Wpisz nazwe produktu..." aria-label="Search" onChange={ e => handleChange(e.target.value) }/>
 
           </div>
-          <nav className={`navbar-nav ml-auto text-dark col-sm-12 col-md-4 border-0 pr-0 d-none d-sm-flex ${headerStyles.koszyk} ${headerStyles.disableSelect}`}>
+          <nav className={`navbar-nav text-dark col-xs-12 col-sm-4 border-0 pr-0 d-none d-sm-flex ${headerStyles.cart} ${headerStyles.disableSelect}`}>
 
             <div onClick={ ()=>{ handleCartClick() } } className=" col-sm-6 p-0 text-center row m-0">
 
@@ -92,8 +94,8 @@ const Header = ( props ) => {
                 </i>
 
                 <p className='align-middle my-auto font-weight-bold float-left mr-2 my-auto'>
-                  Koszyk ({length}) 
-                  <span className="pl-2">{price}zł</span>
+                  <span className={`text-shadow ${headerStyles.cartFix}`}>Koszyk</span> ({length}) 
+                  <span className="pl-2 text-green">{price}zł</span>
                 </p>
 
               </div>
@@ -115,16 +117,10 @@ const Header = ( props ) => {
           
           </nav>
           
-          <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
-            aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i
-            class="fas fa-bars fa-1x"></i></span>
-
-          </button>
-
         </div>
         
         {/* Mobile */}
-        <div className={`row p-0 overflow-hidden d-flex d-sm-none row h-100 mx-auto ${headerStyles.navbarXS}`}>
+        <div className={`row p-0 overflow-hidden d-flex d-md-none row h-100 mx-auto ${headerStyles.navbarXS}`}>
 
           <div className="col-7 h-100 pr-0">
 
@@ -138,7 +134,7 @@ const Header = ( props ) => {
 
               <div className="col-10 pl-0">
                 <Navbar.Brand className={`banner navbar-header ${headerStyles.banner}`}>
-                  <a className="navbar-brand text-sm-center px-1 py-2" href="//localhost:8000">
+                  <a className="navbar-brand text-sm-center px-1 py-2" href={ clientUrl }>
                     <img src={require('./../../images/logo-transparentCut.png')}  alt=""/>
                   </a>
                 </Navbar.Brand>

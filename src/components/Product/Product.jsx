@@ -27,7 +27,7 @@ const Product = ( props ) => {
 
   return(
 
-    <div className={`container card col-6 col-sm-2 text-dark float-left text-center ${product.product}`}>
+    <div className={`container card col-6 col-sm-4 col-md-3 col-lg-2 text-dark float-left text-center ${product.product}`}>
         <div className={`${product.photoContainer} row my-2`}>
             <img class="card-img-top" src={require(`./../../images/${props.product.photo}`)} alt="Product" />
         </div>

@@ -6,7 +6,8 @@ import mainContent from './mainContent.module.scss'
 import footerCss from '../Footer/footer.module.scss'
 import { connect } from 'react-redux';
 import { showContent } from '../../utils/functions/contentFunctions';
-import axios from 'axios'
+import axios from 'axios';
+import { serverUrl } from '../../utils/content/url';
 
 const MainContent = ( props ) => {
 
@@ -16,7 +17,7 @@ const MainContent = ( props ) => {
 
   useEffect(() => {
 
-        axios.get('http://localhost:3000/product', {})
+        axios.get( serverUrl + '/product', {})
         .then(function (response) {
             // console.log(response);
             props.getAllProducts(response.data)
@@ -29,7 +30,7 @@ const MainContent = ( props ) => {
 
   return(
     <>
-    <div className={`container mr-0 text-dark pb-0 p-3 col-md-11 ${mainContent.mainContent}`} onClick={ ()=>{ handleClick() } }>
+    <div className={`container mr-0 text-dark pb-0 p-3 col-12 col-md-11 ${mainContent.mainContent}`} onClick={ ()=>{ handleClick() } }>
       
       {
         props.activeCategory === 0 ? showContent(props.activePage)
