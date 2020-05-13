@@ -5,12 +5,13 @@ import ChooseAddress from './ChooseAddress/ChooseAddress';
 import PaymentComponent from './PaymentComponent/PaymentComponent';
 import OrderProducts from './OrderProducts/OrderProducts';
 import Address from '../MyAccount/InfoDiv/Address';
+import AddNewAddress from '../MyAccount/InfoDiv/AddNewAddress'
 import { connect } from 'react-redux';
 import { getCartPrice } from '../../utils/functions/cartFunctions'
 
 const OrderView = (props) => {
 
-    const { addresses, setActiveAddress, cart } = props;
+    const { addresses, setActiveAddress, cart, addAddress } = props;
 
     let price = getCartPrice(cart)
 
@@ -24,8 +25,6 @@ const OrderView = (props) => {
          /> );
 
     return (
-        <>
-        
         <div className={`container ${myAccount.index} mb-5`}>
 
             <div className={`row w-100 ${myAccount.header} pt-2 mx-auto px-1 transparent-darker`}>
@@ -38,29 +37,37 @@ const OrderView = (props) => {
 
             <div className="row">
 
-                <div className="col-md-7 pr-1">
+                <div className="col-md-6 pr-1">
                     
                     <OrderProducts />
                   
                 </div>
                 
+                <div className="col-md-6 pl-1">
 
-                
-                <div className="col-md-5 pl-1">
+                    <div class="row w-100 mx-auto">
 
-                    {userAddresses}
-                    {/* <ChooseAddress /> */}
-                    <PaymentComponent price={price} />
+                    <div className={`row w-100 mx-auto ${myAccount.addresses}`}>
 
+                        <div className="mt-4 text-center w-100">
+
+                        <div className="card-header radius-none transparent-darker">
+                            <span className="h4 card-title text-white">Wybierz adres dostawy</span>
+                        </div>
+
+                    </div>       
+
+                    </div> 
+                        {userAddresses}
+                        <AddNewAddress addAddress={addAddress}/>
+                    </div>
+                        {/* <ChooseAddress /> */}
+                        <PaymentComponent addresses={addresses} price={price} cart={cart} />
                 </div>
 
             </div>
         </div>
-
-
-        </>
     )
-
 }
 
 const mapStateToProps = (state) => {
@@ -73,6 +80,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return{
          setActiveAddress: (id) => { dispatch( { type: "CHANGE_ACTIVE_ADDRESS", id: id, } ) },
+         addAddress: ( city, postCode, street, ) => { dispatch( { type: "ADD_ADDRESS", city: city, postCode: postCode, street: street, } ) },
     }
 }
 
