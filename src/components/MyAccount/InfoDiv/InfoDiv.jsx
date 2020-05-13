@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import infoDiv from './infoDiv.module.scss';
 import Address from './Address'
+import AddNewAddress from './AddNewAddress'
 import { serverUrl } from '../../../utils/content/url';
 
 const InfoDiv = (props) => {
@@ -16,11 +17,6 @@ const InfoDiv = (props) => {
     const [surname, handleGetSurname] = useState(user.surname);
     const [phone, handleGetPhone] = useState(user.phone);
     const [email, handleGetEmail] = useState(user.email);
-
-    const [addingAddress, setAddAddress] = useState(false);
-    const [city, handleGetCity] = useState("");
-    const [postCode, handleGetPostCode] = useState("");
-    const [street, handleGetStreet] = useState("");
 
     const handleEditUser = () => setEditUser(!editingUser);
 
@@ -49,32 +45,6 @@ const InfoDiv = (props) => {
         });    
     }
 
-    const handleSendAddress = () => {
-
-        if(addingAddress === true){
-            setAddAddress(!addingAddress);
-            addAddress(city, postCode, street);
-        } else
-        return;   
-
-        axios.post(URL, {
-            city,
-            postCode,
-            street,
-        })
-        .then(response => {
-            if(response.ok){
-                console.log(response);     
-            }
-            throw Error("Błąd")
-        })
-        .catch(error => {
-            console.log(error);
-        });    
-    }
-
-    const handleAddAddress = () => setAddAddress(!addingAddress);
-
     const dataUserTag = {
         name: <span className="text-success">{user.name}</span>,
         surname: <span className="text-success">{user.surname}</span>,
@@ -89,25 +59,6 @@ const InfoDiv = (props) => {
         email: <input onChange={ e => handleGetEmail(e.target.value)} value={email} className="text-success"></input>,
     }
 
-    const dataAddAddressTag = {
-        default:
-            <>
-                <p className='border-0'><span className="text-dark">Dodaj adres</span></p>
-                <p className='border-0'><span className="text-dark material-icons">add</span></p>
-            </>,
-        inputs:
-            <>
-            <input onChange={ e => handleGetPostCode(e.target.value)} value={postCode} className="text-success" placeholder={`Kod pocztowy`}></input>
-            <input onChange={ e => handleGetCity(e.target.value)} value={city} className="text-success" placeholder={`Miasto`}></input>
-            <input onChange={ e => handleGetStreet(e.target.value)} value={street} className="text-success" placeholder={`Ulica`}></input>   
-            </>,
-        buttons:
-            <>
-            <button class="w-50 btn btn-outline-success" onClick={ () => handleAddAddress()}>{addingAddress ? 'Anuluj' : 'Dodaj'}</button>
-            <button class="w-50 btn btn-outline-success" onClick={ () => handleSendAddress()}>Dodaj adres</button>
-            </>    
-       }
-
     const addresses = user.addresses.map(address => 
         <Address
          management={true} 
@@ -119,9 +70,7 @@ const InfoDiv = (props) => {
          deleteAddress={deleteAddress}
          /> );
 
-    return(
-        <>
-        
+    return(    
         <div className="row w-100 mx-auto">
             <div className="mt-4 w-100 ">
                 <div className="card-header radius-none text-center transparent-darker">
@@ -170,17 +119,11 @@ const InfoDiv = (props) => {
 
                     <div className="row">
                         { addresses }
-                        <div className="col-md-6 text-center">
-                            <div onClick={ () => {addingAddress ? null : handleAddAddress()}} className={`pt-3 p-2 mb-3 rounded bg-white ${infoDiv.adress}`}>
-                            {addingAddress ? dataAddAddressTag.inputs : dataAddAddressTag.default}
-                            </div>
-                            {addingAddress ? dataAddAddressTag.buttons : null}
-                        </div>                       
+                        <AddNewAddress addAddress={addAddress}/>               
                     </div>
                 </div>
             </div>
         </div>
-        </>
     )
 }
 
