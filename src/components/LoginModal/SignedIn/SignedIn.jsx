@@ -19,7 +19,7 @@ const SignedIn = ( props ) => {
     axios.get( serverUrl + '/account/findUser', {
       headers: { 
         Authorization: `JWT ${accessString}`,
-      }
+      },
     })
     .then(function (response) {
       console.log(response.body);
@@ -37,20 +37,33 @@ const SignedIn = ( props ) => {
 
   const handleTestClick = ( )=>{
     
-    axios.post( serverUrl + '/payment/sendorder',{
+    // axios.post( serverUrl + '/payment/sendorder',{
+    //   price: getCartPrice(props.cart),
+    //   cart: props.cart
+    // })
+    // .then( (response) => {
+    //   console.log(response);
 
-      price: getCartPrice(props.cart),
-      cart: props.cart
+    //   if(response.data.redirectUri) 
+    //     window.open(response.data.redirectUri, "_blank")
 
+    // }, err => console.log(err) )
+
+    let accessString = localStorage.getItem('JWT')
+    axios.post( serverUrl + '/address',{
+      city: "Warszawa",
+      address: "ul. Wyzwolenia 143/12",
+      postCode: "23-234",
+      userId: 2 
+    },{
+      headers: { 
+        Authorization: `JWT ${accessString}`,
+      },
     })
     .then( (response) => {
       console.log(response);
-
-      if(response.data.redirectUri) 
-        window.open(response.data.redirectUri, "_blank")
-
     }, err => console.log(err) )
-
+    
 
   }
   return(
