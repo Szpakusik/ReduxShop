@@ -56,14 +56,14 @@ const Address = (props) => {
     }
 
     const dataAddressEditTag = {
-        city: <input onChange={ e => handleGetCity(e.target.value)} value={city} className="text-success"></input>,
-        postCode: <input onChange={ e => handleGetPostCode(e.target.value)} value={postCode} className="text-success"></input>,
-        street: <input onChange={ e => handleGetStreet(e.target.value)} value={street} className="text-success"></input>,
+        city: <input onChange={ e => handleGetCity(e.target.value)} value={city} className={`text-success ${infoDiv.addressInfo}`} placeholder={`Miasto`}></input>,
+        postCode: <input onChange={ e => handleGetPostCode(e.target.value)} value={postCode} className={`text-success ${infoDiv.addressInfo}`} placeholder={`Kod pocztowy`}></input>,
+        street: <input onChange={ e => handleGetStreet(e.target.value)} value={street} className={`text-success ${infoDiv.addressInfo}`} placeholder={`Ulica`}></input>,
     } 
     
     if(management)
     return(
-        <div className={`col-md-6 text-center no-select`}>  
+        <div className={`col-md-6 text-center no-select ${infoDiv.address}`}>  
 
             <div onClick={() => handleSetActiveAddress(address.id)} className={`pt-3 p-2 mb-3 bg-white ${infoDiv.adress} ${active}`}>
                 {editingAddress ? dataAddressEditTag.postCode : dataAddressTag.postCode}
@@ -71,8 +71,10 @@ const Address = (props) => {
                 {editingAddress ? dataAddressEditTag.street : dataAddressTag.street}
                 {editingAddress ? <button onClick={ () => handleDeleteAddress(address.id)} class="w-50 btn btn-outline-success">Usuń adres</button> : null}
             </div>
-            <button class="w-50 btn btn-outline-success" onClick={() => handleEditAddress(address.id)}>{editingAddress ? 'Anuluj' : 'Edytuj'}</button>
-            {editingAddress ? <button class="w-50 btn btn-outline-success" onClick={ () => handleConfirmAddress(address.id)}>Zapisz zmiany</button> : null}  
+            <div className={`${infoDiv.editUserWrapper}`}>
+                <button class={`btn btn-outline-success ${infoDiv.editUserButton}`}onClick={() => handleEditAddress(address.id)}>{editingAddress ? 'Anuluj' : 'Edytuj'}</button>
+                {editingAddress ? <button class={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={ () => handleConfirmAddress(address.id)}>Zapisz</button> : null}  
+            </div>
         </div>
     )
     else{
