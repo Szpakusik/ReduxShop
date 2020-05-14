@@ -41,11 +41,6 @@ const PaymentComponent = ({price, addresses, cart}) => {
                         <div class="col-sm-12 text-left w-100 h4 mt-2 mb-0">Suma: <span class="text-success">{parseFloat(totalPrice).toFixed(2) + " zł"}</span></div>  
 
                         <div className={paymentComponent.payment}>
-                            <input onClick={ () => setPayment('transfer')} type="radio" id="transfer" name="payment" value="transfer" defaultChecked/>
-                            <label for="transfer">Przelew bankowy</label>
-                        </div>
-
-                        <div className={paymentComponent.payment}>
                             <input onClick={ () => setPayment('cash-on-delivery')} type="radio" id="cash-on-delivery" name="payment" value="cash-on-delivery"/>
                             <label for="cash-on-delivery">Za pobraniem</label>
                         </div>   

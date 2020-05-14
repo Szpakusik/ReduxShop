@@ -13,3 +13,28 @@
     border: 1px solid black;
     cursor: inherit;
 }
+
+.address{
+    margin-bottom: 20px;
+}
+
+.userInfo{
+    padding-left: 5px;
+}
+
+.editUserWrapper{
+    text-align: center;
+}
+
+.editUserButton{
+   width: 40%;
+}
+
+.editUserButton:first-child{
+   margin-right: 20px;
+ }
+
+ .addressInfo{
+    padding-left: 5px;
+    margin-bottom: 7px;
+}
