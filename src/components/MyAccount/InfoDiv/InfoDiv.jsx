@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import infoDiv from './infoDiv.module.scss';
@@ -7,6 +7,28 @@ import AddNewAddress from './AddNewAddress'
 import { serverUrl } from '../../../utils/content/url';
 
 const InfoDiv = (props) => {
+
+    useEffect( () => {
+
+        let accessString = localStorage.getItem('JWT')
+
+        axios.get( serverUrl + '/account/details', {
+            headers: { 
+                'Authorization': `JWT ${accessString}`,
+            },
+        })
+        .then(function (response) {
+            const{ name, surname, email, phone } = response.data[0]
+            editUser( name, surname, email, phone )
+            console.log(response)
+            console.log(user)
+
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+    }, [])
 
     const  { user, editUser, editAddress, addAddress, setActiveAddress, deleteAddress } = props;
 
@@ -128,4 +150,20 @@ const InfoDiv = (props) => {
     )
 }
 
-export default InfoDiv
+const mapStateToProps = (state) => {
+    return{
+        user: state.loginReducer.user
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+         editUser: ( name, surname, email, phone ) => { dispatch( { type: "EDIT_USER", name: name, surname: surname, email: email, phone: phone } ) },
+         editAddress: ( id, city, postCode, street ) => { dispatch( { type: "EDIT_ADDRESS", id: id, city: city, postCode: postCode, street: street } ) },
+         addAddress: ( city, postCode, street, ) => { dispatch( { type: "ADD_ADDRESS", city: city, postCode: postCode, street: street, } ) },
+         setActiveAddress: (id) => { dispatch( { type: "CHANGE_ACTIVE_ADDRESS", id: id, } ) },
+         deleteAddress:  (id) => { dispatch( { type: "DELETE_ADDRESS", id: id, } ) },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(InfoDiv)
