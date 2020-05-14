@@ -41,27 +41,22 @@ const PaymentComponent = ({price, addresses, cart}) => {
                         <div class="col-sm-12 text-left w-100 h4 mt-2 mb-0">Suma: <span class="text-success">{parseFloat(totalPrice).toFixed(2) + " zł"}</span></div>  
 
                         <div className={paymentComponent.payment}>
-                            <input onClick={ () => setPayment('transfer')} type="radio" id="transfer" name="payment" value="transfer" defaultChecked/>
-                            <label for="transfer">Przelew bankowy</label>
-                        </div>
-
-                        <div className={paymentComponent.payment}>
-                            <input onClick={ () => setPayment('cash-on-delivery')} type="radio" id="cash-on-delivery" name="payment" value="cash-on-delivery"/>
+                            <input class={`${paymentComponent.sendOrder}`} onClick={ () => setPayment('cash-on-delivery')} type="radio" id="cash-on-delivery" name="payment" value="cash-on-delivery"/>
                             <label for="cash-on-delivery">Za pobraniem</label>
                         </div>   
 
                         
                         <div className={paymentComponent.payment}>
-                            <input onClick={ () => setPayment('paypal')}  type="radio" id="paypal" name="payment" value="paypal"/>
+                            <input class={`${paymentComponent.sendOrder}`} onClick={ () => setPayment('paypal')}  type="radio" id="paypal" name="payment" value="paypal"/>
                             <label for="paypal">PayPal</label>
                         </div>
 
                         <div className={paymentComponent.payment}>
-                            <input defaultChecked={regulations} onClick={ () => acceptRegulations(!regulations)} type="checkbox" id="regulations" name="regulations"/>
+                            <input class={`${paymentComponent.sendOrder}`} defaultChecked={regulations} onClick={ () => acceptRegulations(!regulations)} type="checkbox" id="regulations" name="regulations"/>
                             <label for="regulations">Przeczytałem/am i akceptuję regulamin*</label>
                         </div>
                         
-                        <button onClick={handlePayment}>Kupuję i płacę</button> 
+                        <button class={`btn btn-outline-success`} onClick={handlePayment}>Kupuję i płacę</button> 
                                                                                                               
                     </div>
                     

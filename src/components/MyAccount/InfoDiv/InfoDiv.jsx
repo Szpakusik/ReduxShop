@@ -53,10 +53,10 @@ const InfoDiv = (props) => {
     } 
 
     const dataUserEditTag = {
-        name: <input onChange={ e => handleGetName(e.target.value)} value={name} className="text-success"></input>,
-        surname: <input onChange={ e => handleGetSurname(e.target.value)} value={surname} className="text-success"></input>,
-        phone: <input onChange={ e => handleGetPhone(e.target.value)} value={phone} className="text-success"></input>,
-        email: <input onChange={ e => handleGetEmail(e.target.value)} value={email} className="text-success"></input>,
+        name: <input onChange={ e => handleGetName(e.target.value)} value={name} className={`text-success ${infoDiv.userInfo}`}></input>,
+        surname: <input onChange={ e => handleGetSurname(e.target.value)} value={surname} className={`text-success ${infoDiv.userInfo}`}></input>,
+        phone: <input onChange={ e => handleGetPhone(e.target.value)} value={phone} className={`text-success ${infoDiv.userInfo}`}></input>,
+        email: <input onChange={ e => handleGetEmail(e.target.value)} value={email} className={`text-success ${infoDiv.userInfo}`}></input>,
     }
 
     const addresses = user.addresses.map(address => 
@@ -109,9 +109,10 @@ const InfoDiv = (props) => {
                             <p>{editingUser ? dataUserEditTag.email  : dataUserTag.email}</p>
                         </div>
                     </div>
-
-                    <button class="w-50 btn btn-outline-success" onClick={ () => handleEditUser()}>{editingUser ? 'Anuluj' : 'Edytuj'}</button>
-                    {editingUser ? <button class="w-50 btn btn-outline-success" onClick={ () => handleConfirmUser()}>Zapisz zmiany</button> : null}
+                    <div className={`${infoDiv.editUserWrapper}`}>
+                        <button class={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={ () => handleEditUser()}>{editingUser ? 'Anuluj' : 'Edytuj'}</button>
+                        {editingUser ? <button class={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={ () => handleConfirmUser()}>Zapisz</button> : null}
+                    </div>
 
                     <div className="row col-sm-12 pt-3 w-100">
                         <p className='border-0 mb-3'><b>Adresy:</b></p>

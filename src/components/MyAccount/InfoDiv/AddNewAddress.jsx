@@ -46,15 +46,15 @@ const AddNewAddress = (props) => {
             </>,
         inputs:
             <>
-            <input onChange={ e => handleGetPostCode(e.target.value)} value={postCode} className="text-success" placeholder={`Kod pocztowy`}></input>
-            <input onChange={ e => handleGetCity(e.target.value)} value={city} className="text-success" placeholder={`Miasto`}></input>
-            <input onChange={ e => handleGetStreet(e.target.value)} value={street} className="text-success" placeholder={`Ulica`}></input>   
+            <input onChange={ e => handleGetPostCode(e.target.value)} value={postCode} className={`text-success ${infoDiv.addressInfo}`} placeholder={`Kod pocztowy`}></input>
+            <input onChange={ e => handleGetCity(e.target.value)} value={city} className={`text-success ${infoDiv.addressInfo}`} placeholder={`Miasto`}></input>
+            <input onChange={ e => handleGetStreet(e.target.value)} value={street} className={`text-success ${infoDiv.addressInfo}`} placeholder={`Ulica`}></input>   
             </>,
         buttons:
-            <>
-            <button class="w-50 btn btn-outline-success" onClick={ () => handleAddAddress()}>{addingAddress ? 'Anuluj' : 'Dodaj'}</button>
-            <button class="w-50 btn btn-outline-success" onClick={ () => handleSendAddress()}>Dodaj adres</button>
-            </>    
+            <div className={`${infoDiv.editUserWrapper}`}>
+                <button class={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={ () => handleAddAddress()}>{addingAddress ? 'Anuluj' : 'Dodaj'}</button>
+                <button class={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={ () => handleSendAddress()}>Dodaj</button>
+            </div>   
        }
   
     return(
