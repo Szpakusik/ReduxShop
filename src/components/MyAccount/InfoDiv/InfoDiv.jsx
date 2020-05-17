@@ -8,10 +8,14 @@ import { serverUrl } from '../../../utils/content/url';
 
 const InfoDiv = (props) => {
 
+    const  { user, getUser, editAddress, getAddresses, addAddress, setActiveAddress, deleteAddress } = props;
+    const URL = serverUrl + '/account/edit';
+
     useEffect( () => {
 
         let accessString = localStorage.getItem('JWT')
-
+        
+        // User
         axios.get( serverUrl + '/account/details', {
             headers: { 
                 'Authorization': `JWT ${accessString}`,
@@ -19,7 +23,7 @@ const InfoDiv = (props) => {
         })
         .then(function (response) {
             const{ name, surname, email, phone } = response.data[0]
-            editUser( name, surname, email, phone )
+            getUser( name, surname, email, phone )
             console.log(response)
             console.log(user)
 
@@ -28,11 +32,23 @@ const InfoDiv = (props) => {
             console.log(error);
         });
 
+        // Addresses
+        axios.get( serverUrl + '/address', {
+            headers: { 
+                'Authorization': `JWT ${accessString}`,
+            },
+        })
+        .then(function (response) {
+
+            console.log(response.data.rows)
+            getAddresses( response.data.rows )
+
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
     }, [])
-
-    const  { user, editUser, editAddress, addAddress, setActiveAddress, deleteAddress } = props;
-
-    const URL = serverUrl + '/account/edit';
 
     const [editingUser, setEditUser] = useState(false);
     const [name, handleGetName] = useState(user.name);
@@ -46,7 +62,7 @@ const InfoDiv = (props) => {
 
         if(editingUser === true){
             setEditUser(!editingUser);
-            editUser(name, surname, email, phone);
+            getUser(name, surname, email, phone);
         } else
         return;   
 
@@ -81,7 +97,7 @@ const InfoDiv = (props) => {
         email: <input onChange={ e => handleGetEmail(e.target.value)} value={email} className={`text-success ${infoDiv.userInfo}`}></input>,
     }
 
-    const addresses = user.addresses.map(address => 
+    const addresses = user.addresses && user.addresses.map(address => 
         <Address
          management={true} 
          key={address.id}
@@ -158,11 +174,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-         editUser: ( name, surname, email, phone ) => { dispatch( { type: "EDIT_USER", name: name, surname: surname, email: email, phone: phone } ) },
-         editAddress: ( id, city, postCode, street ) => { dispatch( { type: "EDIT_ADDRESS", id: id, city: city, postCode: postCode, street: street } ) },
-         addAddress: ( city, postCode, street, ) => { dispatch( { type: "ADD_ADDRESS", city: city, postCode: postCode, street: street, } ) },
-         setActiveAddress: (id) => { dispatch( { type: "CHANGE_ACTIVE_ADDRESS", id: id, } ) },
-         deleteAddress:  (id) => { dispatch( { type: "DELETE_ADDRESS", id: id, } ) },
+        getUser: ( name, surname, email, phone ) => { dispatch( { type: "GET_USER", name: name, surname: surname, email: email, phone: phone } ) },
+        getAddresses: ( addresses ) => { dispatch( { type: "GET_ADDRESS", addresses: addresses } ) },
+        editAddress: ( id, city, postCode, street ) => { dispatch( { type: "EDIT_ADDRESS", id: id, city: city, postCode: postCode, street: street } ) },
+        addAddress: ( city, postCode, street, ) => { dispatch( { type: "ADD_ADDRESS", city: city, postCode: postCode, street: street, } ) },
+        setActiveAddress: (id) => { dispatch( { type: "CHANGE_ACTIVE_ADDRESS", id: id, } ) },
+        deleteAddress:  (id) => { dispatch( { type: "DELETE_ADDRESS", id: id, } ) },
     }
 }
 
