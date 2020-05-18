@@ -13,21 +13,6 @@ const SignedIn = ( props ) => {
   const handleClick = ( page )=>{
     props.setActiveCat(0);
     props.setActivePage( page );
-
-    let accessString = localStorage.getItem('JWT')
-
-    axios.get( serverUrl + '/account/findUser', {
-      headers: { 
-        Authorization: `JWT ${accessString}`,
-      },
-    })
-    .then(function (response) {
-      console.log(response.body);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
   }
 
   const handleClick2 = ( page )=>{
@@ -36,7 +21,7 @@ const SignedIn = ( props ) => {
   }
 
   const handleTestClick = ( )=>{
-    
+
     // axios.post( serverUrl + '/payment/sendorder',{
     //   price: getCartPrice(props.cart),
     //   cart: props.cart
@@ -49,22 +34,8 @@ const SignedIn = ( props ) => {
 
     // }, err => console.log(err) )
 
-    let accessString = localStorage.getItem('JWT')
-    axios.post( serverUrl + '/address',{
-      city: "Warszawa",
-      address: "ul. Wyzwolenia 143/12",
-      postCode: "23-234",
-      userId: 2 
-    },{
-      headers: { 
-        Authorization: `JWT ${accessString}`,
-      },
-    })
-    .then( (response) => {
-      console.log(response);
-    }, err => console.log(err) )
-    
 
+    alert(props.user)
   }
   return(
     <>
@@ -83,7 +54,7 @@ const SignedIn = ( props ) => {
     </div>
     <div className="row text-dark"> 
         <div className="col-sm-12 text-right w-100 h5 mt-2 mb-0"> 
-            Zalogowany jako:<br /> <span className="text-success">szpakusik@gmail.com</span>
+  Zalogowany jako:<br /> <span className="text-success">{props.user}</span>
             {/* <button type="button" class="ml-3 btn btn-sm btn-outline-success">Zamów</button> */}
         </div>
     </div>
@@ -94,6 +65,7 @@ const SignedIn = ( props ) => {
 const mapStateToProps = (state) => {
   return{
     cart: state.cartReducer.cartProducts,
+    user: state.loginReducer.user.email,
   }
 }
 
