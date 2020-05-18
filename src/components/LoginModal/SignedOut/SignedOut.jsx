@@ -18,12 +18,10 @@ const SignedOut = ( props ) => {
       password: password,
     })
     .then(function (res) {
-      console.log(res);
       const {name, surname, email, phone, id} = res.data.user
       props.getUser( name, surname, email, phone, id )
       localStorage.setItem('JWT', res.data.token)
       props.signIn();
-      
       setMessage( '' );
     })
     .catch(function (error) {

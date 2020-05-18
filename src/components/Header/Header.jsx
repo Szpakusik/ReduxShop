@@ -27,7 +27,10 @@ const Header = ( props ) => {
     localStorage.setItem('cart', JSON.stringify( { products: props.cart } ) );
     // console.log(localStorage)
   } );
-
+  const handleLogoClick = ( page )=>{
+    props.setActiveCat(0);
+    props.setActivePage( page );
+  }
   const handleCartClick = () => {
     props.showCart( !props.cartActive );
     props.showSidebar( false )
@@ -74,7 +77,7 @@ const Header = ( props ) => {
        
         <div className='container-fluid p-0 overflow-hidden d-none d-md-flex'>
           <Navbar.Brand className={`banner navbar-header col-xs-12 col-sm-4 ${headerStyles.banner}`}>
-            <a className="navbar-brand text-sm-center" href={ clientUrl } >
+            <a className="navbar-brand text-sm-center btn" onClick={ () => {handleLogoClick('homepage')} } >
               <img src={require('./../../images/logo-transparent2.png')} alt=""/>
             </a>
           </Navbar.Brand>
@@ -199,6 +202,12 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = ( dispatch ) => {
   return{
+      setActiveCat: ( id )=>{ 
+        dispatch( { type: "SET_CATEGORY", id: id } ) 
+      },
+      setActivePage: ( name )=>{ 
+        dispatch( { type: "CHANGE_PAGE", name: name } ) 
+      },
       fillCart: (data) => {
         dispatch( { type: 'FILL_CART', cart: data} )
       },
