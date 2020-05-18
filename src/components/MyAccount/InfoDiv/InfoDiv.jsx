@@ -24,8 +24,9 @@ const InfoDiv = (props) => {
         .then(function (response) {
             const{ name, surname, email, phone, id } = response.data[0]
             getUser( name, surname, email, phone, id )
-            console.log(response)
-            console.log(user)
+            console.log(response.data)
+            console.log("id")
+            console.log(id)
 
         })
         .catch(function (error) {
@@ -40,7 +41,6 @@ const InfoDiv = (props) => {
         })
         .then(function (response) {
 
-            console.log(response.data.rows)
             getAddresses( response.data.rows )
 
         })
@@ -55,32 +55,46 @@ const InfoDiv = (props) => {
     const [surname, handleGetSurname] = useState(user.surname);
     const [phone, handleGetPhone] = useState(user.phone);
     const [email, handleGetEmail] = useState(user.email);
-
+ 
     const handleEditUser = () => setEditUser(!editingUser);
 
     const handleConfirmUser = () => {
 
+        console.log(user)
+
         if(editingUser === true){
-            setEditUser(!editingUser);
-            getUser(name, surname, email, phone);
+
+            let accessString = localStorage.getItem('JWT');
+
+            axios.patch( serverUrl + '/account/details', 
+            {
+                id: user.id,
+                rowsToChange: `name = "${name}", surname="${surname}", phone = ${phone}, email = "${email}"`,
+            },
+            {
+                headers: {
+                    'Authorization': `JWT ${accessString}`,
+                }
+            })
+            .then(response => {
+                console.log(response);
+                
+                setEditUser(!editingUser);
+                
+                getUser(name, surname, email, phone, id);
+                handleGetName(name)
+                handleGetSurname(surname)
+                handleGetPhone(email)
+                handleGetEmail(id)
+            })
+            .catch(error => {
+                console.log(error);
+            }); 
+
         } else
         return;   
 
-        axios.post(URL, {
-            name,
-            surname,
-            phone,
-            email,
-        })
-        .then(response => {
-            if(response.ok){
-                console.log(response);     
-            }
-            throw Error("Błąd")
-        })
-        .catch(error => {
-            console.log(error);
-        });    
+        
     }
 
     const dataUserTag = {
@@ -174,7 +188,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        getUser: ( name, surname, email, phone, id ) => { dispatch( { type: "GET_USER", name: name, surname: surname, email: email, phone: phone } ) },
+        getUser: ( name, surname, email, phone, id ) => { dispatch( { type: "GET_USER", name: name, surname: surname, email: email, phone: phone, id: id } ) },
         getAddresses: ( addresses ) => { dispatch( { type: "GET_ADDRESS", addresses: addresses } ) },
         editAddress: ( id, city, postCode, street ) => { dispatch( { type: "EDIT_ADDRESS", id: id, city: city, postCode: postCode, street: street } ) },
         addAddress: ( city, postCode, street, ) => { dispatch( { type: "ADD_ADDRESS", city: city, postCode: postCode, street: street, } ) },
