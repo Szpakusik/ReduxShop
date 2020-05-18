@@ -92,8 +92,8 @@ const loginReducer = (state = initState, action) => {
        addresses.filter( address => {
          if(address.id === action.id){
           address.city = action.city;
-          address.postCode = action.postCode;
-          address.street = action.street;
+          address.post_code = action.postCode;
+          address.address = action.street;
           return address;
          }       
         });

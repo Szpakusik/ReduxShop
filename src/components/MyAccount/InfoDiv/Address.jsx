@@ -6,7 +6,7 @@ import {serverUrl} from '../../../utils/content/url'
 
 const Address = (props) => {
 
-    const { address, editAddress, userAddresses, setActiveAddress, deleteAddress, management} = props;
+    let { address, editAddress, userAddresses, setActiveAddress, deleteAddress, management} = props;
 
     const active = address.active ? infoDiv.active : '';
 
@@ -46,9 +46,9 @@ const Address = (props) => {
     const handleEditAddress = (id) => {   
         const index = userAddresses.findIndex(address => address.id === id);
         if(index >=0 ) 
-        setEditAddress(!editingAddress)
+            setEditAddress(!editingAddress)
         else 
-        return;
+            return;
     }
 
     const handleConfirmAddress = (id) =>{
@@ -82,8 +82,8 @@ const Address = (props) => {
     }
 
     const dataAddressTag = {
-        city: <p className='border-0'><span className="text-dark">{postCode} {city}</span></p>,
-        street:  <p className='border-0'><span className="text-dark">{street}</span></p>,
+        city: <p className='border-0'><span className="text-dark">{address.post_code} {address.city}</span></p>,
+        street:  <p className='border-0'><span className="text-dark">{address.address}</span></p>,
     }
 
     const dataAddressEditTag = {

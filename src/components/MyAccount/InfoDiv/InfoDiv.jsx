@@ -22,11 +22,12 @@ const InfoDiv = (props) => {
             },
         })
         .then(function (response) {
-            const{ name, surname, email, phone, id } = response.data[0]
+            let { name, surname, email, phone, id } = response.data[0]
             getUser( name, surname, email, phone, id )
-            console.log(response.data)
-            console.log("id")
-            console.log(id)
+            handleGetName(name)
+            handleGetSurname(surname)
+            handleGetPhone(phone)
+            handleGetEmail(email)
 
         })
         .catch(function (error) {
@@ -84,8 +85,8 @@ const InfoDiv = (props) => {
                 getUser(name, surname, email, phone, id);
                 handleGetName(name)
                 handleGetSurname(surname)
-                handleGetPhone(email)
-                handleGetEmail(id)
+                handleGetPhone(phone)
+                handleGetEmail(email)
             })
             .catch(error => {
                 console.log(error);
@@ -98,10 +99,10 @@ const InfoDiv = (props) => {
     }
 
     const dataUserTag = {
-        name: <span className="text-success">{user.name}</span>,
-        surname: <span className="text-success">{user.surname}</span>,
-        phone: <span className="text-success">{user.phone}</span>,
-        email: <span className="text-success">{user.email}</span>,
+        name: <span className="text-success">{name}</span>,
+        surname: <span className="text-success">{surname}</span>,
+        phone: <span className="text-success">{phone}</span>,
+        email: <span className="text-success">{email}</span>,
     } 
 
     const dataUserEditTag = {
