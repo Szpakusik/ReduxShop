@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import infoDiv from './infoDiv.module.scss';
@@ -34,7 +34,6 @@ const Address = (props) => {
         })
         .then(function (response) {
             deleteAddress(id)
-            console.log(response.data.rows)
             getAddresses( response.data.rows )
 
         })
@@ -54,31 +53,37 @@ const Address = (props) => {
 
     const handleConfirmAddress = (id) =>{
         if(editingAddress === true){
-            setEditAddress(!editingAddress);
-            editAddress(id, city, postCode, street);
-        } else
-        return;   
+            
+            let accessString = localStorage.getItem('JWT')
 
-        axios.post(URL, {
-            id,
-            city,
-            postCode,
-            street,
-        })
-        .then(response => {
-            if(response.ok){
-                console.log(response);     
-            }
-            throw Error("Błąd")
-        })
-        .catch(error => {
-            console.log(error);
-        }); 
+            axios.patch( serverUrl + '/address/details', 
+            {
+                rowsToChange: `address = "${street}", post_code = "${postCode}", city = "${city}"`,
+                id: id,
+            },
+            {
+                headers: {
+                    'Authorization': `JWT ${accessString}`,
+                }
+            })
+            .then(response => {
+
+                handleGetStreet(street)
+                handleGetPostCode(postCode)
+                handleGetCity(city)
+
+                setEditAddress(!editingAddress);
+                editAddress(id, city, postCode, street);
+            })
+            .catch(error => {
+                console.log(error);
+            }); 
+        } else return;  
     }
 
     const dataAddressTag = {
-        city: <p className='border-0'><span className="text-dark">{address.post_code} {address.city}</span></p>,
-        street:  <p className='border-0'><span className="text-dark">{address.address}</span></p>,
+        city: <p className='border-0'><span className="text-dark">{postCode} {city}</span></p>,
+        street:  <p className='border-0'><span className="text-dark">{street}</span></p>,
     }
 
     const dataAddressEditTag = {
