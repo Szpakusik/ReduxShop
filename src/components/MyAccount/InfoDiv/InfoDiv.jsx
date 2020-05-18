@@ -8,7 +8,7 @@ import { serverUrl } from '../../../utils/content/url';
 
 const InfoDiv = (props) => {
 
-    const  { user, getUser, editAddress, getAddresses, addAddress, setActiveAddress, deleteAddress } = props;
+    let  { user, getUser, editAddress, getAddresses, addAddress, setActiveAddress, deleteAddress } = props;
     const URL = serverUrl + '/account/edit';
 
     useEffect( () => {
@@ -22,8 +22,8 @@ const InfoDiv = (props) => {
             },
         })
         .then(function (response) {
-            const{ name, surname, email, phone } = response.data[0]
-            getUser( name, surname, email, phone )
+            const{ name, surname, email, phone, id } = response.data[0]
+            getUser( name, surname, email, phone, id )
             console.log(response)
             console.log(user)
 
@@ -174,7 +174,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        getUser: ( name, surname, email, phone ) => { dispatch( { type: "GET_USER", name: name, surname: surname, email: email, phone: phone } ) },
+        getUser: ( name, surname, email, phone, id ) => { dispatch( { type: "GET_USER", name: name, surname: surname, email: email, phone: phone } ) },
         getAddresses: ( addresses ) => { dispatch( { type: "GET_ADDRESS", addresses: addresses } ) },
         editAddress: ( id, city, postCode, street ) => { dispatch( { type: "EDIT_ADDRESS", id: id, city: city, postCode: postCode, street: street } ) },
         addAddress: ( city, postCode, street, ) => { dispatch( { type: "ADD_ADDRESS", city: city, postCode: postCode, street: street, } ) },

@@ -17,10 +17,13 @@ const SignedOut = ( props ) => {
       username: email,
       password: password,
     })
-    .then(function (response) {
-      console.log(response);
-      localStorage.setItem('JWT', response.data.token)
+    .then(function (res) {
+      console.log(res);
+      const {name, surname, email, phone, id} = res.data.user
+      props.getUser( name, surname, email, phone, id )
+      localStorage.setItem('JWT', res.data.token)
       props.signIn();
+      
       setMessage( '' );
     })
     .catch(function (error) {
@@ -87,6 +90,8 @@ const mapDispatchToProps = (dispatch) => {
     signIn: ( isLogged )=>{ dispatch( { type: "LOG_IN", isLogged: true } ) },
     setActivePage: ( name )=>{ dispatch( { type: "CHANGE_PAGE", name: name } ) },
     setActiveCat: ( id )=>{ dispatch( { type: "SET_CATEGORY", id: id } ) },
+    getUser: ( name, surname, email, phone, id ) => { dispatch( { type: "GET_USER", name: name, surname: surname, email: email, phone: phone, id:id } ) },
+
   }
 }
 
