@@ -55,15 +55,15 @@ const OrderProducts = ( props ) => {
                         return(
                             <div key={product.id} className={`my-1 pl-5 row ${borderBottom} ${orderProducts.productRow}`}>
                                 <div className={`${orderProducts.photoContainer} align-self-center mr-1 p-1`}>
-                                    <img class="card-img my-auto" src={require(`../../../images/${product.photo}`)} alt="Product" />
+                                     <img class="card-img my-auto" src={require(`../../../images/${product.photo}`)} alt="Product" />
                                 </div>
                                 <p className="text-dark my-auto m-0">
                                     {product.name} - {product.amount} x {product.price}zł = {price}
                                 </p>
                                 
-                                <i class="material-icons text-danger my-auto" onClick={ ( ) => { handleClick(product.id) }}>
+                                {props.ordered ? null : <i class="material-icons text-danger my-auto" onClick={ ( ) => { handleClick(product.id) }}>
                                     clear
-                                </i>
+                                </i>}
                             </div>
                         )
                     }): null
