@@ -68,23 +68,11 @@ const loginReducer = (state = initState, action) => {
          surname: action.surname,
          email: action.email,
          phone: action.phone,
+         id: action.id
        }
      
      }
-     case "GET_USER" :
 
-      return{
-        ...state,
-
-        user:{
-         ...state.user,
-         name: action.name,
-         surname: action.surname,
-         email: action.email,
-         phone: action.phone,
-       }
-     
-     }
 
     case "GET_ADDRESS" :
 
