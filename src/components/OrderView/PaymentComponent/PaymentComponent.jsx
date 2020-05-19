@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import paymentComponent from './paymentComponent.module.scss';
 import { connect } from 'react-redux';
 
-const PaymentComponent = ({price, addresses, cart, setActivePage, ordered}) => {
+const PaymentComponent = ({price, addresses, cart, setActivePage, ordered, contactDetails}) => {
 
     let deliveryPrice = 16.80;
     let totalPrice = parseFloat(price) + deliveryPrice;
 
-    const [payment, setPayment] = useState('transfer');
+    const [payment, setPayment] = useState('cash-on-delivery');
     const [regulations, acceptRegulations] = useState(false);
 
     const selectedAddress = addresses.find(address => address.active === 1);
@@ -16,8 +16,26 @@ const PaymentComponent = ({price, addresses, cart, setActivePage, ordered}) => {
         console.log(`Płatność ${payment}, Regulamin ${regulations}, do zapłaty ${totalPrice}`)
         console.log(`Adres dostawy ${JSON.stringify(selectedAddress)}`)
         console.log(`${cart}`);
-        setActivePage('finalizeOrder')
+        if(payment === 'cash-on-delivery'){
+             setActivePage('finalizeOrder')
+        }
     }
+
+    const payuButton =  
+    <form method="post" action="https://secure.payu.com/api/v2_1/orders">
+        <input type="hidden" name="continueUrl" value="http://shop.url/continue"/>
+        <input type="hidden" name="currencyCode" value="PLN"/>
+        <input type="hidden" name="customerIp" value="123.123.123.123"/>
+        <input type="hidden" name="description" value="Order description"/>
+        <input type="hidden" name="merchantPosId" value="145227"/>
+        <input type="hidden" name="notifyUrl" value="http://shop.url/notify"/>
+        <input type="hidden" name="products[0].name" value="Product 1"/>
+        <input type="hidden" name="products[0].quantity" value="1"/>
+        <input type="hidden" name="products[0].unitPrice" value="1000"/>
+        <input type="hidden" name="totalAmount" value="1000"/>
+        <input type="hidden" name="OpenPayu-Signature" value="sender=145227;algorithm=SHA-256;signature=bc94a8026d6032b5e216be112a5fb7544e66e23e68d44b4283ff495bdb3983a8"/>
+        <button type="submit" formtarget="_blank" ></button>
+    </form >;
 
     if(!ordered){
     return(
@@ -40,8 +58,8 @@ const PaymentComponent = ({price, addresses, cart, setActivePage, ordered}) => {
 
                         
                         <div className={paymentComponent.payment}>
-                            <input class={`${paymentComponent.sendOrder}`} onClick={ () => setPayment('paypal')}  type="radio" id="paypal" name="payment" value="paypal"/>
-                            <label for="paypal">PayPal</label>
+                            <input class={`${paymentComponent.sendOrder}`} onClick={ () => setPayment('payu')}  type="radio" id="payu" name="payment" value="payu"/>
+                            <label for="payu">PayU</label>
                         </div>
 
                         <div className={paymentComponent.payment}>
@@ -49,7 +67,7 @@ const PaymentComponent = ({price, addresses, cart, setActivePage, ordered}) => {
                             <label for="regulations">Przeczytałem/am i akceptuję regulamin*</label>
                         </div>
                         
-                        <button class={`btn btn-outline-success`} onClick={handlePayment}>Kupuję i płacę</button> 
+                        {payment === 'cash-on-delivery' ? <button class={`btn btn-outline-success`} onClick={handlePayment}>Kupuję i płacę</button> : payuButton} 
                                                                                                               
                     </div>    
                 </ul>
@@ -69,10 +87,12 @@ const PaymentComponent = ({price, addresses, cart, setActivePage, ordered}) => {
                 <div className={`p-4 mt-2 bg-white border`}>
 
                <p>Numer zamówienia : 4184</p>
-               <p>Data: 18 maja 2020</p>
-               <p>Email: example@wp.pl</p>
+               <p>Status zamówienia: <span className={`text-warning`}>w trakcie</span></p>
                <p>Suma: 20.40zł</p>
-               <p>Metoda płatności: Płatność przy odbiorze</p>
+               <p>Data: 18 maja 2020</p>
+               {contactDetails.email !== "" && <p>Email: {contactDetails.email}</p>}
+               {contactDetails.phone !== "" && <p>Telefon: { contactDetails.phone}</p>}
+               <p>Metoda płatności: płatność przy odbiorze</p>
                                                                                                           
                 </div>              
             </ul>

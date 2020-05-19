@@ -11,7 +11,10 @@ import { getCartPrice } from '../../utils/functions/cartFunctions'
 
 const OrderView = (props) => {
 
-    const { addresses, setActiveAddress, cart, addAddress } = props;
+    const { addresses, setActiveAddress, cart, addAddress, addContactDetails, logged} = props;
+
+    const [email, handleGetEmail] = useState('');
+    const [phone, handleGetPhone] = useState('');
 
     let price = getCartPrice(cart)
 
@@ -24,6 +27,8 @@ const OrderView = (props) => {
          setActiveAddress={setActiveAddress}
          /> );
 
+    useEffect(()=> addContactDetails(email, phone))
+    
     return (
         <div className={`container ${myAccount.index} mb-5`}>
 
@@ -51,18 +56,37 @@ const OrderView = (props) => {
 
                         <div className="mt-4 text-center w-100">
 
-                        <div className="card-header radius-none transparent-darker">
-                            <span className="h4 card-title text-white">Wybierz adres dostawy</span>
-                        </div>
+                            <div className="card-header radius-none transparent-darker">
+                                <span className="h4 card-title text-white">Wybierz adres dostawy</span>
+                            </div>
 
-                    </div>       
+                        </div>       
 
                     </div> 
                         {userAddresses}
                         <AddNewAddress addAddress={addAddress}/>
                     </div>
+
+                    {!logged && <div class="row w-100 mx-auto">
+
+                    <div className={`row w-100 mx-auto ${myAccount.addresses}`}>
+
+                        <div className="mt-4 text-center w-100">
+
+                            <div className="card-header radius-none transparent-darker">
+                                <span className="h4 card-title text-white">Dane kontaktowe</span>
+                            </div>
+
+                        </div>       
+
+                    </div>
+                    <div className={`${orderView.contactDetails}`}>
+                        <input onChange={ e => handleGetEmail(e.target.value)} value={email} className={`text-success ${orderView.addressInfo} ${orderView.userEmail}`} placeholder={`Email*`}></input>
+                        <input onChange={ e => handleGetPhone(e.target.value)} value={phone} className={`text-success ${orderView.addressInfo}`} placeholder={`Telefon`}></input>
+                    </div>                   
+                    </div>}
                         {/* <ChooseAddress /> */}
-                        <PaymentComponent addresses={addresses} price={price} cart={cart} />
+                        <PaymentComponent phone={phone} addresses={addresses} price={price} cart={cart} />
                 </div>
 
             </div>
@@ -74,6 +98,7 @@ const mapStateToProps = (state) => {
     return{
         addresses: state.loginReducer.user.addresses,
         cart: state.cartReducer.cartProducts,
+        logged: state.loginReducer.logged
     }
 }
 
@@ -81,7 +106,7 @@ const mapDispatchToProps = (dispatch) => {
     return{
          setActiveAddress: (id) => { dispatch( { type: "CHANGE_ACTIVE_ADDRESS", id: id, } ) },
          addAddress: ( city, postCode, street, ) => { dispatch( { type: "ADD_ADDRESS", city: city, postCode: postCode, street: street, } ) },
+         addContactDetails: (email, phone) => { dispatch( { type:"ADD_CONTACT_DETAILS", email: email, phone: phone,})}
     }
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(OrderView);

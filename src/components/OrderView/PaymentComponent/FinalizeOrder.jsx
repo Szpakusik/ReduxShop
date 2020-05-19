@@ -11,7 +11,7 @@ import { getCartPrice } from '../../../utils/functions/cartFunctions'
 
 const FinalizeOrder = (props) => {
 
-    const { addresses, setActiveAddress, cart, addAddress } = props;
+    const { addresses, setActiveAddress, cart, addAddress, contactDetails } = props;
 
     let price = getCartPrice(cart);
 
@@ -45,7 +45,7 @@ const FinalizeOrder = (props) => {
             <div className={`row w-100 ${myAccount.header} pt-2 mx-auto px-1 transparent-darker`}>
 
                 <div className="text-center h3 my-2 text-white col-md-6 mx-auto pb-3">
-                    Dziękujemy. Otrzymaliśmy Twoje zamówienie.
+                    Dziękujemy. Otrzymaliśmy Twoje zamówienie nr 3210.
                 </div>
 
             </div>
@@ -67,7 +67,7 @@ const FinalizeOrder = (props) => {
                         <div className="mt-4 text-center w-100">
 
                         <div className="card-header radius-none transparent-darker">
-                            <span className="h4 card-title text-white">Adres dostawy:</span>
+                            <span className="h4 card-title text-white">Adres do wysyłki</span>
                         </div>
 
                     </div>       
@@ -77,7 +77,7 @@ const FinalizeOrder = (props) => {
                         <AddNewAddress ordered={ordered} addAddress={addAddress}/>
                     </div>
                         {/* <ChooseAddress /> */}
-                        <PaymentComponent ordered={ordered} addresses={addresses} price={price} cart={cart} />
+                        <PaymentComponent contactDetails={contactDetails} ordered={ordered} addresses={addresses} price={price} cart={cart} />
                 </div>
 
             </div>
@@ -89,6 +89,7 @@ const mapStateToProps = (state) => {
     return{
         addresses: state.loginReducer.user.addresses,
         cart: state.cartReducer.cartProducts,
+        contactDetails: state.orderReducer.contactDetails,
     }
 }
 
