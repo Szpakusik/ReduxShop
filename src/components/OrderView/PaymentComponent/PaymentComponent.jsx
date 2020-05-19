@@ -1,4 +1,7 @@
 import React, {useState} from 'react';
+import axios from 'axios';
+import { serverUrl } from '../../../utils/content/url';
+import { tranformCartForOrder } from '../../../utils/functions/cartFunctions';
 import paymentComponent from './paymentComponent.module.scss';
 import { connect } from 'react-redux';
 
@@ -13,6 +16,20 @@ const PaymentComponent = ({price, addresses, cart, setActivePage, ordered, conta
     const selectedAddress = addresses.find(address => address.active === 1);
 
     const handlePayment = () => {
+        let accessString = localStorage.getItem('JWT')
+
+        axios.post( serverUrl + '/order/create', {
+            customerId: userId,
+            productsOrdered: tranformCartForOrder(cart),
+        },{
+            headers:{'Authorization': `JWT ${accessString}`}
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
         console.log(`Płatność ${payment}, Regulamin ${regulations}, do zapłaty ${totalPrice}`)
         console.log(`Adres dostawy ${JSON.stringify(selectedAddress)}`)
         console.log(`${cart}`);
