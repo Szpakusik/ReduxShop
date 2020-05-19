@@ -8,15 +8,38 @@ const Address = (props) => {
 
     let { address, editAddress, userAddresses, setActiveAddress, deleteAddress, management} = props;
 
-    const active = address.active ? infoDiv.active : '';
-
+    let active = address.active ? infoDiv.active : '';
+    console.log(active);
+    
     const [city, handleGetCity] = useState(address.city);
     const [postCode, handleGetPostCode] = useState(address.post_code);
     const [street, handleGetStreet] = useState(address.address);
 
     const [editingAddress, setEditAddress] = useState(false);
 
-    const handleSetActiveAddress = id => setActiveAddress(id);
+    const handleSetActiveAddress = (id) => {
+
+        if (window.confirm("Potwierdź zmiane adresu domyślnego")) { 
+            let accessString = localStorage.getItem('JWT')
+        
+            axios.patch( serverUrl + '/account/details', 
+                {
+                    rowsToChange: `default_address = "${id}"`,
+                },
+                {
+                    headers: {
+                        'Authorization': `JWT ${accessString}`,
+                    }
+                })
+                .then(response => {
+                    setActiveAddress(id);
+                })
+                .catch(error => {
+                    console.log(error);
+                }); 
+
+        }
+    }
 
     const handleDeleteAddress = ( id ) => {
 
@@ -96,14 +119,14 @@ const Address = (props) => {
         return(
             <div className={`col-md-6 text-center no-select ${infoDiv.address}`}>  
 
-                <div onClick={() => handleSetActiveAddress(address.id)} className={`pt-3 p-2 mb-3 bg-white ${infoDiv.adress} ${active}`}>
+                <div onClick={() => { !editingAddress ? handleSetActiveAddress(address.id) : null }} className={`pt-3 p-2 mb-3 bg-white ${infoDiv.adress} ${active}`}>
                     {editingAddress ? dataAddressEditTag.postCode : dataAddressTag.posCtode}
                     {editingAddress ? dataAddressEditTag.city : dataAddressTag.city}                             
                     {editingAddress ? dataAddressEditTag.street : dataAddressTag.street}
                     {editingAddress ? <button onClick={ () => handleDeleteAddress(address.id)} class="w-50 btn btn-outline-success">Usuń adres</button> : null}
                 </div>
                 <div className={`${infoDiv.editUserWrapper}`}>
-                    <button class={`btn btn-outline-success ${infoDiv.editUserButton}`}onClick={() => handleEditAddress(address.id)}>{editingAddress ? 'Anuluj' : 'Edytuj'}</button>
+                    <button class={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={() => handleEditAddress(address.id)}>{editingAddress ? 'Anuluj' : 'Edytuj'}</button>
                     {editingAddress ? <button class={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={ () => handleConfirmAddress(address.id)}>Zapisz</button> : null}  
                 </div>
             </div>

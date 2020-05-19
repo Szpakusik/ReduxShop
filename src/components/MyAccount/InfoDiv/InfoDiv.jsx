@@ -14,7 +14,7 @@ const InfoDiv = (props) => {
     useEffect( () => {
 
         let accessString = localStorage.getItem('JWT')
-        
+        let defaultAddress;
         // User
         axios.get( serverUrl + '/account/details', {
             headers: { 
@@ -28,6 +28,7 @@ const InfoDiv = (props) => {
             handleGetSurname(surname)
             handleGetPhone(phone)
             handleGetEmail(email)
+            defaultAddress = response.data[0].default_address
 
         })
         .catch(function (error) {
@@ -41,9 +42,12 @@ const InfoDiv = (props) => {
             },
         })
         .then(function (response) {
-
-            getAddresses( response.data.rows )
-
+            const addresses = response.data.rows.map((address) => {
+                if(address.id === defaultAddress) address.active = 1;
+                return address
+            })
+            getAddresses( addresses )
+            setActiveAddress(defaultAddress);
         })
         .catch(function (error) {
             console.log(error);

@@ -6,7 +6,7 @@ let tempObj;
 let tempCart;
 let addresses, address;
 let defaultActive = 0;
-let couterId = 2;
+// let couterId = 2;
 
 const initState = {
 
@@ -111,13 +111,13 @@ const loginReducer = (state = initState, action) => {
 
       addresses = [...state.user.addresses]
       addresses.push({
-        id: couterId,
+        id: action.id,
         city: action.city,
-        postCode: action.postCode,
-        street: action.street,
+        post_code: action.postCode,
+        address: action.street,
         active: defaultActive,
       });
-      couterId++;
+      // couterId++;
       
      return{
        ...state,
