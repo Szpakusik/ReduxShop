@@ -17,25 +17,13 @@ const SignedIn = ( props ) => {
 
   const handleClick2 = ( page )=>{
     localStorage.removeItem('JWT')
+    props.getUser( null, null, null, null, null );
     props.signOut();
   }
 
   const handleTestClick = ( )=>{
 
-    // axios.post( serverUrl + '/payment/sendorder',{
-    //   price: getCartPrice(props.cart),
-    //   cart: props.cart
-    // })
-    // .then( (response) => {
-    //   console.log(response);
-
-    //   if(response.data.redirectUri) 
-    //     window.open(response.data.redirectUri, "_blank")
-
-    // }, err => console.log(err) )
-
-
-    alert(props.user)
+    console.log(props.user);
   }
   return(
     <>
@@ -54,8 +42,7 @@ const SignedIn = ( props ) => {
     </div>
     <div className="row text-dark"> 
         <div className="col-sm-12 text-right w-100 h5 mt-2 mb-0"> 
-  Zalogowany jako:<br /> <span className="text-success">{props.user}</span>
-            {/* <button type="button" class="ml-3 btn btn-sm btn-outline-success">Zamów</button> */}
+            {/* Zalogowany jako:<br /> <span className="text-success">{props.user.email}</span> */}
         </div>
     </div>
     </>
@@ -65,7 +52,6 @@ const SignedIn = ( props ) => {
 const mapStateToProps = (state) => {
   return{
     cart: state.cartReducer.cartProducts,
-    user: state.loginReducer.user.email,
   }
 }
 

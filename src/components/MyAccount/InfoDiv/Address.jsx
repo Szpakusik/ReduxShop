@@ -9,7 +9,6 @@ const Address = (props) => {
     let { address, editAddress, userAddresses, setActiveAddress, deleteAddress, management} = props;
 
     let active = address.active ? infoDiv.active : '';
-    console.log(active);
     
     const [city, handleGetCity] = useState(address.city);
     const [postCode, handleGetPostCode] = useState(address.post_code);
