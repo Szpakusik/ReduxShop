@@ -17,9 +17,8 @@ const SignedOut = ( props ) => {
       username: email,
       password: password,
     })
-    .then(function (response) {
-      console.log(response);
-      localStorage.setItem('JWT', response.data.token)
+    .then(function (res) {
+      localStorage.setItem('JWT', res.data.token)
       props.signIn();
       setMessage( '' );
     })

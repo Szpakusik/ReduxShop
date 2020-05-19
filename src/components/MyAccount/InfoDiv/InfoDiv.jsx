@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import infoDiv from './infoDiv.module.scss';
@@ -8,48 +8,105 @@ import { serverUrl } from '../../../utils/content/url';
 
 const InfoDiv = (props) => {
 
-    const  { user, editUser, editAddress, addAddress, setActiveAddress, deleteAddress } = props;
-
+    let  { user, getUser, editAddress, getAddresses, addAddress, setActiveAddress, deleteAddress } = props;
     const URL = serverUrl + '/account/edit';
+
+    useEffect( () => {
+
+        let accessString = localStorage.getItem('JWT')
+        let defaultAddress;
+        // User
+        axios.get( serverUrl + '/account/details', {
+            headers: { 
+                'Authorization': `JWT ${accessString}`,
+            },
+        })
+        .then(function (response) {
+            let { name, surname, email, phone, id } = response.data[0]
+            getUser( name, surname, email, phone, id )
+            handleGetName(name)
+            handleGetSurname(surname)
+            handleGetPhone(phone)
+            handleGetEmail(email)
+            defaultAddress = response.data[0].default_address
+
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+        // Addresses
+        axios.get( serverUrl + '/address', {
+            headers: { 
+                'Authorization': `JWT ${accessString}`,
+            },
+        })
+        .then(function (response) {
+            const addresses = response.data.rows.map((address) => {
+                if(address.id === defaultAddress) address.active = 1;
+                return address
+            })
+            getAddresses( addresses )
+            setActiveAddress(defaultAddress);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+    }, [])
 
     const [editingUser, setEditUser] = useState(false);
     const [name, handleGetName] = useState(user.name);
     const [surname, handleGetSurname] = useState(user.surname);
     const [phone, handleGetPhone] = useState(user.phone);
     const [email, handleGetEmail] = useState(user.email);
-
+ 
     const handleEditUser = () => setEditUser(!editingUser);
 
     const handleConfirmUser = () => {
 
+        console.log(user)
+
         if(editingUser === true){
-            setEditUser(!editingUser);
-            editUser(name, surname, email, phone);
+
+            let accessString = localStorage.getItem('JWT');
+
+            axios.patch( serverUrl + '/account/details', 
+            {
+                id: user.id,
+                rowsToChange: `name = "${name}", surname="${surname}", phone = ${phone}, email = "${email}"`,
+            },
+            {
+                headers: {
+                    'Authorization': `JWT ${accessString}`,
+                }
+            })
+            .then(response => {
+                console.log(response);
+                
+                setEditUser(!editingUser);
+                
+                getUser(name, surname, email, phone, id);
+                handleGetName(name)
+                handleGetSurname(surname)
+                handleGetPhone(phone)
+                handleGetEmail(email)
+            })
+            .catch(error => {
+                console.log(error);
+            }); 
+
         } else
         return;   
 
-        axios.post(URL, {
-            name,
-            surname,
-            phone,
-            email,
-        })
-        .then(response => {
-            if(response.ok){
-                console.log(response);     
-            }
-            throw Error("Błąd")
-        })
-        .catch(error => {
-            console.log(error);
-        });    
+        
     }
 
     const dataUserTag = {
-        name: <span className="text-success">{user.name}</span>,
-        surname: <span className="text-success">{user.surname}</span>,
-        phone: <span className="text-success">{user.phone}</span>,
-        email: <span className="text-success">{user.email}</span>,
+        name: <span className="text-success">{name}</span>,
+        surname: <span className="text-success">{surname}</span>,
+        phone: <span className="text-success">{phone}</span>,
+        email: <span className="text-success">{email}</span>,
     } 
 
     const dataUserEditTag = {
@@ -59,7 +116,7 @@ const InfoDiv = (props) => {
         email: <input onChange={ e => handleGetEmail(e.target.value)} value={email} className={`text-success ${infoDiv.userInfo}`}></input>,
     }
 
-    const addresses = user.addresses.map(address => 
+    const addresses = user.addresses && user.addresses.map(address => 
         <Address
          management={true} 
          key={address.id}
@@ -120,7 +177,7 @@ const InfoDiv = (props) => {
 
                     <div className="row">
                         { addresses }
-                        <AddNewAddress addAddress={addAddress}/>               
+                        <AddNewAddress addAddress={addAddress} getAddresses={getAddresses}/>               
                     </div>
                 </div>
             </div>
@@ -128,4 +185,21 @@ const InfoDiv = (props) => {
     )
 }
 
-export default InfoDiv
+const mapStateToProps = (state) => {
+    return{
+        user: state.loginReducer.user
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        getUser: ( name, surname, email, phone, id ) => { dispatch( { type: "GET_USER", name: name, surname: surname, email: email, phone: phone, id: id } ) },
+        getAddresses: ( addresses ) => { dispatch( { type: "GET_ADDRESS", addresses: addresses } ) },
+        editAddress: ( id, city, postCode, street ) => { dispatch( { type: "EDIT_ADDRESS", id: id, city: city, postCode: postCode, street: street } ) },
+        addAddress: ( city, postCode, street, id ) => { dispatch( { type: "ADD_ADDRESS", city: city, postCode: postCode, street: street, id: id } ) },
+        setActiveAddress: (id) => { dispatch( { type: "CHANGE_ACTIVE_ADDRESS", id: id, } ) },
+        deleteAddress:  (id) => { dispatch( { type: "DELETE_ADDRESS", id: id, } ) },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(InfoDiv)

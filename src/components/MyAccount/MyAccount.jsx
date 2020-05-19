@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import myAccount from './myAccount.module.scss';
 import InfoDiv from './InfoDiv/InfoDiv';
 import OrdersDiv from './OrdersDiv/OrdersDiv';
 import ShoppingListsDiv from './ShoppingListsDiv/ShoppingListsDiv';
+
 
 
 const MyAccount = ({user, editUser, editAddress, addAddress, setActiveAddress, deleteAddress}) => {
@@ -24,14 +26,7 @@ const MyAccount = ({user, editUser, editAddress, addAddress, setActiveAddress, d
 
                     <div className="col-md-7 pr-1">
 
-                        <InfoDiv
-                         addAddress={addAddress}
-                         editAddress={editAddress}
-                         editUser={editUser}
-                         user={user}
-                         setActiveAddress={setActiveAddress}
-                         deleteAddress={deleteAddress}
-                         />
+                        <InfoDiv/>
 
                         <ShoppingListsDiv />
 
@@ -51,20 +46,20 @@ const MyAccount = ({user, editUser, editAddress, addAddress, setActiveAddress, d
 
 }
 
-const mapStateToProps = (state) => {
-    return{
-        user: state.loginReducer.user
-    }
-}
+// const mapStateToProps = (state) => {
+//     return{
+//         user: state.loginReducer.user
+//     }
+// }
 
-const mapDispatchToProps = (dispatch) => {
-    return{
-         editUser: ( name, surname, email, phone ) => { dispatch( { type: "EDIT_USER", name: name, surname: surname, email: email, phone: phone } ) },
-         editAddress: ( id, city, postCode, street ) => { dispatch( { type: "EDIT_ADDRESS", id: id, city: city, postCode: postCode, street: street } ) },
-         addAddress: ( city, postCode, street, ) => { dispatch( { type: "ADD_ADDRESS", city: city, postCode: postCode, street: street, } ) },
-         setActiveAddress: (id) => { dispatch( { type: "CHANGE_ACTIVE_ADDRESS", id: id, } ) },
-         deleteAddress:  (id) => { dispatch( { type: "DELETE_ADDRESS", id: id, } ) },
-    }
-}
+// const mapDispatchToProps = (dispatch) => {
+//     return{
+//          editUser: ( name, surname, email, phone ) => { dispatch( { type: "EDIT_USER", name: name, surname: surname, email: email, phone: phone } ) },
+//          editAddress: ( id, city, postCode, street ) => { dispatch( { type: "EDIT_ADDRESS", id: id, city: city, postCode: postCode, street: street } ) },
+//          addAddress: ( city, postCode, street, ) => { dispatch( { type: "ADD_ADDRESS", city: city, postCode: postCode, street: street, } ) },
+//          setActiveAddress: (id) => { dispatch( { type: "CHANGE_ACTIVE_ADDRESS", id: id, } ) },
+//          deleteAddress:  (id) => { dispatch( { type: "DELETE_ADDRESS", id: id, } ) },
+//     }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyAccount)
+export default MyAccount

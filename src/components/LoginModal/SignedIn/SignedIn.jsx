@@ -13,58 +13,17 @@ const SignedIn = ( props ) => {
   const handleClick = ( page )=>{
     props.setActiveCat(0);
     props.setActivePage( page );
-
-    let accessString = localStorage.getItem('JWT')
-
-    axios.get( serverUrl + '/account/findUser', {
-      headers: { 
-        Authorization: `JWT ${accessString}`,
-      },
-    })
-    .then(function (response) {
-      console.log(response.body);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
   }
 
   const handleClick2 = ( page )=>{
     localStorage.removeItem('JWT')
+    props.getUser( null, null, null, null, null );
     props.signOut();
   }
 
   const handleTestClick = ( )=>{
-    
-    // axios.post( serverUrl + '/payment/sendorder',{
-    //   price: getCartPrice(props.cart),
-    //   cart: props.cart
-    // })
-    // .then( (response) => {
-    //   console.log(response);
 
-    //   if(response.data.redirectUri) 
-    //     window.open(response.data.redirectUri, "_blank")
-
-    // }, err => console.log(err) )
-
-    let accessString = localStorage.getItem('JWT')
-    axios.post( serverUrl + '/address',{
-      city: "Warszawa",
-      address: "ul. Wyzwolenia 143/12",
-      postCode: "23-234",
-      userId: 2 
-    },{
-      headers: { 
-        Authorization: `JWT ${accessString}`,
-      },
-    })
-    .then( (response) => {
-      console.log(response);
-    }, err => console.log(err) )
-    
-
+    console.log(props.user);
   }
   return(
     <>
@@ -83,8 +42,7 @@ const SignedIn = ( props ) => {
     </div>
     <div className="row text-dark"> 
         <div className="col-sm-12 text-right w-100 h5 mt-2 mb-0"> 
-            Zalogowany jako:<br /> <span className="text-success">szpakusik@gmail.com</span>
-            {/* <button type="button" class="ml-3 btn btn-sm btn-outline-success">Zamów</button> */}
+            {/* Zalogowany jako:<br /> <span className="text-success">{props.user.email}</span> */}
         </div>
     </div>
     </>
@@ -99,6 +57,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return{
+    getUser: ( name, surname, email, phone, id ) => { dispatch( { type: "GET_USER", name: name, surname: surname, email: email, phone: phone, id: id } ) },
     setActiveCat: ( id )=>{ dispatch( { type: "SET_CATEGORY", id: id } ) },
     setActivePage: ( name )=>{ dispatch( { type: "CHANGE_PAGE", name: name } ) },
     signOut: ()=>{ dispatch( { type: "LOG_IN", isLogged: false } ) }

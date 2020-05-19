@@ -25,16 +25,6 @@ const CartModal = ( props ) => {
         props.showCart( false );
         props.setActivePage('sendOrder');
 
-        axios.post( serverUrl + '/order/create', {
-            cart: props.cart,
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    
     }
 
   return (
