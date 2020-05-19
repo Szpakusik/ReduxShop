@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import infoDiv from './infoDiv.module.scss';
+import {serverUrl} from '../../../utils/content/url'
 
 const AddNewAddress = (props) => {
 
-     const  { addAddress } = props;
+    const  { addAddress } = props;
 
     const [addingAddress, setAddAddress] = useState(false);
 
@@ -13,27 +14,29 @@ const AddNewAddress = (props) => {
     const [street, handleGetStreet] = useState("");
 
     const handleSendAddress = () => {
+        let accessString = localStorage.getItem('JWT')
 
         if(addingAddress === true){
-            setAddAddress(!addingAddress);
-            addAddress(city, postCode, street);
+            axios.post( serverUrl + '/address', {
+                city,
+                postCode,
+                address: street,
+            },{
+                headers: { 
+                    'Authorization': `JWT ${accessString}`,
+                }
+            })
+            .then(response => {
+                setAddAddress(!addingAddress);
+                addAddress(city, postCode, street, response.data.rows.insertId);
+                // addAddress(res.body.)
+                console.log(response.data)
+            })
+            .catch(error => {
+                console.log(error);
+            });   
         } else
-        return;   
-
-        axios.post(URL, {
-            city,
-            postCode,
-            street,
-        })
-        .then(response => {
-            if(response.ok){
-                console.log(response);     
-            }
-            throw Error("Błąd")
-        })
-        .catch(error => {
-            console.log(error);
-        });    
+        return;  
     }
 
     const handleAddAddress = () => setAddAddress(!addingAddress);

@@ -173,7 +173,7 @@ const InfoDiv = (props) => {
 
                     <div className="row">
                         { addresses }
-                        <AddNewAddress addAddress={addAddress}/>               
+                        <AddNewAddress addAddress={addAddress} getAddresses={getAddresses}/>               
                     </div>
                 </div>
             </div>
@@ -192,7 +192,7 @@ const mapDispatchToProps = (dispatch) => {
         getUser: ( name, surname, email, phone, id ) => { dispatch( { type: "GET_USER", name: name, surname: surname, email: email, phone: phone, id: id } ) },
         getAddresses: ( addresses ) => { dispatch( { type: "GET_ADDRESS", addresses: addresses } ) },
         editAddress: ( id, city, postCode, street ) => { dispatch( { type: "EDIT_ADDRESS", id: id, city: city, postCode: postCode, street: street } ) },
-        addAddress: ( city, postCode, street, ) => { dispatch( { type: "ADD_ADDRESS", city: city, postCode: postCode, street: street, } ) },
+        addAddress: ( city, postCode, street, id ) => { dispatch( { type: "ADD_ADDRESS", city: city, postCode: postCode, street: street, id: id } ) },
         setActiveAddress: (id) => { dispatch( { type: "CHANGE_ACTIVE_ADDRESS", id: id, } ) },
         deleteAddress:  (id) => { dispatch( { type: "DELETE_ADDRESS", id: id, } ) },
     }
