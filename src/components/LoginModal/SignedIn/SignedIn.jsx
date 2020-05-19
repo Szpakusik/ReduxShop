@@ -57,6 +57,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return{
+    getUser: ( name, surname, email, phone, id ) => { dispatch( { type: "GET_USER", name: name, surname: surname, email: email, phone: phone, id: id } ) },
     setActiveCat: ( id )=>{ dispatch( { type: "SET_CATEGORY", id: id } ) },
     setActivePage: ( name )=>{ dispatch( { type: "CHANGE_PAGE", name: name } ) },
     signOut: ()=>{ dispatch( { type: "LOG_IN", isLogged: false } ) }
