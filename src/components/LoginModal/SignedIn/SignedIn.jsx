@@ -10,12 +10,12 @@ import { getCartPrice } from '../../../utils/functions/cartFunctions';
 
 const SignedIn = ( props ) => {
 
-  const handleClick = ( page )=>{
+  const handleChangePage = ( page )=>{
     props.setActiveCat(0);
     props.setActivePage( page );
   }
 
-  const handleClick2 = ( page )=>{
+  const handleSignOut = ( page )=>{
     localStorage.removeItem('JWT')
     props.getUser( null, null, null, null, null );
     props.signOut();
@@ -32,10 +32,10 @@ const SignedIn = ( props ) => {
         <div className="row border-bottom p-3" onClick={ ()=>{ handleTestClick() }}>
           <p className="h5 m-0">Test Button</p>
         </div>
-        <div className="row border-bottom p-3" onClick={ ()=>{ handleClick('myAccount') }}>
+        <div className="row border-bottom p-3" onClick={ ()=>{ handleChangePage('myAccount') }}>
           <p className="h5 m-0">Moje konto</p>
         </div>
-        <div className="row border-bottom p-3" onClick={ ()=>{ handleClick2('logout') }}>
+        <div className="row border-bottom p-3" onClick={ ()=>{ handleSignOut('logout') }}>
           <p className="h5 m-0">Wyloguj</p>
         </div>
 

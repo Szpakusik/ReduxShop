@@ -9,7 +9,7 @@ const CartModal = ( props ) => {
 
     let price = getCartPrice(props.cart)
 
-    const handleClick = (id) => {
+    const handleRemoveProduct = (id) => {
 
         if( props.cart.length === 1 ) localStorage.removeItem('cart');
 
@@ -18,10 +18,16 @@ const CartModal = ( props ) => {
         props.removeFromCart(id)
     }
 
-    const handleClick2 = ()=> {
+    const handleClearCart = () => {
+        props.clearCart();
+        localStorage.removeItem('cart')
+
+    }
+
+    const handleSendOrder = ()=> {
 
         props.clearActiveCategory();
-        props.clearCart();
+        
         props.showCart( false );
         props.setActivePage('sendOrder');
 
@@ -46,7 +52,7 @@ const CartModal = ( props ) => {
                         <p className="text-dark align-middle my-auto m-0">
                             {product.name} - {product.amount} x {product.price}zł = {price}
                         </p>
-                        <i class="material-icons text-danger my-auto" onClick={ ( ) => { handleClick(product.id) }}>
+                        <i class="material-icons text-danger my-auto" onClick={ ( ) => { handleRemoveProduct(product.id) }}>
                             clear
                         </i>
                     </div>
@@ -58,7 +64,8 @@ const CartModal = ( props ) => {
         <div className="row text-dark"> 
             <div className="col-sm-12 text-right w-100 h4 mt-2 mb-0"> 
                 Razem: <span className="text-success">{price}zł</span>
-                <button type="button" onClick={ ()=> { handleClick2() }} class="ml-3 btn btn-sm btn-outline-success">Zamów</button>
+                <button type="button" onClick={ ()=> { handleSendOrder() }} class="ml-3 btn btn-sm btn-outline-success">Zamów</button>
+                <button type="button" onClick={ ()=> { handleClearCart() }} class="ml-1 btn btn-sm btn-outline-danger">Opróżnij</button>
             </div>
         </div>
     </div>
