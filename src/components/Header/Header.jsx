@@ -165,6 +165,9 @@ const Header = ( props ) => {
                 <i className="material-icons float-right my-auto">
                   shopping_cart
                 </i>
+                <span className={`badge badge-light ${headerStyles.cartBadge}`}>{length}</span> 
+
+
               </div>
               
             </div>
