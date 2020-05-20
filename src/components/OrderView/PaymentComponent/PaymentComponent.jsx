@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import { serverUrl } from '../../../utils/content/url';
-import { tranformCartForOrder } from '../../../utils/functions/cartFunctions';
+import { tranformCartForOrder, getCartPrice } from '../../../utils/functions/cartFunctions';
 import paymentComponent from './paymentComponent.module.scss';
 import { connect } from 'react-redux';
 
-const PaymentComponent = ({price, addresses, cart, setActivePage, ordered, contactDetails}) => {
+const PaymentComponent = ({price, addresses, cart, setActivePage, ordered, contactDetails, clearCart}) => {
 
     let deliveryPrice = 16.80;
     let totalPrice = parseFloat(price) + deliveryPrice;
@@ -15,44 +15,67 @@ const PaymentComponent = ({price, addresses, cart, setActivePage, ordered, conta
 
     const selectedAddress = addresses.find(address => address.active === 1);
 
-    const handlePayment = () => {
+    const handlePayuPayment = () => {
         let accessString = localStorage.getItem('JWT')
 
         axios.post( serverUrl + '/order/create', {
-            customerId: userId,
             productsOrdered: tranformCartForOrder(cart),
         },{
             headers:{'Authorization': `JWT ${accessString}`}
         })
         .then(function (response) {
             console.log(response);
+            // localStorage.removeItem('cart')
+            // clearCart();
+
+
+            axios.post( serverUrl + '/payment/sendorder',{
+                price: getCartPrice(cart),
+                cart: cart,
+                orderId: response.data.orderId
+            },{
+                headers:{'Authorization': `JWT ${accessString}`}
+            })
+            .then( (response) => {
+                console.log(response);
+                if(response.data.redirectUri) 
+                    window.open(response.data.redirectUri, "_blank")
+            }, err => console.log(err) )
+
+
         })
         .catch(function (error) {
             console.log(error);
         });
+
+        
+    }
+
+    const handlePayment = () => {
+        let accessString = localStorage.getItem('JWT')
+
+        axios.post( serverUrl + '/order/create', {
+            productsOrdered: tranformCartForOrder(cart),
+        },{
+            headers:{'Authorization': `JWT ${accessString}`}
+        })
+        .then(function (response) {
+            console.log(response);
+            setActivePage('finalizeOrder')
+            // localStorage.removeItem('cart')
+            // clearCart();
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
         console.log(`Płatność ${payment}, Regulamin ${regulations}, do zapłaty ${totalPrice}`)
         console.log(`Adres dostawy ${JSON.stringify(selectedAddress)}`)
         console.log(`${cart}`);
-        if(payment === 'cash-on-delivery'){
-             setActivePage('finalizeOrder')
-        }
     }
 
     const payuButton =  
-    <form method="post" action="https://secure.payu.com/api/v2_1/orders">
-        <input type="hidden" name="continueUrl" value="http://shop.url/continue"/>
-        <input type="hidden" name="currencyCode" value="PLN"/>
-        <input type="hidden" name="customerIp" value="123.123.123.123"/>
-        <input type="hidden" name="description" value="Order description"/>
-        <input type="hidden" name="merchantPosId" value="145227"/>
-        <input type="hidden" name="notifyUrl" value="http://shop.url/notify"/>
-        <input type="hidden" name="products[0].name" value="Product 1"/>
-        <input type="hidden" name="products[0].quantity" value="1"/>
-        <input type="hidden" name="products[0].unitPrice" value="1000"/>
-        <input type="hidden" name="totalAmount" value="1000"/>
-        <input type="hidden" name="OpenPayu-Signature" value="sender=145227;algorithm=SHA-256;signature=bc94a8026d6032b5e216be112a5fb7544e66e23e68d44b4283ff495bdb3983a8"/>
-        <button type="submit" formtarget="_blank" ></button>
-    </form >;
+    <button type="submit" onClick={ handlePayuPayment } ></button>;
 
     if(!ordered){
     return(
@@ -124,6 +147,7 @@ const PaymentComponent = ({price, addresses, cart, setActivePage, ordered, conta
 
 const mapDispatchToProps = (dispatch) => {
     return{
+        clearCart: ()=>{ dispatch( { type: "CLEAR_CART" } ) },
         setActivePage: ( name )=>{ dispatch( { type: "CHANGE_PAGE", name: name } ) },
     }
 }
