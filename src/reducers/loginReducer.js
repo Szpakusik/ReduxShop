@@ -6,7 +6,7 @@ let tempObj;
 let tempCart;
 let addresses, address;
 let defaultActive = 0;
-let couterId = 2;
+// let couterId = 2;
 
 const initState = {
 
@@ -21,15 +21,15 @@ const initState = {
       addresses:[
         {
             id:0,
-            street: "Skrzelczyce 116",
-            postCode: "26-015",
+            address: "Skrzelczyce 116",
+            post_code: "26-015",
             city: "Pierzchnica",
             active: 1,
         },
         {
             id:1,
-            street: "Skrzelczyce 143",
-            postCode: "26-026",
+            adress: "Skrzelczyce 143",
+            post_code: "26-026",
             city: "Morawica",
             active: 0,
         }
@@ -57,7 +57,7 @@ const loginReducer = (state = initState, action) => {
         logged: action.isLogged,
       }
 
-     case "EDIT_USER" :
+     case "GET_USER" :
 
       return{
         ...state,
@@ -68,9 +68,22 @@ const loginReducer = (state = initState, action) => {
          surname: action.surname,
          email: action.email,
          phone: action.phone,
+         id: action.id
        }
      
      }
+
+
+    case "GET_ADDRESS" :
+
+      return{
+        ...state,
+
+        user:{
+          ...state.user,
+          addresses: action.addresses,
+        }
+      }
 
      case "EDIT_ADDRESS" :
 
@@ -79,8 +92,8 @@ const loginReducer = (state = initState, action) => {
        addresses.filter( address => {
          if(address.id === action.id){
           address.city = action.city;
-          address.postCode = action.postCode;
-          address.street = action.street;
+          address.post_code = action.postCode;
+          address.address = action.street;
           return address;
          }       
         });
@@ -91,21 +104,20 @@ const loginReducer = (state = initState, action) => {
         user:{
          ...state.user,
             addresses,
-       }
-     
-     }
+        }
+      }
 
      case "ADD_ADDRESS" :
 
       addresses = [...state.user.addresses]
       addresses.push({
-        id: couterId,
+        id: action.id,
         city: action.city,
-        postCode: action.postCode,
-        street: action.street,
+        post_code: action.postCode,
+        address: action.street,
         active: defaultActive,
       });
-      couterId++;
+      // couterId++;
       
      return{
        ...state,

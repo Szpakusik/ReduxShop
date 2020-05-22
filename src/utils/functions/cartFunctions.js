@@ -20,3 +20,14 @@ export function getCartPrice(cart){
 
     return price;
 }
+
+export function tranformCartForOrder(cart){
+
+    return cart.map( (product) => {
+        return {
+            productId: product.id,
+            amount: product.amount
+        }
+    })
+
+}
