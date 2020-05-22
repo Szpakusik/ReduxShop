@@ -7,50 +7,18 @@ import {serverUrl} from '../../../utils/content/url'
 
 const OrdersDiv = (props) => {
 
-    const [orders, setOrders] = useState(
-    [
-        {
-            id: 1231,
-            date: new Date(),
-            status: 'W trakcie',
-            products: [
-                { name:"Szynka Sołtysowa", weight: '1000g', price: 25.49, photo:"ham.png", category:"mieso", id:22, amount:1 },
-                { name:"Kurczak Cały", weight: '1000g', price: 16.49, photo:"chicken.png", category:"mieso", id:23, amount:1 },
-            ],
-        },
-        {
-            id: 1231,
-            date: new Date(),
-            status: 'Nieopłacone',
-            products: [
-                { name:"Szynka Sołtysowa", weight: '1000g', price: 25.49, photo:"ham.png", category:"mieso", id:22, amount:1 },
-                { name:"Kurczak Cały", weight: '1000g', price: 16.49, photo:"chicken.png", category:"mieso", id:23, amount:1 },
-            ],
-        },
-        {
-            id: 4231,
-            date: new Date(),
-            status: 'Dostarczone',
-            products: [
-                { name:"Szynka Sołtysowa", weight: '1000g', price: 25.49, photo:"ham.png", category:"mieso", id:22, amount:1 },
-                { name:"Kurczak Cały", weight: '1000g', price: 16.49, photo:"chicken.png", category:"mieso", id:23, amount:1 },
-            ],
-        },
-
-    ])
-
     useEffect( () => {
 
         let accessString = localStorage.getItem('JWT');
 
-        axios.get( serverUrl +'/order/display/fromuser',{
+        axios.get( serverUrl +'/order/history',{
             headers:{
                 'Authorization': `JWT ${accessString}`
             },
         })
         .then(function (response) {
-            // setOrders(response)
-            console.log(response);
+            console.log(response.data);
+            props.setOrders(response.data.orders)
         })
         .catch(function (error) {
             console.log(error);
@@ -68,13 +36,13 @@ const OrdersDiv = (props) => {
                 </div>
                 <ul class="list-group list-group-flush  bg-white">
 
-                    {orders.length > 0 && orders.map( (order, index)=>{
+                    {props.orders.length > 0 && props.orders.map( (order, index)=>{
                         return(
                             <OrderComponent order={order} key={index}/>
                         )
                     } )}
 
-                    { orders.length == 0 ? 
+                    { props.orders.length == 0 ? 
                             <li className="list-group-item mt-2 px-0 border">
                                 <p className="border-0 mb-0">Nie masz jeszcze żadnych zamówień</p>
                             </li>
@@ -94,4 +62,15 @@ const OrdersDiv = (props) => {
 
 }
 
-export default OrdersDiv
+const mapStateToProps = ( state ) => {
+    return{
+        orders: state.orderReducer.orders,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        setOrders: ( orders )=>{ dispatch( { type: "SET_ORDERS", orders } ) },
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(OrdersDiv)
