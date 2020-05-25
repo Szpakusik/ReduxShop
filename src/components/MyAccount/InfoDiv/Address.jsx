@@ -23,7 +23,7 @@ const Address = (props) => {
         
             axios.patch( serverUrl + '/account/details', 
                 {
-                    rowsToChange: `default_address = "${id}"`,
+                    rowsToChange: `default_address = ${id}`,
                 },
                 {
                     headers: {
