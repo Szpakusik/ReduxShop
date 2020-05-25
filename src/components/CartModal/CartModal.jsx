@@ -12,25 +12,18 @@ const CartModal = ( props ) => {
     const handleRemoveProduct = (id) => {
 
         if( props.cart.length === 1 ) localStorage.removeItem('cart');
-
-        console.log(localStorage)
-
         props.removeFromCart(id)
     }
 
     const handleClearCart = () => {
         props.clearCart();
         localStorage.removeItem('cart')
-
     }
 
     const handleSendOrder = ()=> {
-
         props.clearActiveCategory();
-        
         props.showCart( false );
         props.setActivePage('sendOrder');
-
     }
 
   return (
@@ -62,11 +55,14 @@ const CartModal = ( props ) => {
 
         }
         <div className="row text-dark"> 
-            <div className="col-sm-12 text-right w-100 h4 mt-2 mb-0"> 
+            <div className="col-12 col-sm-6 col-md-6 col-lg-12 text-right w-100 h4 mt-2 mb-0"> 
                 Razem: <span className="text-success">{price}zł</span>
+            </div>
+            <div className="col-12 col-sm-6 col-md-6 col-lg-12 text-right w-100 h4 mt-2 mb-0"> 
                 <button type="button" onClick={ ()=> { handleSendOrder() }} class="ml-3 btn btn-sm btn-outline-success">Zamów</button>
                 <button type="button" onClick={ ()=> { handleClearCart() }} class="ml-1 btn btn-sm btn-outline-danger">Opróżnij</button>
             </div>
+       
         </div>
     </div>
 

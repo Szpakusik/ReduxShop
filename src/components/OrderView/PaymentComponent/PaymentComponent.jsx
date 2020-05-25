@@ -5,7 +5,7 @@ import { tranformCartForOrder, getCartPrice } from '../../../utils/functions/car
 import paymentComponent from './paymentComponent.module.scss';
 import { connect } from 'react-redux';
 
-const PaymentComponent = ({price, addresses, cart, setActivePage, ordered, contactDetails, clearCart}) => {
+const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, ordered, contactDetails, clearCart}) => {
 
     let deliveryPrice = 16.80;
     let totalPrice = parseFloat(price) + deliveryPrice;
@@ -14,41 +14,40 @@ const PaymentComponent = ({price, addresses, cart, setActivePage, ordered, conta
     const [regulations, acceptRegulations] = useState(false);
 
     const selectedAddress = addresses.find(address => address.active === 1);
-
+    
     const handlePayuPayment = () => {
         let accessString = localStorage.getItem('JWT')
 
         axios.post( serverUrl + '/order/create', {
             productsOrdered: tranformCartForOrder(cart),
+            address: selectedAddress.id,
+            payment: payment,
         },{
             headers:{'Authorization': `JWT ${accessString}`}
         })
         .then(function (response) {
-            console.log(response);
-            // localStorage.removeItem('cart')
-            // clearCart();
 
+                localStorage.removeItem('cart')
+                clearCart();
+                setActivePage('myAccount');
 
-            axios.post( serverUrl + '/payment/sendorder',{
-                price: getCartPrice(cart),
-                cart: cart,
-                orderId: response.data.orderId
-            },{
-                headers:{'Authorization': `JWT ${accessString}`}
-            })
-            .then( (response) => {
-                console.log(response);
-                if(response.data.redirectUri) 
-                    window.open(response.data.redirectUri, "_blank")
-            }, err => console.log(err) )
-
-
+                axios.post( serverUrl + '/payment/sendorder',{
+                    price: getCartPrice(cart),
+                    cart: cart,
+                    orderId: response.data.orderId,
+                },{
+                    headers:{'Authorization': `JWT ${accessString}`}
+                })
+                .then( (response) => {
+                    if(response.data.redirectUri) 
+                        window.open(response.data.redirectUri, "_blank");
+                    
+                    setTempOrder(response.data.orderId);
+                }, err => console.log(err) )
         })
         .catch(function (error) {
             console.log(error);
         });
-
-        
     }
 
     const handlePayment = () => {
@@ -56,22 +55,25 @@ const PaymentComponent = ({price, addresses, cart, setActivePage, ordered, conta
 
         axios.post( serverUrl + '/order/create', {
             productsOrdered: tranformCartForOrder(cart),
+            address: selectedAddress.id,
+            payment: payment,
         },{
             headers:{'Authorization': `JWT ${accessString}`}
         })
         .then(function (response) {
-            console.log(response);
-            setActivePage('finalizeOrder')
-            // localStorage.removeItem('cart')
-            // clearCart();
+            console.log(response.data.orderId);
+            setTempOrder(response.data.orderId);
+            setActivePage('finalizeOrder');
+            
+            localStorage.removeItem('cart');
+            clearCart();
         })
         .catch(function (error) {
             console.log(error);
         });
-
-        console.log(`Płatność ${payment}, Regulamin ${regulations}, do zapłaty ${totalPrice}`)
-        console.log(`Adres dostawy ${JSON.stringify(selectedAddress)}`)
-        console.log(`${cart}`);
+        // console.log(`Płatność ${payment}, Regulamin ${regulations}, do zapłaty ${totalPrice}`)
+        // console.log(`Adres dostawy ${JSON.stringify(selectedAddress)}`)
+        // console.log(`${cart}`);
     }
 
     const payuButton =  
@@ -123,7 +125,7 @@ const PaymentComponent = ({price, addresses, cart, setActivePage, ordered, conta
             <div className="card-header radius-none transparent-darker">
                 <span className="h4 card-title text-white">Szczegóły zamówienia</span>
             </div>
-            <ul class="list-group list-group-flush  bg-white">
+            <ul class="list-group list-group-flush bg-white">
                 <div className={`p-4 mt-2 bg-white border`}>
 
                <p>Numer zamówienia : 4184</p>
@@ -147,6 +149,7 @@ const PaymentComponent = ({price, addresses, cart, setActivePage, ordered, conta
 
 const mapDispatchToProps = (dispatch) => {
     return{
+        setTempOrder: ( id ) => { dispatch( { type: "SET_TEMP_ORDER", id } ) },
         clearCart: ()=>{ dispatch( { type: "CLEAR_CART" } ) },
         setActivePage: ( name )=>{ dispatch( { type: "CHANGE_PAGE", name: name } ) },
     }

@@ -6,11 +6,9 @@ import { getCartPrice } from'../../../../utils/functions/cartFunctions';
 const OrderComponent = (props) => {
 
     const handleDetailsClick = () => {
-
+        props.setActivePage('finalizeOrder');
+        props.setTempOrder(props.order.orderId);
     }
-
-    console.log(props.order);
-
     const products = [
         { name:"Szynka Sołtysowa", weight: '1000g', price: 25.49, photo:"ham.png", category:"mieso", id:22, amount:1 },
         { name:"Kurczak Cały", weight: '1000g', price: 16.49, photo:"chicken.png", category:"mieso", id:23, amount:1 },
@@ -19,7 +17,8 @@ const OrderComponent = (props) => {
     switch(props.order.status){
         case 0:
             statusColor='dark';
-            statusText="Nieopłacone"
+            statusText="Nieopłacone";
+            break;
         case 1:
             statusColor='warning';
             statusText="W drodze / Nieopłacone"
@@ -36,13 +35,17 @@ const OrderComponent = (props) => {
             statusColor='success';
             statusText="Dostarczone"
             break;
+        case 5:
+            statusColor='success';
+            statusText="Dostarczone(Payu)"
+            break;
     }
     return(
         <>
 
         <li class={`list-group-item  py-0 px-0 border ${orderComponent.orderComponent} mt-2`}>
             <div className={`row px-2 text-left text-secondaryp-1 ${orderComponent.detail}`}>
-                <div className="col-sm-12 mb-2 text-center">
+                <div className="col-sm-12 mb-2 text-center mt-2 mt-md-0">
                     {props.order.date}
                 </div>
             </div>
@@ -57,15 +60,17 @@ const OrderComponent = (props) => {
             </div>
 
             <div className="row w-100 px-2 border-top pt-2 pb-2 transparent-darker mx-auto">
-                <div className="col-sm-7 my-auto">
 
-                <div className={`rounded-circle bg-${statusColor} mr-2 mt-1 float-left ${orderComponent.statusCircle}`}></div>
-                    
-                    <span className={`float-left text-${statusColor}`} >{statusText}</span>
+                <div className="col-md-12 col-lg-8 my-md-auto mb-2">
+
+                    <div className={`rounded-circle bg-${statusColor} mr-2 mt-1 float-left ${orderComponent.statusCircle}`}></div>
+                    <span className={`float-lg-left text-${statusColor}`} >{statusText}</span>
                 </div>
-                <div className="col-sm-5">
-                    <button onClick={ ()=>{} } className="btn-outline-light btn btn-sm w-75 float-right">Szczegóły</button>
+
+                <div className="col-md-12 col-lg-4">
+                    <button onClick={ handleDetailsClick } className="btn-outline-light btn btn-sm w-100 w-lg-75 float-lg-right">Szczegóły</button>
                 </div>
+
             </div>
         </li>
 
@@ -74,4 +79,12 @@ const OrderComponent = (props) => {
 
 }
 
-export default OrderComponent
+const mapDispatchToProps = (dispatch) => {
+    return{
+        clearCart: ()=>{ dispatch( { type: "CLEAR_CART" } ) },
+        setActivePage: ( name )=>{ dispatch( { type: "CHANGE_PAGE", name: name } ) },
+        setTempOrder: ( id )=>{ dispatch( { type: "SET_TEMP_ORDER", id } ) },
+    }
+}
+
+export default connect(null, mapDispatchToProps)(OrderComponent)

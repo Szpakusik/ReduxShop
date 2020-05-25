@@ -3,6 +3,7 @@ const initState = {
       email: "",
       phone: "",
   },
+  tempOrderId: -1,
   orders: [
     // {
     //     id: 1231,
@@ -51,8 +52,11 @@ const orderReducer = (state = initState, action) => {
         ...state,
         orders: action.orders,
       }
-    
-
+    case "SET_TEMP_ORDER":
+      return{
+        ...state,
+        tempOrderId: action.id,
+      }
     
     default:
       return state;
