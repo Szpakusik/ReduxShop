@@ -6,6 +6,8 @@ import OrderComponent from './OrderComponent/OrderComponent';
 import {serverUrl} from '../../../utils/content/url'
 
 const OrdersDiv = (props) => {
+    
+    const [ limitCounter, setLimit ] = useState(3);
 
     useEffect( () => {
 
@@ -24,7 +26,11 @@ const OrdersDiv = (props) => {
             console.log(error);
         });
 
-    }, [])
+    }, [limitCounter]);
+
+    const handleLoadMore = () => {
+        setLimit( limitCounter + 3);
+    }
     
 
     return(
@@ -37,6 +43,7 @@ const OrdersDiv = (props) => {
                 <ul class="list-group list-group-flush  bg-white">
 
                     {props.orders.length > 0 && props.orders.map( (order, index)=>{
+                        if(index < limitCounter)
                         return(
                             <OrderComponent order={order} key={index}/>
                         )
@@ -46,7 +53,7 @@ const OrdersDiv = (props) => {
                             <li className="list-group-item mt-2 px-0 border">
                                 <p className="border-0 mb-0">Nie masz jeszcze żadnych zamówień</p>
                             </li>
-                     : <button className="w-75 btn bg-white border mx-auto my-3">Pokaż więcej</button> }
+                     : <button onClick={ handleLoadMore }className="w-75 btn bg-white border mx-auto my-3">Pokaż więcej</button> }
                     
                 
 
