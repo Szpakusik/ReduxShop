@@ -12,7 +12,7 @@ const MyAccount = ({user, editUser, editAddress, addAddress, setActiveAddress, d
 
     return(
         <>
-            <div className={`container ${myAccount.index} mb-5`}>
+            <div className={`${myAccount.index} mb-5`}>
 
                 <div className={`row w-100 ${myAccount.header} pt-2 mx-auto px-1 transparent-darker`}>
                 
@@ -24,7 +24,7 @@ const MyAccount = ({user, editUser, editAddress, addAddress, setActiveAddress, d
 
                 <div className="row">
 
-                    <div className="col-md-7 pr-1">
+                    <div className="col-md-7 pr-md-1">
 
                         <InfoDiv/>
 
@@ -32,7 +32,7 @@ const MyAccount = ({user, editUser, editAddress, addAddress, setActiveAddress, d
 
                     </div>
                     
-                    <div className="col-md-5 pl-1">
+                    <div className="col-md-5 pl-md-1">
 
                         <OrdersDiv />
 
