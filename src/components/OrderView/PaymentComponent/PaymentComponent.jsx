@@ -14,8 +14,13 @@ const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, 
     const [regulations, acceptRegulations] = useState(false);
 
     const selectedAddress = addresses.find(address => address.active === 1);
+    console.log(selectedAddress);
     
     const handlePayuPayment = () => {
+        if( !selectedAddress ) {
+            alert("Wybierz adres dostawy!");
+            return 0;
+        }
         let accessString = localStorage.getItem('JWT')
 
         axios.post( serverUrl + '/order/create', {
@@ -51,6 +56,10 @@ const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, 
     }
 
     const handlePayment = () => {
+        if( !selectedAddress ) {
+            alert("Wybierz adres dostawy!");
+            return 0;
+        }
         let accessString = localStorage.getItem('JWT')
 
         axios.post( serverUrl + '/order/create', {

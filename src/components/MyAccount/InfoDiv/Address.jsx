@@ -118,7 +118,7 @@ const Address = (props) => {
         return(
             <div className={`col-md-6 text-center no-select ${infoDiv.address}`}>  
 
-                <div onClick={() => { !editingAddress ? handleSetActiveAddress(address.id) : null }} className={`pt-3 p-2 mb-3 bg-white ${infoDiv.adress} ${active}`}>
+                <div onClick={() => { !editingAddress && !address.active ? handleSetActiveAddress(address.id) : null }} className={`pt-3 p-2 mb-3 bg-white ${infoDiv.adress} ${active}`}>
                     {editingAddress ? dataAddressEditTag.postCode : dataAddressTag.posCtode}
                     {editingAddress ? dataAddressEditTag.city : dataAddressTag.city}                             
                     {editingAddress ? dataAddressEditTag.street : dataAddressTag.street}
@@ -134,7 +134,7 @@ const Address = (props) => {
     else{
         return(
         <div className={`col-md-6 text-center no-select`}>  
-            <div onClick={() => handleSetActiveAddress(address.id)} className={`pt-3 p-2 mb-3 bg-white ${infoDiv.adress} ${active}`}>
+            <div onClick={() => { if(!address.active){handleSetActiveAddress(address.id)} } } className={`pt-3 p-2 mb-3 bg-white ${infoDiv.adress} ${active}`}>
             {dataAddressTag.postCode}   
             {dataAddressTag.city}
             {dataAddressTag.street}
