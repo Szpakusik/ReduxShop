@@ -36,7 +36,7 @@ const OrderProducts = ( props ) => {
                         if(index === products.length-1) borderBottom = '';
 
                         return(
-                            <div key={product.id} className={`my-1 pl-2 pl-xl-5 row ${borderBottom} ${orderProducts.productRow}`}>
+                            <div key={product.id} className={`my-1 pt-1 pt-md-0 pl-2 pl-xl-5 row ${borderBottom} ${orderProducts.productRow}`}>
                                 <div className={`${orderProducts.photoContainer} align-self-center mr-1 p-1`}>
                                      <img class="card-img my-auto" src={require(`../../../images/${product.photo}`)} alt="Product" />
                                 </div>

@@ -62,7 +62,7 @@ const AddNewAddress = (props) => {
   
     if(!props.ordered) {
         return(
-        <div className={`col-md-6 text-center ${infoDiv.newAddress}`}>
+        <div className={`col-lg-6 text-center ${infoDiv.newAddress}`}>
             <div onClick={ () => {addingAddress ? null : handleAddAddress()}} className={`pt-3 p-2 mb-3 rounded bg-white ${infoDiv.adress}`}>
             {addingAddress ? dataAddAddressTag.inputs : dataAddAddressTag.default}
            </div>

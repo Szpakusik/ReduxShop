@@ -116,7 +116,7 @@ const Address = (props) => {
     
     if(management){
         return(
-            <div className={`col-md-6 text-center no-select ${infoDiv.address}`}>  
+            <div className={`col-lg-6 text-center no-select ${infoDiv.address}`}>  
 
                 <div onClick={() => { !editingAddress && !address.active ? handleSetActiveAddress(address.id) : null }} className={`pt-3 p-2 mb-3 bg-white ${infoDiv.adress} ${active}`}>
                     {editingAddress ? dataAddressEditTag.postCode : dataAddressTag.posCtode}
@@ -133,7 +133,7 @@ const Address = (props) => {
     }
     else{
         return(
-        <div className={`col-md-6 text-center no-select`}>  
+        <div className={`col-lg-6 text-center no-select`}>  
             <div onClick={() => { if(!address.active){handleSetActiveAddress(address.id)} } } className={`pt-3 p-2 mb-3 bg-white ${infoDiv.adress} ${active}`}>
             {dataAddressTag.postCode}   
             {dataAddressTag.city}

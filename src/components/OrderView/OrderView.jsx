@@ -87,7 +87,7 @@ const OrderView = (props) => {
                             <div className="mt-4 text-center w-100">
 
                                 <div className="card-header radius-none transparent-darker">
-                                    <span className="h4 card-title text-white">Wybierz adres dostawy</span>
+                                    <span className="h4 card-title text-white">Adres dostawy</span>
                                 </div>
 
                             </div>       

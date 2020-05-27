@@ -31,4 +31,18 @@
 
 .productRow{
     height: 50px;
+    @media only screen and (max-width: 1199.90px){
+        overflow-y: hidden;
+        overflow-x: auto;
+        white-space: nowrap;
+        display: block;
+        div{
+            display: inline-block;
+        }
+        img{
+            display: inline-block;
+        }
+        p{display: inline-block;}
+    }
+
 }

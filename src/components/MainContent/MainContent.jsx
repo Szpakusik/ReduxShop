@@ -30,7 +30,7 @@ const MainContent = ( props ) => {
 
   return(
     <>
-    <div className={`container mr-0 text-dark pb-0 p-3 col-12 col-md-11 ${mainContent.mainContent}`} onClick={ ()=>{ handleClick() } }>
+    <div className={`container mr-0 text-dark pb-0 p-4 col-12 col-md-11 ${mainContent.mainContent}`} onClick={ ()=>{ handleClick() } }>
       
       {
         props.activeCategory === 0 ? showContent(props.activePage)
