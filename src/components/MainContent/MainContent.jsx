@@ -17,26 +17,26 @@ const MainContent = ( props ) => {
 
   useEffect(() => {
 
-        axios.get( serverUrl + '/product', {})
-        .then(function (response) {
-            // console.log(response);
-            props.getAllProducts(response.data)
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-
+    axios.get( serverUrl + '/product', {})
+    .then(function (response) {
+        // console.log(response);
+        props.getAllProducts(response.data)
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+    
   }, [])
+
+  useEffect(() => {
+    document.getElementById('scrollDiv').scrollTo(0, 0)
+  })
 
   return(
     <>
-    <div className={`container mr-0 text-dark pb-0 p-4 col-12 col-md-11 ${mainContent.mainContent}`} onClick={ ()=>{ handleClick() } }>
+    <div id="scrollDiv" className={`container mr-0 text-dark pb-0 p-4 col-12 col-md-11 ${mainContent.mainContent}`} onClick={ ()=>{ handleClick() } }>
       
-      {
-        props.activeCategory === 0 ? showContent(props.activePage)
-
-        : null
-      }
+      { props.activeCategory === 0 ? showContent(props.activePage) : null }
       { 
 
         props.products.length > 0 && props.activeCategory !== 0 &&
@@ -54,8 +54,8 @@ const MainContent = ( props ) => {
       <div className={`w-100 ${footerCss.container}`}>
         <Footer />
       </div>
-    </div>
-    
+    </div>  
+
     </>
   )
 };
