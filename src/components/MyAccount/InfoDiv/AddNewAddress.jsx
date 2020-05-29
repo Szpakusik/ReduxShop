@@ -5,7 +5,7 @@ import {serverUrl} from '../../../utils/content/url'
 
 const AddNewAddress = (props) => {
 
-    const  { addAddress } = props;
+    const  { addAddress, setActiveAddress } = props;
 
     const [addingAddress, setAddAddress] = useState(false);
 
@@ -16,8 +16,10 @@ const AddNewAddress = (props) => {
     const handleSendAddress = () => {
         let accessString = localStorage.getItem('JWT')
 
+        let authRoute = props.logged ? '' : '/noauth'
+
         if(addingAddress === true){
-            axios.post( serverUrl + '/address', {
+            axios.post( serverUrl + '/address' + authRoute, {
                 city,
                 postCode,
                 address: street,
@@ -29,6 +31,9 @@ const AddNewAddress = (props) => {
             .then(response => {
                 setAddAddress(!addingAddress);
                 addAddress(city, postCode, street, response.data.rows.insertId);
+                console.log(response.data.rows.insertId);
+                
+                setActiveAddress(response.data.rows.insertId);
                 // addAddress(res.body.)
                 console.log(response.data)
             })

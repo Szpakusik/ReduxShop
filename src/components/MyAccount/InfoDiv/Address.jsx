@@ -122,7 +122,7 @@ const Address = (props) => {
                     {editingAddress ? dataAddressEditTag.postCode : dataAddressTag.posCtode}
                     {editingAddress ? dataAddressEditTag.city : dataAddressTag.city}                             
                     {editingAddress ? dataAddressEditTag.street : dataAddressTag.street}
-                    {editingAddress ? <button onClick={ () => handleDeleteAddress(address.id)} class="w-50 btn btn-outline-success">Usuń adres</button> : null}
+                    {editingAddress ? <button onClick={ () => handleDeleteAddress(address.id)} class="w-50 btn btn-outline-success mx-auto d-block">Usuń adres</button> : null}
                 </div>
                 <div className={`${infoDiv.editUserWrapper}`}>
                     <button class={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={() => handleEditAddress(address.id)}>{editingAddress ? 'Anuluj' : 'Edytuj'}</button>
