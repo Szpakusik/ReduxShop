@@ -18,6 +18,8 @@ const SignedIn = ( props ) => {
   const handleSignOut = ( page )=>{
     localStorage.removeItem('JWT')
     props.getUser( null, null, null, null, null );
+    props.getAddresses( [] );
+    props.setActivePage( 'homepage' )
     props.signOut();
   }
 
@@ -60,7 +62,8 @@ const mapDispatchToProps = (dispatch) => {
     getUser: ( name, surname, email, phone, id ) => { dispatch( { type: "GET_USER", name: name, surname: surname, email: email, phone: phone, id: id } ) },
     setActiveCat: ( id )=>{ dispatch( { type: "SET_CATEGORY", id: id } ) },
     setActivePage: ( name )=>{ dispatch( { type: "CHANGE_PAGE", name: name } ) },
-    signOut: ()=>{ dispatch( { type: "LOG_IN", isLogged: false } ) }
+    signOut: ()=>{ dispatch( { type: "LOG_IN", isLogged: false } ) },
+    getAddresses: ( addresses ) => { dispatch( { type: "GET_ADDRESS", addresses: addresses } ) },
   }
 }
 
