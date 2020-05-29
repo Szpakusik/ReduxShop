@@ -44,5 +44,11 @@
         }
         p{display: inline-block;}
     }
+    @media only screen and (max-width: 638.90px){
+        height: initial;
+        img{
+            display: block;
+        }
+    }
 
 }

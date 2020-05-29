@@ -5,7 +5,7 @@ import { tranformCartForOrder, getCartPrice } from '../../../utils/functions/car
 import paymentComponent from './paymentComponent.module.scss';
 import { connect } from 'react-redux';
 
-const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, ordered, contactDetails, clearCart}) => {
+const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, ordered, contactDetails, clearCart, logged}) => {
 
     let deliveryPrice = 16.80;
     let totalPrice = parseFloat(price) + deliveryPrice;
@@ -70,7 +70,6 @@ const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, 
             headers:{'Authorization': `JWT ${accessString}`}
         })
         .then(function (response) {
-            console.log(response.data.orderId);
             setTempOrder(response.data.orderId);
             setActivePage('finalizeOrder');
             
@@ -91,7 +90,7 @@ const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, 
     if(!ordered){
     return(
         <div className="row w-100 mx-auto">
-            <div className="mt-4 text-center w-100">
+            <div className="mt-2 text-center w-100">
                 <div className="card-header radius-none transparent-darker">
                     <span className="h4 card-title text-white">Opłać zamówienie</span>
                 </div>
@@ -129,8 +128,8 @@ const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, 
     )
 }else{
     return(
-        <div className="row w-100 mx-auto">
-        <div className="mt-4 text-center w-100">
+    <div className="row w-100 mx-auto">
+        <div className="mt-2 text-center w-100">
             <div className="card-header radius-none transparent-darker">
                 <span className="h4 card-title text-white">Szczegóły zamówienia</span>
             </div>

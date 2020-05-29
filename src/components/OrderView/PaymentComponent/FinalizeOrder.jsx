@@ -94,7 +94,7 @@ const FinalizeOrder = (props) => {
                   
                 </div>
                 
-                <div className="col-md-5 col-lg-6 pl-1">
+                <div className="col-md-5 col-lg-6 pl-md-1">
 
                     <div class="row w-100 mx-auto">
 
@@ -102,15 +102,19 @@ const FinalizeOrder = (props) => {
 
                         <div className="mt-4 text-center w-100">
 
-                        <div className="card-header radius-none transparent-darker">
-                            <span className="h4 card-title text-white">Adres do wysyłki</span>
-                        </div>
+                            <div className="card-header radius-none transparent-darker">
+                                <span className="h4 card-title text-white">Adres do wysyłki</span>
+                            </div>
 
-                    </div>       
+                            <div className={`px-1 mt-2 bg-white border pt-3`}>
+                                {ordered ? selectedAddress : userAddresses}
+                                <AddNewAddress ordered={ordered} addAddress={addAddress}/>
+                            </div>
+
+                        </div>       
 
                     </div> 
-                        {ordered ? selectedAddress : userAddresses}
-                        <AddNewAddress ordered={ordered} addAddress={addAddress}/>
+                        
                     </div>
                         {/* <ChooseAddress /> */}
                         <PaymentComponent contactDetails={contactDetails} ordered={ordered} addresses={addresses} price={price} cart={props.orderedProducts} />

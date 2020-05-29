@@ -51,11 +51,11 @@ const OrderComponent = (props) => {
             </div>
 
             <div className="row pb-2">
-                <div className="col-sm-6 border-right">
-                    <p className='border-0'>Ilość produktów: <br />{props.order.amountOfProducts}</p>
+                <div className="col-6 border-right">
+                    <p className='border-0'><span className="d-none d-sm-inline">Ilość</span> Produktów: <br />{props.order.amountOfProducts}</p>
                 </div>
-                <div className="col-sm-6">
-                    <p className='border-0'>Cena końcowa: <br />{props.order.price.toFixed(2)} zł</p>
+                <div className="col-6">
+                    <p className='border-0'>Cena Końcowa: <br />{props.order.price.toFixed(2)} zł</p>
                 </div>
             </div>
 

@@ -25,4 +25,7 @@ button[type=submit] {
     background: url('http://static.payu.com/pl/standard/partners/buttons/payu_account_button_long_03.png');
     background-repeat: no-repeat;
     cursor: pointer;
+    @media only screen and (max-width: 399.90px){
+        margin-left:-12px
+    }
 }
