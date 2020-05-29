@@ -98,22 +98,22 @@ const FinalizeOrder = (props) => {
 
                     <div class="row w-100 mx-auto">
 
-                    <div className={`row w-100 mx-auto ${myAccount.addresses}`}>
+                        <div className={`row w-100 mx-auto ${myAccount.addresses}`}>
 
-                        <div className="mt-4 text-center w-100">
+                            <div className="mt-4 text-center w-100">
 
-                            <div className="card-header radius-none transparent-darker">
-                                <span className="h4 card-title text-white">Adres do wysyłki</span>
-                            </div>
+                                <div className="card-header radius-none transparent-darker">
+                                    <span className="h4 card-title text-white">Adres do wysyłki</span>
+                                </div>
 
-                            <div className={`px-1 mt-2 bg-white border pt-3`}>
-                                {ordered ? selectedAddress : userAddresses}
-                                <AddNewAddress ordered={ordered} addAddress={addAddress}/>
-                            </div>
+                                <div className={`px-1 mt-2 bg-white border pt-3`}>
+                                    {ordered ? selectedAddress : userAddresses}
+                                    <AddNewAddress ordered={ordered} addAddress={addAddress}/>
+                                </div>
 
-                        </div>       
+                            </div>       
 
-                    </div> 
+                        </div> 
                         
                     </div>
                         {/* <ChooseAddress /> */}
