@@ -33,7 +33,7 @@ const Product = ( props ) => {
         </div>
         
         <p class={`card-title font-weight-bold m-0 ${product.title}`}>{props.product.name}</p>
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush border-0">
             <li class="list-group-item">
                 
                 <div className="row">

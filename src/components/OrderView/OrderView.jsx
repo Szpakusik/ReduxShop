@@ -120,10 +120,10 @@ const OrderView = (props) => {
                                         <span className="h4 card-title text-white">Dane kontaktowe</span>
                                     </div>
                                     <div className={`${orderView.contactDetails} px-1 mt-2 bg-white border py-3 flex-wrap`}>
-                                        <input onChange={ e => getEmail(e.target.value)} value={email} className={`text-success ${orderView.addressInfo} ${orderView.userEmail}`} placeholder={`Email*`}></input>
-                                        <input onChange={ e => getPhone(e.target.value)} value={phone} className={`text-success ${orderView.addressInfo}`} placeholder={`Telefon`}></input>
-                                        <input onChange={ e => getFirstName(e.target.value)} value={firstName} className={`text-success mt-2 ${orderView.addressInfo} ${orderView.userEmail}`} placeholder={`Imię`}></input>
-                                        <input onChange={ e => getLastName(e.target.value)} value={lastName} className={`text-success mt-2 ${orderView.addressInfo}`} placeholder={`Nazwisko`}></input>
+                                        <input onChange={ e => getFirstName(e.target.value)} value={firstName} className={`text-success mt-2 ${orderView.addressInfo}`} placeholder={`Imię`}></input>
+                                        <input onChange={ e => getLastName(e.target.value)} value={lastName} className={`text-success mt-2 ml-md-2 ${orderView.addressInfo}`} placeholder={`Nazwisko`}></input>
+                                        <input onChange={ e => getEmail(e.target.value)} value={email} className={`text-success mt-2  ${orderView.addressInfo}`} placeholder={`Email*`}></input>
+                                        <input onChange={ e => getPhone(e.target.value)} value={phone} className={`text-success mt-2 ml-md-2 ${orderView.addressInfo}`} placeholder={`Telefon`}></input>
                                     </div>
                                 </div>       
 
