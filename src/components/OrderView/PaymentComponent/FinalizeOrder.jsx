@@ -13,13 +13,17 @@ import { connect } from 'react-redux';
 import { getCartPrice } from '../../../utils/functions/cartFunctions'
 
 const FinalizeOrder = (props) => {
+    const { addresses, setActiveAddress, cart, addAddress, contactDetails } = props;
+
     let [ orderedProducts, setProducts ] = useState([]);
     
     useEffect( () => {
+        let authRoute = props.logged ? '' : '/noauth'
+        
         if( props.tempOrderId !== -1){ 
             let accessString = localStorage.getItem('JWT');
 
-            axios.get( serverUrl +'/order/single',{
+            axios.get( serverUrl +'/order/single'+ authRoute,{
                 params:{
                     order_id: `${props.tempOrderId}`
                 },
@@ -28,6 +32,29 @@ const FinalizeOrder = (props) => {
                 },
             })
             .then(function (response) {
+                console.log(response);
+                
+                //address
+                const addressId = response.data.orderRecords[0].address_id
+                props.logged && axios.get( serverUrl +`/address/`+addressId,
+                {
+                    headers:{
+                        'Authorization': `JWT ${accessString}`
+                    },
+                })
+                .then( ( res ) => {
+                    console.log(res);
+                    let address =  res.data.rows[0];
+                    address.active = 1
+                    props.getAddresses( [address] )
+                    setActiveAddress( address.id );
+                    alert('happen')
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+                //transform
                 axios.post( serverUrl +'/product/transform',
                 {
                     productArray: response.data.orders[0].products
@@ -43,11 +70,14 @@ const FinalizeOrder = (props) => {
                 .catch(function (error) {
                     console.log(error);
                 });
+
             })
         }
+        // else{
+
+        // }
     }, [])
 
-    const { addresses, setActiveAddress, cart, addAddress, contactDetails } = props;
 
     let price = getCartPrice(cart);
 
@@ -117,7 +147,7 @@ const FinalizeOrder = (props) => {
                         
                     </div>
                         {/* <ChooseAddress /> */}
-                        <PaymentComponent contactDetails={contactDetails} ordered={ordered} addresses={addresses} price={price} cart={props.orderedProducts} />
+                        <PaymentComponent contactDetails={contactDetails} ordered={ordered} addresses={addresses} price={price} cart={orderedProducts} />
                 </div>
 
             </div>
@@ -131,13 +161,15 @@ const mapStateToProps = (state) => {
         cart: state.cartReducer.cartProducts,
         contactDetails: state.orderReducer.contactDetails,
         tempOrderId: state.orderReducer.tempOrderId,
+        logged: state.loginReducer.logged
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-         setActiveAddress: (id) => { dispatch( { type: "CHANGE_ACTIVE_ADDRESS", id: id, } ) },
-         addAddress: ( city, postCode, street, ) => { dispatch( { type: "ADD_ADDRESS", city: city, postCode: postCode, street: street, } ) },
+        getAddresses: ( addresses ) => { dispatch( { type: "GET_ADDRESS", addresses: addresses } ) },
+        setActiveAddress: (id) => { dispatch( { type: "CHANGE_ACTIVE_ADDRESS", id: id, } ) },
+        addAddress: ( city, postCode, street, ) => { dispatch( { type: "ADD_ADDRESS", city: city, postCode: postCode, street: street, } ) },
     }
 }
 

@@ -133,7 +133,7 @@ const OrderView = (props) => {
                     }
 
                         {/* <ChooseAddress /> */}
-                        <PaymentComponent phone={phone} addresses={addresses} price={price} cart={cart} logged={logged} />
+                        <PaymentComponent phone={phone} addresses={addresses} price={price} cart={cart} logged={logged} user={{ email, phone, firstName, secondName: lastName }}/>
                 </div>
 
             </div>
@@ -152,11 +152,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return{
         getAddresses: ( addresses ) => { dispatch( { type: "GET_ADDRESS", addresses: addresses } ) },
-        setActiveAddress: ( id ) => { 
-            console.log('happ1');
-            
-            dispatch( { type: "CHANGE_ACTIVE_ADDRESS", id: id, } ) 
-        },
+        setActiveAddress: ( id ) => { dispatch( { type: "CHANGE_ACTIVE_ADDRESS", id: id, } ) },
         addAddress: ( city, postCode, street, id ) => { dispatch( { type: "ADD_ADDRESS", city: city, postCode: postCode, street: street, id: id } ) },
         addContactDetails: (email, phone) => { dispatch( { type:"ADD_CONTACT_DETAILS", email: email, phone: phone,})}
     }
