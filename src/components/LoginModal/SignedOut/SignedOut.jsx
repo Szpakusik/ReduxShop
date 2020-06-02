@@ -20,7 +20,8 @@ const SignedOut = ( props ) => {
     .then(function (res) {
       localStorage.setItem('JWT', res.data.token)
       props.signIn();
-      setMessage( '' );
+      setMessage('');
+      props.setActivePage( 'homepage' )
     })
     .catch(function (error) {
       console.log(error);
@@ -43,12 +44,13 @@ const SignedOut = ( props ) => {
 
             <div className="col-sm-12 w-100 mt-2 mb-0"> 
                 <label htmlfor="email"><b>E-Mail</b></label><br />
-                <input type="text" onChange={ e => setEmail(e.target.value)} className={`${signedOut.input} w-100`} id="email"/>
+      
+                <input type="text" onChange={ e =>{ setMessage( '' ); setEmail(e.target.value) }} className={`${signedOut.input} w-100`} id="email"/>
             </div>
             
             <div className="col-sm-12 w-100 mt-2 mb-0"> 
                 <label htmlfor="password"><b>Hasło</b></label><br />
-                <input type="password" onChange={ e => setPassword(e.target.value) } className={`${signedOut.input} w-100`} id="password"/>
+                <input type="password" onChange={ e => {setMessage( '' ); setPassword(e.target.value) }} className={`${signedOut.input} w-100`} id="password"/>
             </div>
             <div className="row m-0 text-center w-100"><p className="text-danger w-100 pt-3 mb-0">{message}</p></div>
             <div className="row px-3">
