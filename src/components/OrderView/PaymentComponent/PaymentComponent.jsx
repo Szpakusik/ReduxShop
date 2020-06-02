@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import paymentComponent from './paymentComponent.module.scss';
+import OrderComponent from '../../MyAccount/OrdersDiv/OrderComponent/OrderComponent'
 import { serverUrl } from '../../../utils/content/url';
 import { tranformCartForOrder, getCartPrice } from '../../../utils/functions/cartFunctions';
-import paymentComponent from './paymentComponent.module.scss';
 import { connect } from 'react-redux';
 
-const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, ordered, contactDetails, clearCart, logged, user}) => {
+const PaymentComponent = ({order, setTempOrder, price, addresses, cart, setActivePage, ordered, contactDetails, clearCart, logged, user}) => {
 
     let deliveryPrice = 16.80;
     let totalPrice = parseFloat(price) + deliveryPrice;
@@ -14,8 +15,6 @@ const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, 
     const [regulations, acceptRegulations] = useState(false);
 
     const selectedAddress = addresses.find(address => address.active === 1);
-    console.log(selectedAddress);
-    console.log(tranformCartForOrder(cart));
     
     const handlePayuPayment = () => {
         let authRoute = logged ? '' : '/noauth'
@@ -75,6 +74,7 @@ const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, 
             headers:{'Authorization': `JWT ${accessString}`}
         })
         .then(function (response) {
+            
             setTempOrder(response.data.orderResponse.orderId);
             setActivePage('finalizeOrder');
             
@@ -138,19 +138,8 @@ const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, 
             <div className="card-header radius-none transparent-darker">
                 <span className="h4 card-title text-white">Szczegóły zamówienia</span>
             </div>
-            <ul class="list-group list-group-flush bg-white">
-                <div className={`p-4 mt-2 bg-white border`}>
-
-               <p>Numer zamówienia : 4184</p>
-               <p>Status zamówienia: <span className={`text-warning`}>w trakcie</span></p>
-               <p>Suma: 20.40zł</p>
-               <p>Data: 18 maja 2020</p>
-               {contactDetails.email !== "" && <p>Email: {contactDetails.email}</p>}
-               {contactDetails.phone !== "" && <p>Telefon: { contactDetails.phone}</p>}
-               <p>Metoda płatności: płatność przy odbiorze</p>
-                                                                                                          
-                </div>              
-            </ul>
+            < OrderComponent order={order} ordered={ordered} management={ false } contactDetails={contactDetails}/>
+            
             <div>
             </div>          
         </div>

@@ -53,8 +53,8 @@ const OrderView = (props) => {
     const [phone, getPhone] = useState('');
     const [firstName, getFirstName] = useState('');
     const [lastName, getLastName] = useState('');
-
-    let price = getCartPrice(cart)
+    
+    let price = getCartPrice(props.cart)
 
     const userAddresses = addresses.map(address => 
         <Address         

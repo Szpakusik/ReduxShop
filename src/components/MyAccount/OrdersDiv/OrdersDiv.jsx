@@ -45,7 +45,7 @@ const OrdersDiv = (props) => {
                     {props.orders.length > 0 && props.orders.map( (order, index)=>{
                         if(index < limitCounter)
                         return(
-                            <OrderComponent order={order} key={index}/>
+                            <OrderComponent management={ true } order={order} key={index}/>
                         )
                     } )}
 

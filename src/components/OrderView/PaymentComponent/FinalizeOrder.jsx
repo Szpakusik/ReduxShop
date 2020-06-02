@@ -15,8 +15,12 @@ import { getCartPrice } from '../../../utils/functions/cartFunctions'
 const FinalizeOrder = (props) => {
     const { addresses, setActiveAddress, cart, addAddress, contactDetails } = props;
 
-    let [ orderedProducts, setProducts ] = useState([]);
-    
+    const [ orderedProducts, setProducts ] = useState([]);
+    const [ status, setStatus ] = useState('');
+    const [ date, setDate ] = useState('');
+    const [ price, setPrice ] = useState(0);
+    const [ amountOfProducts, setAmount ] = useState('');
+
     useEffect( () => {
         let authRoute = props.logged ? '' : '/noauth'
         
@@ -32,8 +36,9 @@ const FinalizeOrder = (props) => {
                 },
             })
             .then(function (response) {
-                console.log(response);
                 
+                setStatus(response.data.orderRecords[0].status)
+                setDate( response.data.orders[0].date)
                 //address
                 const addressId = response.data.orderRecords[0].address_id
                 props.logged && axios.get( serverUrl +`/address/`+addressId,
@@ -43,12 +48,10 @@ const FinalizeOrder = (props) => {
                     },
                 })
                 .then( ( res ) => {
-                    console.log(res);
                     let address =  res.data.rows[0];
                     address.active = 1
                     props.getAddresses( [address] )
                     setActiveAddress( address.id );
-                    alert('happen')
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -65,7 +68,9 @@ const FinalizeOrder = (props) => {
                     },
                 })
                 .then( ( res ) => {
-                    setProducts( res.data.productArray )
+                    setProducts( res.data.productArray );
+                    setPrice( Number(getCartPrice(res.data.productArray) ) );
+                    setAmount( res.data.productArray.length);
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -73,13 +78,8 @@ const FinalizeOrder = (props) => {
 
             })
         }
-        // else{
-
-        // }
     }, [])
 
-
-    let price = getCartPrice(cart);
 
     let ordered = true;
 
@@ -147,7 +147,7 @@ const FinalizeOrder = (props) => {
                         
                     </div>
                         {/* <ChooseAddress /> */}
-                        <PaymentComponent contactDetails={contactDetails} ordered={ordered} addresses={addresses} price={price} cart={orderedProducts} />
+                        <PaymentComponent order={{amountOfProducts, date, price, status}} contactDetails={contactDetails} ordered={ordered} addresses={addresses} products={orderedProducts} />
                 </div>
 
             </div>
