@@ -6,7 +6,7 @@ import {serverUrl} from '../../../utils/content/url'
 
 const Address = (props) => {
 
-    let { address, editAddress, userAddresses, setActiveAddress, deleteAddress, management} = props;
+    let { address, editAddress, userAddresses, setActiveAddress, deleteAddress, management, ordered} = props;
 
     let active = address.active ? infoDiv.active : '';
     
@@ -16,6 +16,7 @@ const Address = (props) => {
 
     const [editingAddress, setEditAddress] = useState(false);
 
+    let addresColWidth = ordered ? '12': '6'; 
     const handleSetActiveAddress = (id) => {
 
         if (window.confirm("Potwierdź zmiane adresu domyślnego")) { 
@@ -133,7 +134,7 @@ const Address = (props) => {
     }
     else{
         return(
-        <div className={`col-lg-6 text-center no-select`}>  
+        <div className={`col-lg-${addresColWidth} text-center no-select`}>  
             <div onClick={() => { if(!address.active){handleSetActiveAddress(address.id)} } } className={`pt-3 p-2 mb-3 bg-white ${infoDiv.adress} ${active}`}>
             {dataAddressTag.postCode}   
             {dataAddressTag.city}
