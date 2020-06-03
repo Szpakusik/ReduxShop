@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import createAccount from './createAccount.module.scss';
 import axios from 'axios';
 import { serverUrl } from '../../utils/content/url'
+import { validateRegister } from '../../utils/functions/validationFunctions'
 
 
 const CreateAccount = (props) => {
@@ -16,8 +17,15 @@ const CreateAccount = (props) => {
     const [street, setStreet] = useState("");
     const [postCode, setPostCode] = useState("");
     const [city, setCity] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     
     const handleClick = ()=> {
+
+        const validationStatus = validateRegister(firstName, secondName, phone, email, password, repeatedPassword, postCode, city, street )
+        if( validationStatus.success === false ) {
+            setErrorMessage(validationStatus.message)
+            return false;
+        }
 
         axios.post( serverUrl + '/account/register', {
             firstName: firstName,
@@ -72,36 +80,36 @@ const CreateAccount = (props) => {
                         <div className="row pt-3 mt-4 border-top">
 
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
-                                <label htmlfor="email"><b>Imię</b></label><br />
-                                <input type="text" id="email" onChange={ e => setFirstName(e.target.value) }/>
+                                <label htmlfor="name"><b>Imię</b></label><br />
+                                <input type="email" id="name" onChange={ e => { setFirstName(e.target.value); setErrorMessage('')} }/>
                             </div>
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
-                                <label htmlfor="email"><b>Nazwisko</b></label><br />
-                                <input type="text" id="email" onChange={ e => setSecondName(e.target.value) }/>
+                                <label htmlfor="surname"><b>Nazwisko</b></label><br />
+                                <input type="text" id="surname" onChange={ e => { setSecondName(e.target.value); setErrorMessage('')} }/>
                             </div>
 
                         </div>
                         <div className="row">
 
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
-                                <label htmlfor="email"><b>Numer telefonu</b></label><br />
-                                <input type="text" id="email" onChange={ e => setPhone(e.target.value) }/>
+                                <label htmlfor="phone"><b>Numer telefonu</b></label><br />
+                                <input type="text" id="phone" onChange={ e => { setPhone(e.target.value); setErrorMessage('')} }/>
                             </div>
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="email"><b>E-mail</b></label><br />
-                                <input type="text" id="email" onChange={ e => setEmail(e.target.value) }/>
+                                <input type="text" id="email" onChange={ e => { setEmail(e.target.value); setErrorMessage('')} }/>
                             </div>
 
                         </div>
                         <div className="row">
 
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
-                                <label htmlfor="email"><b>Hasło</b></label><br />
-                                <input type="text" id="email" onChange={ e => setPassword(e.target.value) }/>
+                                <label htmlfor="password"><b>Hasło</b></label><br />
+                                <input type="password" id="password" onChange={ e => { setPassword(e.target.value); setErrorMessage('')} }/>
                             </div>
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="email"><b>Powtórz hasło</b></label><br />
-                                <input type="text" id="email" onChange={ e => setRepeatedPassword(e.target.value) }/>
+                                <input type="password" id="email" onChange={ e => { setRepeatedPassword(e.target.value); setErrorMessage('')} }/>
                             </div>
 
                         </div>
@@ -111,22 +119,18 @@ const CreateAccount = (props) => {
                         <div className="row">
 
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
-                                <label htmlfor="email"><b>Kod pocztowy</b></label><br />
-                                <input type="text" id="email" onChange={ e => setPostCode(e.target.value) }/>
+                                <label htmlfor="post-code"><b>Kod pocztowy</b></label><br />
+                                <input type="text" id="post-code" onChange={ e => { setPostCode(e.target.value); setErrorMessage('')} }/>
                             </div>
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
-                                <label htmlfor="email"><b>Miejscowość</b></label><br />
-                                <input type="text" id="email" onChange={ e => setCity(e.target.value) }/>
+                                <label htmlfor="city"><b>Miejscowość</b></label><br />
+                                <input type="text" id="city" onChange={ e => { setCity(e.target.value); setErrorMessage('')} }/>
                             </div>
                             <div className="col-sm-12 w-100 mt-3 mb-0 text-left text-md-center"> 
-                                <label htmlfor="email"><b>Ulica i/lub numer domu</b></label><br />
-                                <input className='w-100' type="text" id="email" onChange={ e => setStreet(e.target.value) }/>
+                                <label htmlfor="street"><b>Ulica i/lub numer domu</b></label><br />
+                                <input className='w-100' type="text" id="street" onChange={ e => { setStreet(e.target.value); setErrorMessage('')} } />
                             </div>
-                            {/* <div className="col-sm-6 w-100 mt-2 mb-0"> 
-                                <label htmlfor="email"><b>Miejscowość</b></label><br />
-                                <input type="text" id="email"/>
-                            </div> */}
-
+                            <p className="text-danger w-100 text-center pt-2">{errorMessage}</p>
                         </div>
  
                     </div>
