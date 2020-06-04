@@ -6,7 +6,7 @@ const ShoppingListsDiv = (props) => {
     let lists = [];
     return(
         <>
-        <div className="row w-100 mx-auto">
+        <div className="row w-100 mx-auto d-none">
             
                             <div className="w-100 h-50 text-center">
                                 
