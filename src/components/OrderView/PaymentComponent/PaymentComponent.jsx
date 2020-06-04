@@ -83,10 +83,8 @@ const PaymentComponent = ({order, setTempOrder, price, addresses, cart, setActiv
         })
         .catch(function (error) {
             console.log(error);
+            alert('Coś poszło nie tak. Spróbuj ponownie!')
         });
-        // console.log(`Płatność ${payment}, Regulamin ${regulations}, do zapłaty ${totalPrice}`)
-        // console.log(`Adres dostawy ${JSON.stringify(selectedAddress)}`)
-        // console.log(`${cart}`);
     }
 
     const payuButton =  

@@ -8,7 +8,7 @@ import { serverUrl } from '../../../utils/content/url';
 
 const InfoDiv = (props) => {
 
-    let  { user, getUser, editAddress, getAddresses, addAddress, setActiveAddress, deleteAddress } = props;
+    let  { user, getUser, editAddress, getAddresses, addAddress, setActiveAddress, deleteAddress, logged } = props;
     const URL = serverUrl + '/account/edit';
 
     useEffect( () => {
@@ -177,7 +177,7 @@ const InfoDiv = (props) => {
 
                     <div className="row">
                         { addresses }
-                        <AddNewAddress addAddress={addAddress} getAddresses={getAddresses}/>               
+                        <AddNewAddress addAddress={addAddress} getAddresses={getAddresses} logged={logged}/>               
                     </div>
                 </div>
             </div>
@@ -187,7 +187,8 @@ const InfoDiv = (props) => {
 
 const mapStateToProps = (state) => {
     return{
-        user: state.loginReducer.user
+        user: state.loginReducer.user,
+        logged: state.loginReducer.logged,
     }
 }
 
