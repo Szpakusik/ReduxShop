@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import infoDiv from './infoDiv.module.scss';
 import {serverUrl} from '../../../utils/content/url'
+import { validateAddress } from '../../../utils/functions/validationFunctions'
 
 const Address = (props) => {
 
@@ -15,6 +16,7 @@ const Address = (props) => {
     const [street, handleGetStreet] = useState(address.address);
 
     const [editingAddress, setEditAddress] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     let addresColWidth = ordered ? '12': '6'; 
     const handleSetActiveAddress = (id) => {
@@ -76,9 +78,14 @@ const Address = (props) => {
 
     const handleConfirmAddress = (id) =>{
         if(editingAddress === true){
+
+            const validationStatus = validateAddress( postCode, city, street )
+            if( validationStatus.success === false ) {
+                setErrorMessage( validationStatus.message )
+                return false;
+            }
             
             let accessString = localStorage.getItem('JWT')
-
             axios.patch( serverUrl + '/address/details', 
             {
                 rowsToChange: `address = "${street}", post_code = "${postCode}", city = "${city}"`,
@@ -90,7 +97,6 @@ const Address = (props) => {
                 }
             })
             .then(response => {
-
                 handleGetStreet(street)
                 handleGetPostCode(postCode)
                 handleGetCity(city)
@@ -126,8 +132,10 @@ const Address = (props) => {
                     {editingAddress ? <button onClick={ () => handleDeleteAddress(address.id)} class="w-50 btn btn-outline-success mx-auto d-block">Usuń adres</button> : null}
                 </div>
                 <div className={`${infoDiv.editUserWrapper}`}>
+                    <p className={`text-danger w-100 text-center pt-2 border-0 ${errorMessage ? '' : 'd-none'}`} style={{fontSize:"100%"}}>{errorMessage}</p>
                     <button class={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={() => handleEditAddress(address.id)}>{editingAddress ? 'Anuluj' : 'Edytuj'}</button>
                     {editingAddress ? <button class={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={ () => handleConfirmAddress(address.id)}>Zapisz</button> : null}  
+                    
                 </div>
             </div>
         )
