@@ -26,13 +26,3 @@ export function showContent(activePage){
     }
 
 }
-
-// { 
-//     props.products && props.activeCategory !== 0 &&
-//     props.products.map( ( product )=>{
-
-//     if(product.category === props.activeCategory)
-//     return <Product product={product} />
-
-//     })
-// }
