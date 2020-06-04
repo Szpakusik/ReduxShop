@@ -2,22 +2,30 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import infoDiv from './infoDiv.module.scss';
 import {serverUrl} from '../../../utils/content/url'
+import { validateAddress } from '../../../utils/functions/validationFunctions'
 
 const AddNewAddress = (props) => {
 
-    const  { addAddress } = props;
-
-    const [addingAddress, setAddAddress] = useState(false);
-
+    const { addAddress, setActiveAddress } = props;
+    const [errorMessage, setErrorMessage] = useState("");
+    const [addingAddress, setAddingAddress] = useState(false);
     const [city, handleGetCity] = useState("");
     const [postCode, handleGetPostCode] = useState("");
     const [street, handleGetStreet] = useState("");
 
     const handleSendAddress = () => {
+
+        const validationStatus = validateAddress( postCode, city, street )
+        if( validationStatus.success === false ) {
+            setErrorMessage( validationStatus.message )
+            return false;
+        }
+
         let accessString = localStorage.getItem('JWT')
+        let authRoute = props.logged ? '' : '/noauth'
 
         if(addingAddress === true){
-            axios.post( serverUrl + '/address', {
+            axios.post( serverUrl + '/address' + authRoute, {
                 city,
                 postCode,
                 address: street,
@@ -27,10 +35,10 @@ const AddNewAddress = (props) => {
                 }
             })
             .then(response => {
-                setAddAddress(!addingAddress);
+                setErrorMessage( '' )
+                setAddingAddress(!addingAddress);
                 addAddress(city, postCode, street, response.data.rows.insertId);
-                // addAddress(res.body.)
-                console.log(response.data)
+                setActiveAddress(response.data.rows.insertId);
             })
             .catch(error => {
                 console.log(error);
@@ -39,7 +47,7 @@ const AddNewAddress = (props) => {
         return;  
     }
 
-    const handleAddAddress = () => setAddAddress(!addingAddress);
+    const handleAddAddress = () => setAddingAddress(!addingAddress);
 
     const dataAddAddressTag = {
         default:
@@ -62,14 +70,15 @@ const AddNewAddress = (props) => {
   
     if(!props.ordered) {
         return(
-        <div className={`col-md-6 text-center ${infoDiv.newAddress}`}>
-            <div onClick={ () => {addingAddress ? null : handleAddAddress()}} className={`pt-3 p-2 mb-3 rounded bg-white ${infoDiv.adress}`}>
-            {addingAddress ? dataAddAddressTag.inputs : dataAddAddressTag.default}
-           </div>
-            {addingAddress ? dataAddAddressTag.buttons : null}
-        </div>     
-    )   
-}
+            <div className={`col-lg-6 text-center ${infoDiv.newAddress}`}>
+                <div onClick={ () => {addingAddress ? null : handleAddAddress()}} className={`pt-3 p-2 mb-3 rounded bg-white ${infoDiv.adress}`}>
+                    {addingAddress ? dataAddAddressTag.inputs : dataAddAddressTag.default}
+                </div>
+                {addingAddress ? dataAddAddressTag.buttons : null}
+                <p className={`text-danger w-100 text-center pt-2 border-0 ${errorMessage ? '' : 'd-none'}`} style={{fontSize:"100%"}}>{errorMessage}</p>
+            </div>     
+        )   
+    }
     else return null
 }
 export default AddNewAddress;

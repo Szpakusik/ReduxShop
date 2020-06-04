@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import paymentComponent from './paymentComponent.module.scss';
+import OrderComponent from '../../MyAccount/OrdersDiv/OrderComponent/OrderComponent'
 import { serverUrl } from '../../../utils/content/url';
 import { tranformCartForOrder, getCartPrice } from '../../../utils/functions/cartFunctions';
-import paymentComponent from './paymentComponent.module.scss';
 import { connect } from 'react-redux';
 
-const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, ordered, contactDetails, clearCart}) => {
+const PaymentComponent = ({order, setTempOrder, price, addresses, cart, setActivePage, ordered, contactDetails, clearCart, logged, user}) => {
 
     let deliveryPrice = 16.80;
     let totalPrice = parseFloat(price) + deliveryPrice;
@@ -14,40 +15,39 @@ const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, 
     const [regulations, acceptRegulations] = useState(false);
 
     const selectedAddress = addresses.find(address => address.active === 1);
-    console.log(selectedAddress);
     
     const handlePayuPayment = () => {
+        let authRoute = logged ? '' : '/noauth'
         if( !selectedAddress ) {
             alert("Wybierz adres dostawy!");
             return 0;
         }
         let accessString = localStorage.getItem('JWT')
 
-        axios.post( serverUrl + '/order/create', {
+        axios.post( serverUrl + '/order/create' + authRoute, {
             productsOrdered: tranformCartForOrder(cart),
             address: selectedAddress.id,
             payment: payment,
+            user: user
         },{
             headers:{'Authorization': `JWT ${accessString}`}
         })
         .then(function (response) {
-
                 localStorage.removeItem('cart')
                 clearCart();
-                setActivePage('myAccount');
+                setTempOrder(response.data.orderResponse.orderId);
+                setActivePage('finalizeOrder');
 
                 axios.post( serverUrl + '/payment/sendorder',{
                     price: getCartPrice(cart),
                     cart: cart,
-                    orderId: response.data.orderId,
+                    orderId: response.data.orderResponse.orderId,
                 },{
                     headers:{'Authorization': `JWT ${accessString}`}
                 })
                 .then( (response) => {
                     if(response.data.redirectUri) 
                         window.open(response.data.redirectUri, "_blank");
-                    
-                    setTempOrder(response.data.orderId);
                 }, err => console.log(err) )
         })
         .catch(function (error) {
@@ -60,6 +60,10 @@ const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, 
             alert("Wybierz adres dostawy!");
             return 0;
         }
+        if( !logged && payment === 'cash-on-delivery' ) {
+            alert("Zarejestruj się aby zapłacić przy odbiorze!");
+            return 0;
+        }
         let accessString = localStorage.getItem('JWT')
 
         axios.post( serverUrl + '/order/create', {
@@ -70,8 +74,8 @@ const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, 
             headers:{'Authorization': `JWT ${accessString}`}
         })
         .then(function (response) {
-            console.log(response.data.orderId);
-            setTempOrder(response.data.orderId);
+            
+            setTempOrder(response.data.orderResponse.orderId);
             setActivePage('finalizeOrder');
             
             localStorage.removeItem('cart');
@@ -91,7 +95,7 @@ const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, 
     if(!ordered){
     return(
         <div className="row w-100 mx-auto">
-            <div className="mt-4 text-center w-100">
+            <div className="mt-2 text-center w-100">
                 <div className="card-header radius-none transparent-darker">
                     <span className="h4 card-title text-white">Opłać zamówienie</span>
                 </div>
@@ -102,7 +106,7 @@ const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, 
                         <div class="col-sm-12 text-left w-100 h4 mt-2 mb-0">Wysyłka: <span class="text-success">{deliveryPrice.toFixed(2) + " zł"}</span></div> 
                         <div class="col-sm-12 text-left w-100 h4 mt-2 mb-0">Suma: <span class="text-success">{parseFloat(totalPrice).toFixed(2) + " zł"}</span></div>  
 
-                        <div className={paymentComponent.payment}>
+                        <div className={`${paymentComponent.payment}`}>
                             <input defaultChecked class={`${paymentComponent.sendOrder}`} onClick={ () => setPayment('cash-on-delivery')} type="radio" id="cash-on-delivery" name="payment" value="cash-on-delivery"/>
                             <label for="cash-on-delivery">Za pobraniem</label>
                         </div>   
@@ -129,24 +133,13 @@ const PaymentComponent = ({setTempOrder, price, addresses, cart, setActivePage, 
     )
 }else{
     return(
-        <div className="row w-100 mx-auto">
-        <div className="mt-4 text-center w-100">
+    <div className="row w-100 mx-auto">
+        <div className="mt-2 text-center w-100">
             <div className="card-header radius-none transparent-darker">
                 <span className="h4 card-title text-white">Szczegóły zamówienia</span>
             </div>
-            <ul class="list-group list-group-flush bg-white">
-                <div className={`p-4 mt-2 bg-white border`}>
-
-               <p>Numer zamówienia : 4184</p>
-               <p>Status zamówienia: <span className={`text-warning`}>w trakcie</span></p>
-               <p>Suma: 20.40zł</p>
-               <p>Data: 18 maja 2020</p>
-               {contactDetails.email !== "" && <p>Email: {contactDetails.email}</p>}
-               {contactDetails.phone !== "" && <p>Telefon: { contactDetails.phone}</p>}
-               <p>Metoda płatności: płatność przy odbiorze</p>
-                                                                                                          
-                </div>              
-            </ul>
+            < OrderComponent order={order} ordered={ordered} management={ false } contactDetails={contactDetails}/>
+            
             <div>
             </div>          
         </div>

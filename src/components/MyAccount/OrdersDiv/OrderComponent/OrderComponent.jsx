@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import orderComponent from './orderComponent.module.scss'
 import { getCartPrice } from'../../../../utils/functions/cartFunctions';
+import { DialogContent } from '@material-ui/core';
 
 const OrderComponent = (props) => {
 
@@ -46,20 +47,33 @@ const OrderComponent = (props) => {
         <li class={`list-group-item  py-0 px-0 border ${orderComponent.orderComponent} mt-2`}>
             <div className={`row px-2 text-left text-secondaryp-1 ${orderComponent.detail}`}>
                 <div className="col-sm-12 mb-2 text-center mt-2 mt-md-0">
-                    {props.order.date}
+                    {props.order.date ? props.order.date : ''}
                 </div>
             </div>
 
             <div className="row pb-2">
-                <div className="col-sm-6 border-right">
-                    <p className='border-0'>Ilość produktów: <br />{props.order.amountOfProducts}</p>
+                <div className="col-6 border-right">
+                    <p className='border-0'><span className="d-none d-sm-inline">Ilość</span> Produktów: <br />{props.order.amountOfProducts}</p>
                 </div>
-                <div className="col-sm-6">
-                    <p className='border-0'>Cena końcowa: <br />{props.order.price.toFixed(2)} zł</p>
+                <div className="col-6">
+                    <p className='border-0'>Cena Końcowa: <br />{props.order.price && (props.order.price+16.90).toFixed(2)} zł</p>
                 </div>
             </div>
+            <div className={`row ${props.management ? "d-none":''} text-center`}>
+                <span className="w-100 border-0 text-secondary pb-2">W tym kwota wysyłki: 16.90zł</span>
+            </div>
+            {props.contactDetails && props.contactDetails.email !=='' && 
 
-            <div className="row w-100 px-2 border-top pt-2 pb-2 transparent-darker mx-auto">
+            <div className="row">
+                <div className="col-sm-6 col-md-12 col-lg-6 border-right">
+                    <p className="border-0">Email: <br />{props.contactDetails.email}</p>
+                </div>
+                <div className="col-sm-6 col-md-12  col-lg-6 ">
+                    <p className="border-0">Telefon: <br />{ props.contactDetails.phone}</p>
+                </div>
+            </div>
+            }
+            <div className={`row w-100 px-2 border-top pt-2 pb-2 ${props.contactDetails ? null : "transparent-darker"} mx-auto`}>
 
                 <div className="col-md-12 col-lg-8 my-md-auto mb-2">
 
@@ -67,7 +81,7 @@ const OrderComponent = (props) => {
                     <span className={`float-lg-left text-${statusColor}`} >{statusText}</span>
                 </div>
 
-                <div className="col-md-12 col-lg-4">
+                <div className={`col-md-12 col-lg-4 ${props.ordered ? 'd-none' : ''}`}>
                     <button onClick={ handleDetailsClick } className="btn-outline-light btn btn-sm w-100 w-lg-75 float-lg-right">Szczegóły</button>
                 </div>
 

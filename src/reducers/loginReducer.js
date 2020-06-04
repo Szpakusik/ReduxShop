@@ -11,7 +11,7 @@ let defaultActive = 0;
 const initState = {
 
   loginActive: false,
-  logged: true,
+  logged: false,
   user: {
       id: 0,
       name: "Jan",
@@ -38,7 +38,6 @@ const initState = {
 }
 
 const loginReducer = (state = initState, action) => {
-
   switch (action.type) {
 
     case "SHOW_LOGIN":
@@ -136,15 +135,14 @@ const loginReducer = (state = initState, action) => {
         else address.active = 0; 
         return address
       })
-      
-     return{
-      ...state,
+      return{
+        ...state,
 
-      user:{
-        ...state.user,
-           addresses,
+        user:{
+          ...state.user,
+            addresses,
+        }
       }
-     }
 
      case "DELETE_ADDRESS":
 

@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import infoDiv from './infoDiv.module.scss';
 import {serverUrl} from '../../../utils/content/url'
+import { validateAddress } from '../../../utils/functions/validationFunctions'
 
 const Address = (props) => {
 
-    let { address, editAddress, userAddresses, setActiveAddress, deleteAddress, management} = props;
+    let { address, editAddress, userAddresses, setActiveAddress, deleteAddress, management, ordered} = props;
 
     let active = address.active ? infoDiv.active : '';
     
@@ -15,7 +16,9 @@ const Address = (props) => {
     const [street, handleGetStreet] = useState(address.address);
 
     const [editingAddress, setEditAddress] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
+    let addresColWidth = ordered ? '12': '6'; 
     const handleSetActiveAddress = (id) => {
 
         if (window.confirm("Potwierdź zmiane adresu domyślnego")) { 
@@ -75,9 +78,14 @@ const Address = (props) => {
 
     const handleConfirmAddress = (id) =>{
         if(editingAddress === true){
+
+            const validationStatus = validateAddress( postCode, city, street )
+            if( validationStatus.success === false ) {
+                setErrorMessage( validationStatus.message )
+                return false;
+            }
             
             let accessString = localStorage.getItem('JWT')
-
             axios.patch( serverUrl + '/address/details', 
             {
                 rowsToChange: `address = "${street}", post_code = "${postCode}", city = "${city}"`,
@@ -89,7 +97,6 @@ const Address = (props) => {
                 }
             })
             .then(response => {
-
                 handleGetStreet(street)
                 handleGetPostCode(postCode)
                 handleGetCity(city)
@@ -116,24 +123,26 @@ const Address = (props) => {
     
     if(management){
         return(
-            <div className={`col-md-6 text-center no-select ${infoDiv.address}`}>  
+            <div className={`col-lg-6 text-center no-select ${infoDiv.address}`}>  
 
                 <div onClick={() => { !editingAddress && !address.active ? handleSetActiveAddress(address.id) : null }} className={`pt-3 p-2 mb-3 bg-white ${infoDiv.adress} ${active}`}>
                     {editingAddress ? dataAddressEditTag.postCode : dataAddressTag.posCtode}
                     {editingAddress ? dataAddressEditTag.city : dataAddressTag.city}                             
                     {editingAddress ? dataAddressEditTag.street : dataAddressTag.street}
-                    {editingAddress ? <button onClick={ () => handleDeleteAddress(address.id)} class="w-50 btn btn-outline-success">Usuń adres</button> : null}
+                    {editingAddress ? <button onClick={ () => handleDeleteAddress(address.id)} class="w-50 btn btn-outline-success mx-auto d-block">Usuń adres</button> : null}
                 </div>
                 <div className={`${infoDiv.editUserWrapper}`}>
+                    <p className={`text-danger w-100 text-center pt-2 border-0 ${errorMessage ? '' : 'd-none'}`} style={{fontSize:"100%"}}>{errorMessage}</p>
                     <button class={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={() => handleEditAddress(address.id)}>{editingAddress ? 'Anuluj' : 'Edytuj'}</button>
                     {editingAddress ? <button class={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={ () => handleConfirmAddress(address.id)}>Zapisz</button> : null}  
+                    
                 </div>
             </div>
         )
     }
     else{
         return(
-        <div className={`col-md-6 text-center no-select`}>  
+        <div className={`col-lg-${addresColWidth} text-center no-select`}>  
             <div onClick={() => { if(!address.active){handleSetActiveAddress(address.id)} } } className={`pt-3 p-2 mb-3 bg-white ${infoDiv.adress} ${active}`}>
             {dataAddressTag.postCode}   
             {dataAddressTag.city}

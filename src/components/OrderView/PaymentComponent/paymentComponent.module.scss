@@ -14,6 +14,9 @@
 .sendOrder{
     margin: 0.6rem 0.5rem 0.6rem 0.9rem
 }
+label{
+    display: inline;
+}
 
 button[type=submit] {
     border: 0px;
@@ -22,4 +25,7 @@ button[type=submit] {
     background: url('http://static.payu.com/pl/standard/partners/buttons/payu_account_button_long_03.png');
     background-repeat: no-repeat;
     cursor: pointer;
+    @media only screen and (max-width: 399.90px){
+        margin-left:-12px
+    }
 }
