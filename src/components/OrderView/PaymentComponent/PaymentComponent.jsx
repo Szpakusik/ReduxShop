@@ -88,7 +88,7 @@ const PaymentComponent = ({order, setTempOrder, price, addresses, cart, setActiv
     }
 
     const payuButton =  
-    <button type="submit" onClick={ handlePayuPayment } ></button>;
+    <button type="submit" className={''} onClick={ handlePayuPayment } ></button>;
 
     if(!ordered){
     return(
@@ -136,7 +136,7 @@ const PaymentComponent = ({order, setTempOrder, price, addresses, cart, setActiv
             <div className="card-header radius-none transparent-darker">
                 <span className="h4 card-title text-white">Szczegóły zamówienia</span>
             </div>
-            < OrderComponent order={order} ordered={ordered} management={ false } contactDetails={contactDetails}/>
+            < OrderComponent order={order} ordered={ordered} management={ false } contactDetails={contactDetails} logged={logged}/>
             
             <div>
             </div>          

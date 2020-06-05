@@ -147,7 +147,7 @@ const FinalizeOrder = (props) => {
                         
                     </div>
                         {/* <ChooseAddress /> */}
-                        <PaymentComponent order={{amountOfProducts, date, price, status}} contactDetails={contactDetails} ordered={ordered} addresses={addresses} products={orderedProducts} />
+                        <PaymentComponent order={{amountOfProducts, date, price, status}} contactDetails={contactDetails} ordered={ordered} addresses={addresses} products={orderedProducts} logged={props.logged} />
                 </div>
 
             </div>

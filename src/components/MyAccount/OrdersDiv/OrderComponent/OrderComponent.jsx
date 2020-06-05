@@ -62,7 +62,7 @@ const OrderComponent = (props) => {
             <div className={`row ${props.management ? "d-none":''} text-center`}>
                 <span className="w-100 border-0 text-secondary pb-2">W tym kwota wysyłki: 16.90zł</span>
             </div>
-            {props.contactDetails && props.contactDetails.email !=='' && 
+            {props.contactDetails && props.contactDetails.email !=='' && !props.logged &&
 
             <div className="row">
                 <div className="col-sm-6 col-md-12 col-lg-6 border-right">
