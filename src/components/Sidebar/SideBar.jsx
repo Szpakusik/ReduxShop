@@ -12,7 +12,7 @@ const SideBar = (props) => {
   
 
   // const [ displayProperty, setDisplayProperty ] = useState(props.showSidebarMobile ? "block" : "none");
-  const [ displayProperty, setDisplayProperty ] = useState('block');
+  const [ displayProperty, setDisplayProperty ] = useState('none');
 
   const [height, setDimensions] = useState(window.innerHeight)
 
