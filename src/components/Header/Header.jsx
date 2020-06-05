@@ -78,7 +78,7 @@ const Header = ( props ) => {
         <div className='container-fluid p-0 overflow-hidden d-none d-md-flex'>
           <Navbar.Brand className={`banner navbar-header col-xs-12 col-sm-4 ${headerStyles.banner}`}>
             <a className="navbar-brand text-sm-center btn" onClick={ () => {handleLogoClick('homepage')} } >
-              <img src={require('./../../images/logo-transparent2.png')} alt=""/>
+              <img src={require('./../../images/logo-transparent-com.png')} alt=""/>
             </a>
           </Navbar.Brand>
           <div className="col-md-3 col-lg-4 pr-lg-5 pl-sm-4 pl-0">

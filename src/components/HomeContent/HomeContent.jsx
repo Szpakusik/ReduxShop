@@ -18,7 +18,7 @@ const HomeContent = (props) => {
             <div className={`container w-100 text-center p-4 mb-5 ${homeContent.homeContent}`}>
                 <p className="h5 mb-4">Mieszkasz w gminie Morawica?</p>
                 <p className="h2 text-success m-0 mt-4 text-uppercase">Dostarczymy Twoje zakupy pod same drzwi!</p>
-                <img src={require('./../../images/logo-z-dowozem2.png')} alt="" className="mt-3"/>
+                <img src={require('./../../images/logo-z-dowozem3.png')} alt="" className="mt-3"/>
                 <p className="h5 my-4">w 3 prostych krokach:</p>
 
                 <div className="row mt-5 text-center">
