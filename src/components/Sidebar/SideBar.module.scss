@@ -6,6 +6,13 @@
     // height: 90%;
     color: lightyellow;
     // text-shadow: 0 0 3px #000;
+    @media only screen and (max-width: 769px){
+        display: none;
+    }
+    @media only screen and (min-width: 771px){
+        display: block!important; 
+    }
+       
 
     @media only screen and (max-width: 580px){
         justify-content: center;

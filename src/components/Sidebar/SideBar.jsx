@@ -1,4 +1,4 @@
- import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import sideBar from './sideBar.module.scss';
 import CategoryElem from './categoryElem/CategoryElem';
 import { connect } from 'react-redux';
@@ -9,11 +9,8 @@ const SideBar = (props) => {
     global.window = {}
   }
 
-  
-
   // const [ displayProperty, setDisplayProperty ] = useState(props.showSidebarMobile ? "block" : "none");
   const [ displayProperty, setDisplayProperty ] = useState('none');
-
   const [height, setDimensions] = useState(window.innerHeight)
 
   let sidebarStyle = window.innerWidth > 770 ? {
@@ -26,7 +23,6 @@ const SideBar = (props) => {
     setDisplayProperty( window.innerWidth > 770 ? 'block' : 
     props.showSidebarMobile ? 'block' : 'none' );
     props.showSearchboxMobile(window.innerWidth < 770 ? props.searchboxMobileActive : false )
-
   }
 
   useEffect(() => {
@@ -42,9 +38,12 @@ const SideBar = (props) => {
       display: 'block'
     } : {display: displayProperty};
     
-    setDisplayProperty( window.innerWidth > 770 ? 'block' : 
-    props.showSidebarMobile ? 'block' : 'none' )
-    console.log(displayProperty)
+    if(window.innerWidth > 770){
+      setDisplayProperty('block')
+    } 
+    else{
+      setDisplayProperty(props.showSidebarMobile ? 'block' : 'none')
+    }
   })
 
   return (
