@@ -53,7 +53,7 @@ const OrdersDiv = (props) => {
                             <li className="list-group-item mt-2 px-0 border">
                                 <p className="border-0 mb-0">Nie masz jeszcze żadnych zamówień</p>
                             </li>
-                     : <button onClick={ handleLoadMore }className="w-75 btn bg-white border mx-auto my-3">Pokaż więcej</button> }
+                     : props.orders.length >= limitCounter ? <button onClick={ handleLoadMore }className="w-75 btn bg-white border mx-auto my-3">Pokaż więcej</button> : "" }
                     
                 
 
