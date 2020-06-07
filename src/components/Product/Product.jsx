@@ -37,13 +37,13 @@ const Product = ( props ) => {
             <li class="list-group-item">
                 
                 <div className="row">
-                    <div className="col-6 px-2 text-secondary">{correctPrice}zł</div>
-                    <div className="col-6 px-2 text-secondary">{props.product.weight}</div>                   
+                    <div className="col-12 col-sm-6 px-2 text-secondary">{correctPrice}zł</div>
+                    <div className="col-12 col-sm-6 px-2 text-secondary">{props.product.weight}</div>                   
                 </div>
 
             </li>
             <li class="list-group-item">
-                <button class="btn btn-outline-success my-1" onClick={ ( ) => { handleClick() }} >Dodaj do koszyka</button>
+                <button class="btn btn-outline-success my-1" onClick={ ( ) => { handleClick() }} >Dodaj <span className="d-none d-md-inline">do koszyka</span></button>
                 <input placeholder="1" type="number" onChange={ (e)=>{handleChange(e)}} className={`${product.numberInput} mt-1 text-center`}/>
             </li>
         </ul>
