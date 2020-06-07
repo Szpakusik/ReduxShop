@@ -51,6 +51,7 @@ const MainContent = ( props ) => {
       }
 
       <div className="clearfix" />
+      <div className="d-md-none text-light"><p>.</p></div>
       <div className={`w-100 ${footerCss.container} d-none`}>
         <Footer />
       </div>

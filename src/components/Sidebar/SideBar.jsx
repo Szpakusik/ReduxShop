@@ -22,7 +22,7 @@ const SideBar = (props) => {
     setDimensions(window.innerHeight);
     setDisplayProperty( window.innerWidth > 770 ? 'block' : 
     props.showSidebarMobile ? 'block' : 'none' );
-    props.showSearchboxMobile(window.innerWidth < 770 ? props.searchboxMobileActive : false )
+    window.scrollTo(0,0)
   }
 
   useEffect(() => {

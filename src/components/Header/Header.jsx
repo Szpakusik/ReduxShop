@@ -13,19 +13,13 @@ import headerStyles from './header.module.scss';
 
 const Header = ( props ) => {
 
+  const [ searchString, setSearchString ] = useState('');
   useEffect( () => {
-
     let localCart = JSON.parse( localStorage.getItem('cart') );
-
     if( props.cart.length === 0 && localCart && localCart.products.length > 0 ){
-
-      console.log(JSON.parse( localStorage.getItem('cart') ))
       props.fillCart( localCart.products );
-
     }
-
     localStorage.setItem('cart', JSON.stringify( { products: props.cart } ) );
-    // console.log(localStorage)
   } );
   const handleLogoClick = ( page )=>{
     props.setActiveCat(0);
@@ -62,14 +56,9 @@ const Header = ( props ) => {
     console.log(searchString)
   }
 
-  const [ searchString, setSearchString ] = useState('');
-
-  let displayProperty = props.searchboxMobileActive ? "block" : "none" ;
   
   let price = getCartPrice(props.cart)
   let length = props.cart.length;
-
-  console.log(price)
 
   return (
     <header className={`header ${headerStyles.header}`}>
@@ -177,7 +166,7 @@ const Header = ( props ) => {
 
       </nav>
 
-      <div className={`w-100 ${headerStyles.searchbarXS} d-${displayProperty} `}>
+      <div className={`w-100 ${headerStyles.searchbarXS} d-${props.searchboxMobileActive ? 'block' : 'none'} d-md-none`}>
             
         <input className="form-control mr-sm-2" type="search" placeholder="Wpisz nazwe produktu..." aria-label="Search" onChange={ e => handleChange(e.target.value) }/>
 
