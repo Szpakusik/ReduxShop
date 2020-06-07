@@ -51,7 +51,7 @@ const MainContent = ( props ) => {
       }
 
       <div className="clearfix" />
-      <div className={`w-100 ${footerCss.container}`}>
+      <div className={`w-100 ${footerCss.container} d-none`}>
         <Footer />
       </div>
     </div>  
