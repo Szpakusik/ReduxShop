@@ -59,8 +59,8 @@ const CartModal = ( props ) => {
                 Razem: <span className="text-success">{price}zł</span>
             </div>
             <div className="col-12 col-sm-6 col-md-6 col-lg-12 text-right w-100 h4 mt-2 mb-0"> 
-                <button type="button" onClick={ ()=> { handleSendOrder() }} class="ml-3 btn btn-sm btn-outline-success">Zamów</button>
-                <button type="button" onClick={ ()=> { handleClearCart() }} class="ml-1 btn btn-sm btn-outline-danger">Opróżnij</button>
+                <button type="button" onClick={ ()=> { handleSendOrder() }} disabled={!props.cart.length} className={`ml-3 btn btn-sm btn-outline-success`}>Zamów</button>
+                <button type="button" onClick={ ()=> { handleClearCart() }} className="ml-1 btn btn-sm btn-outline-danger">Opróżnij</button>
             </div>
        
         </div>
