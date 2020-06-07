@@ -44,7 +44,7 @@ const Product = ( props ) => {
             </li>
             <li class="list-group-item">
                 <button class="btn btn-outline-success my-1" onClick={ ( ) => { handleClick() }} >Dodaj <span className="d-none d-md-inline">do koszyka</span></button>
-                <input placeholder="1" type="number" onChange={ (e)=>{handleChange(e)}} className={`${product.numberInput} mt-1 text-center`}/>
+                <input placeholder="1" type="number" onBlur={()=>{window.scrollTo(0,0)}} onChange={ (e)=>{handleChange(e)}} className={`${product.numberInput} mt-1 text-center`}/>
             </li>
         </ul>
     </div>

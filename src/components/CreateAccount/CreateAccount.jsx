@@ -81,11 +81,11 @@ const CreateAccount = (props) => {
 
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="name"><b>Imię</b></label><br />
-                                <input type="email" id="name" onChange={ e => { setFirstName(e.target.value); setErrorMessage('')} }/>
+                                <input type="email" id="name" onBlur={()=>{window.scrollTo(0,0)}} onChange={ e => { setFirstName(e.target.value); setErrorMessage('')} }/>
                             </div>
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="surname"><b>Nazwisko</b></label><br />
-                                <input type="text" id="surname" onChange={ e => { setSecondName(e.target.value); setErrorMessage('')} }/>
+                                <input type="text" id="surname" onBlur={()=>{window.scrollTo(0,0)}} onChange={ e => { setSecondName(e.target.value); setErrorMessage('')} }/>
                             </div>
 
                         </div>
@@ -93,11 +93,11 @@ const CreateAccount = (props) => {
 
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="phone"><b>Numer telefonu</b></label><br />
-                                <input type="text" id="phone" onChange={ e => { setPhone(e.target.value); setErrorMessage('')} }/>
+                                <input type="text" id="phone" onBlur={()=>{window.scrollTo(0,0)}} onChange={ e => { setPhone(e.target.value); setErrorMessage('')} }/>
                             </div>
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="email"><b>E-mail</b></label><br />
-                                <input type="text" id="email" onChange={ e => { setEmail(e.target.value); setErrorMessage('')} }/>
+                                <input type="text" id="email" onBlur={()=>{window.scrollTo(0,0)}} onChange={ e => { setEmail(e.target.value); setErrorMessage('')} }/>
                             </div>
 
                         </div>
@@ -105,11 +105,11 @@ const CreateAccount = (props) => {
 
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="password"><b>Hasło</b></label><br />
-                                <input type="password" id="password" onChange={ e => { setPassword(e.target.value); setErrorMessage('')} }/>
+                                <input type="password" id="password" onBlur={()=>{window.scrollTo(0,0)}} onChange={ e => { setPassword(e.target.value); setErrorMessage('')} }/>
                             </div>
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="email"><b>Powtórz hasło</b></label><br />
-                                <input type="password" id="email" onChange={ e => { setRepeatedPassword(e.target.value); setErrorMessage('')} }/>
+                                <input type="password" id="email" onBlur={()=>{window.scrollTo(0,0)}} onChange={ e => { setRepeatedPassword(e.target.value); setErrorMessage('')} }/>
                             </div>
 
                         </div>
@@ -120,15 +120,15 @@ const CreateAccount = (props) => {
 
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="post-code"><b>Kod pocztowy</b></label><br />
-                                <input type="text" id="post-code" onChange={ e => { setPostCode(e.target.value); setErrorMessage('')} }/>
+                                <input type="text" id="post-code" onBlur={()=>{window.scrollTo(0,0)}} onChange={ e => { setPostCode(e.target.value); setErrorMessage('')} }/>
                             </div>
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
                                 <label htmlfor="city"><b>Miejscowość</b></label><br />
-                                <input type="text" id="city" onChange={ e => { setCity(e.target.value); setErrorMessage('')} }/>
+                                <input type="text" id="city" onBlur={()=>{window.scrollTo(0,0)}} onChange={ e => { setCity(e.target.value); setErrorMessage('')} }/>
                             </div>
                             <div className="col-sm-12 w-100 mt-3 mb-0 text-left text-md-center"> 
                                 <label htmlfor="street"><b>Ulica i/lub numer domu</b></label><br />
-                                <input className='w-100' type="text" id="street" onChange={ e => { setStreet(e.target.value); setErrorMessage('')} } />
+                                <input className='w-100' type="text" id="street" onBlur={()=>{window.scrollTo(0,0)}} onChange={ e => { setStreet(e.target.value); setErrorMessage('')} } />
                             </div>
                             <p className="text-danger w-100 text-center pt-2">{errorMessage}</p>
                         </div>
