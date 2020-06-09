@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-
-import { Link } from 'gatsby';
 import Navbar from 'react-bootstrap/lib/Navbar';
-import Nav from 'react-bootstrap/lib/Nav';
 import { connect } from 'react-redux';
 import { getCartPrice } from './../../utils/functions/cartFunctions';
 import { clientUrl } from '../../utils/content/url';
@@ -15,6 +11,8 @@ const Header = ( props ) => {
 
   const [ searchString, setSearchString ] = useState('');
   useEffect( () => {
+    if( localStorage.getItem('JWT') ) 
+      props.signIn();
     let localCart = JSON.parse( localStorage.getItem('cart') );
     if( props.cart.length === 0 && localCart && localCart.products.length > 0 ){
       props.fillCart( localCart.products );
@@ -221,6 +219,10 @@ const mapDispatchToProps = ( dispatch ) => {
       setActiveCat: ( id )=>{ 
           dispatch( { type: "SET_CATEGORY", id: id } ) 
       },
+      signIn: ()=>{ 
+        dispatch( { type: "LOG_IN", isLogged: true } 
+      ) },
+
   }
 }
 

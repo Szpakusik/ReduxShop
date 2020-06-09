@@ -19,6 +19,17 @@ const CreateAccount = (props) => {
     const [city, setCity] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     
+    const cleanRegistration = () => {
+        setFirstName("");
+        setSecondName("");
+        setPhone("");
+        setEmail("");
+        setPassword("");
+        setRepeatedPassword("");
+        setStreet("");
+        setPostCode("");
+        setCity("");
+    }
     const handleClick = ()=> {
 
         const validationStatus = validateRegister(firstName, secondName, phone, email, password, repeatedPassword, postCode, city, street )
@@ -39,10 +50,14 @@ const CreateAccount = (props) => {
             city: city,
         })
         .then(function (response) {
-          console.log(response);
+            console.log(response);
+            cleanRegistration();
+            setErrorMessage("Pomyślnie założyłeś konto! Zaloguj się klikając w prawym górnym rogu.")
         })
         .catch(function (error) {
-          console.log(error);
+            if(error.response.status === 409) setErrorMessage("Mamy już użytkownika o takim adresie email!")
+            else setErrorMessage("Coś poszło nie tak!")
+            console.log(error.response.data.message);
         });
         
       }
