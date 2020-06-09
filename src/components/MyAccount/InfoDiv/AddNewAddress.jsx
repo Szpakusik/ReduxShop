@@ -62,7 +62,7 @@ const AddNewAddress = (props) => {
             <input onChange={ e => handleGetStreet(e.target.value)} value={street} className={`text-success ${infoDiv.addressInfo}`} placeholder={`Ulica`}></input>   
             </>,
         buttons:
-            <div className={`${infoDiv.editUserWrapper}`}>
+            <div className={`${infoDiv.editUserWrapper} mb-2`}>
                 <button class={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={ () => handleAddAddress()}>{addingAddress ? 'Anuluj' : 'Dodaj'}</button>
                 <button class={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={ () => handleSendAddress()}>Dodaj</button>
             </div>   
