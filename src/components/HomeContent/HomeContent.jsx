@@ -7,11 +7,6 @@ import CreateAccount from '../CreateAccount/CreateAccount';
 
 
 const HomeContent = (props) => {
-
-    // const handleMenuClick = () => {
-    //     props.showSidebar( true );
-    // }
-
     return(
         <>
         
@@ -29,9 +24,10 @@ const HomeContent = (props) => {
 
                 </div>
 
+                { !props.logged && <>
+                
                 <CreateAccount />
 
-                
                 <div className="row w-100 mb-5 mx-auto">
 
                     <div className={`col-md-3 col-12 ${homeContent.icon}`}>
@@ -55,6 +51,8 @@ const HomeContent = (props) => {
 
                 </div>
 
+                </>}
+
             </div>
             
 
@@ -67,6 +65,7 @@ const mapStateToProps = (state) => {
     return{
         products: state.productReducer.products,
         activeCategory: state.categoryReducer.activeCategory,
+        logged: state.loginReducer.logged,
     }
 }
 
