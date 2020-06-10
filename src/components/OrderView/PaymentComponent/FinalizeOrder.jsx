@@ -126,7 +126,7 @@ const FinalizeOrder = (props) => {
                 
                 <div className="col-md-5 col-lg-6 pl-md-1">
 
-                    <div class="row w-100 mx-auto">
+                    <div className="row w-100 mx-auto">
 
                         <div className={`row w-100 mx-auto ${myAccount.addresses}`}>
 

@@ -23,17 +23,10 @@ const SignedIn = ( props ) => {
     props.signOut();
   }
 
-  const handleTestClick = ( )=>{
-
-    console.log(props.user);
-  }
   return(
     <>
     <div className={`container text-dark ${signedIn.signedIn} pt-3`}>
-       
-        <div className="row border-bottom p-3" onClick={ ()=>{ handleTestClick() }}>
-          <p className="h5 m-0">Test Button</p>
-        </div>
+
         <div className="row border-bottom p-3" onClick={ ()=>{ handleChangePage('myAccount') }}>
           <p className="h5 m-0">Moje konto</p>
         </div>

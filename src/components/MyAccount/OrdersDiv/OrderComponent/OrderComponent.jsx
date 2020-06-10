@@ -44,7 +44,7 @@ const OrderComponent = (props) => {
     return(
         <>
 
-        <li class={`list-group-item  py-0 px-0 border ${orderComponent.orderComponent} mt-2`}>
+        <li className={`list-group-item  py-0 px-0 border ${orderComponent.orderComponent} mt-2`}>
             <div className={`row px-2 text-left text-secondaryp-1 ${orderComponent.detail}`}>
                 <div className="col-sm-12 mb-2 text-center mt-2 mt-md-0">
                     {props.order.date ? props.order.date : ''}

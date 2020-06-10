@@ -167,8 +167,8 @@ const InfoDiv = (props) => {
                         </div>
                     </div>
                     <div className={`${infoDiv.editUserWrapper}`}>
-                        <button class={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={ () => handleEditUser()}>{editingUser ? 'Anuluj' : 'Edytuj'}</button>
-                        {editingUser ? <button class={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={ () => handleConfirmUser()}>Zapisz</button> : null}
+                        <button className={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={ () => handleEditUser()}>{editingUser ? 'Anuluj' : 'Edytuj'}</button>
+                        {editingUser ? <button className={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={ () => handleConfirmUser()}>Zapisz</button> : null}
                     </div>
 
                     <div className="row col-sm-12 pt-3 w-100">

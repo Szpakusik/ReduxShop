@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-// import ordersDiv from './orders.module.scss'
 import OrderComponent from './OrderComponent/OrderComponent';
 import {serverUrl} from '../../../utils/content/url'
 
@@ -19,7 +18,6 @@ const OrdersDiv = (props) => {
             },
         })
         .then(function (response) {
-            console.log(response.data);
             props.setOrders(response.data.orders)
         })
         .catch(function (error) {
@@ -40,7 +38,7 @@ const OrdersDiv = (props) => {
                 <div className="card-header radius-none transparent-darker">
                     <span className="h4 card-title text-white">Ostatnie zamówienia</span>
                 </div>
-                <ul class="list-group list-group-flush  bg-white">
+                <ul className="list-group list-group-flush  bg-white">
 
                     {props.orders.length > 0 && props.orders.map( (order, index)=>{
                         if(index < limitCounter)

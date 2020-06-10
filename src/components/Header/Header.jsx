@@ -51,7 +51,6 @@ const Header = ( props ) => {
     // setSearchString( value )
     props.setActiveCat(-1);
     props.sendSearchString( value )
-    console.log(searchString)
   }
 
   
@@ -117,7 +116,7 @@ const Header = ( props ) => {
             <div className="row h-100">
 
               <div className="col-2 m-auto pt-2 pr-0 pl-2" onClick={ () => { handleMenuClick() } }>
-                <span class="material-icons text-success" >
+                <span className="material-icons text-success" >
                   menu
                 </span>
               </div>
