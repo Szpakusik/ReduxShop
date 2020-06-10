@@ -14,21 +14,17 @@ const CategoryElem = ( props ) => {
     return(
         <>
             <a href="#" onClick={props.onClickFun} className={`d-none text-decoration-none`}>
-                <div className={`row ${props.activeTab === props.category.id ? categoryElem.active : ''} ${categoryElem.categoryElem}`}>
+                <div className={`row  ${categoryElem.categoryElem}`}>
                     <div className="m-auto text-center">
-                        <span className="material-icons">
-                            {props.category.icon}
-                        </span>
+                        <img style={{height:"24px", width:"24px", marginBottom: '5px'}} src={require(`./../../../images/${props.category.icon}`)} alt=""/>
                         <p className='d-block m-0'>{props.category.name}</p>
                     </div>
                 </div>
             </a>
 
-            <a href="#" onClick={props.onClickFun} className={`${categoryElem.categoryElem} ${isFullWidth} p-1 text-decoration-none pt-2 d-flex`}>
+            <a href="#" onClick={props.onClickFun}  className={`${props.activeTab === props.category.id ? categoryElem.active : 'job'} ${categoryElem.categoryElem} ${isFullWidth} p-1 text-decoration-none pt-2 d-flex`}>
                     <div className="text-center m-auto">
-                        <span className="material-icons">
-                            {props.category.icon}
-                        </span>
+                        <img style={{height:"24px", width:"24px", marginBottom: '5px'}} src={require(`./../../../images/${props.category.icon}`)} alt=""/>
                         <p className='d-block m-0'>{props.category.name}</p>
                     </div>
             </a>
