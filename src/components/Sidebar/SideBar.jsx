@@ -51,7 +51,7 @@ const SideBar = (props) => {
     <div style={sidebarStyle} className={`col-md-1 col-12 ${sideBar.sideBar}`}>
       <div className="row h-100">
         {props.categories && props.categories.map((category, index) => (
-          <CategoryElem activeTab={props.activeCategory} lp={index} length={props.categories.length} key={category.id} category={category} onClickFun={() => { props.setActiveCat(category.id) }} />
+          <CategoryElem activeTab={props.activeCategory} lp={index} length={props.categories.length} key={category.id} category={category} onClickFun={() => { props.setActiveCat(category.id); props.sendSearchString('') }} />
         ))}
 
       </div>
@@ -74,7 +74,10 @@ const mapDispatchToProps = (dispatch) => {
     setActiveCat: (id) => { dispatch({ type: "SET_CATEGORY", id: id }) },
     showSearchboxMobile: ( status )=>{
       dispatch( { type:"SHOW_SEARCHBOX_MOBILE", status: status } )
-  },
+    },
+    sendSearchString: ( searchString )=>{
+      dispatch({ type:"SET_SEARCH", searchString: searchString })
+    },
   }
 }
 
