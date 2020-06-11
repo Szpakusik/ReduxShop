@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
-
 import signedIn from './signedIn.module.scss'
-
-import { serverUrl } from '../../../utils/content/url';
-import { getCartPrice } from '../../../utils/functions/cartFunctions';
-
 
 const SignedIn = ( props ) => {
 

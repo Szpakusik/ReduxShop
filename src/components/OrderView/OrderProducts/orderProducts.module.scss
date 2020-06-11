@@ -26,11 +26,11 @@
 }
 
 .photoContainer{
-    width: 50px;
+    width: 45px;
 }
 
 .productRow{
-    height: 50px;
+    height: 55px;
     @media only screen and (max-width: 1199.90px){
         overflow-y: hidden;
         overflow-x: auto;
@@ -48,6 +48,9 @@
         height: initial;
         img{
             display: block;
+        }
+        p{
+            font-size: 100%;
         }
     }
 

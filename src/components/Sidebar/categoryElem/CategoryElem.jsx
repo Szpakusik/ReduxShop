@@ -22,7 +22,7 @@ const CategoryElem = ( props ) => {
                 </div>
             </a>
 
-            <a href="#" onClick={props.onClickFun}  className={`${props.activeTab === props.category.id ? categoryElem.active : 'job'} ${categoryElem.categoryElem} ${isFullWidth} p-1 text-decoration-none pt-2 d-flex`}>
+            <a href="#" onClick={props.onClickFun}  className={`${props.activeTab === props.category.id ? categoryElem.active : 'job'} ${categoryElem.categoryElem} ${isFullWidth} no-select p-1 text-decoration-none pt-2 d-flex`}>
                     <div className="text-center m-auto">
                         <img style={{height:"24px", width:"24px", marginBottom: '5px'}} src={require(`./../../../images/${props.category.icon}`)} alt=""/>
                         <p className='d-block m-0'>{props.category.name}</p>

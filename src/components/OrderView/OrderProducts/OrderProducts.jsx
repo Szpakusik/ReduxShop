@@ -36,7 +36,7 @@ const OrderProducts = ( props ) => {
 
                         return(
                             <div key={index} className={`my-1 pt-md-0 pl-2 pl-xl-5 row ${borderBottom} ${orderProducts.productRow}`}>
-                                <div className={`${orderProducts.photoContainer} align-self-center mr-1 p-1 pt-2`}>
+                                <div className={`${orderProducts.photoContainer} align-self-center mr-1 p-1 pt-2 mr-lg-3`}>
                                      <img className="card-img my-auto" src={require(`../../../images/${product.photo}`)} alt="Product" />
                                 </div>
                                 <p className={`text-dark my-auto m-0`}>
