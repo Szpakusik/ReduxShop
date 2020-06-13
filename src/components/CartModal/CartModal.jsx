@@ -6,7 +6,6 @@ import cartModal from './cartModal.module.scss';
 import { serverUrl } from '../../utils/content/url'
 
 const CartModal = ( props ) => {
-
     let price = getCartPrice(props.cart)
 
     const handleRemoveProduct = (id) => {
@@ -36,14 +35,13 @@ const CartModal = ( props ) => {
             props.cart.map( (product)=>{
                 let price = product.price * product.amount;
                 price = (Math.round(price * 100) / 100).toFixed(2);
-
                 return(
                     <div key={product.id} className={`my-1 row ${cartModal.productRow} border-bottom`}>
                         <div className={`${cartModal.photoContainer} align-self-center mr-1 p-1`}>
                             <img class="card-img my-auto" src={require(`./../../images/${product.photo}`)} alt="Product" />
                         </div>
                         <p className="text-dark align-middle my-auto m-0">
-                            {product.name} - {product.amount} x {product.price}zł = {price}
+                            {product.name} - {product.amount} x {product.price}zł
                         </p>
                         <i class="material-icons text-danger my-auto" onClick={ ( ) => { handleRemoveProduct(product.id) }}>
                             clear
@@ -51,9 +49,21 @@ const CartModal = ( props ) => {
                     </div>
                 )
             })
-            : <p className="pt-3" >Nie dodałeś jeszcze żadnych produktów</p>
+            : <p className="pt-4 h6" ><b>Nie dodałeś jeszcze żadnych produktów</b></p>
 
         }
+        {
+            props.cart.length ? 
+            <div className={`my-1 row ${cartModal.productRow} border-bottom`}>
+                <div className={`${cartModal.photoContainer} align-self-center mr-1 p-1`}>
+                    <img class="card-img my-auto p-1 pl-2 bg-white" src={require(`./../../images/delivery-truck.png`)} alt="Product" />
+                </div>
+                <p className="text-dark align-middle my-auto m-0">
+                    Koszt dostawy - 16.80zł
+                </p>
+            </div> : ''
+        }
+
         <div className="row text-dark"> 
             <div className="col-12 col-sm-6 col-md-6 col-lg-12 text-right w-100 h4 mt-2 mb-0"> 
                 Razem: <span className="text-success">{price}zł</span>

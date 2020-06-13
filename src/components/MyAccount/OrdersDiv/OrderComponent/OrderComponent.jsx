@@ -10,10 +10,8 @@ const OrderComponent = (props) => {
         props.setActivePage('finalizeOrder');
         props.setTempOrder(props.order.orderId);
     }
-    const products = [
-        { name:"Szynka Sołtysowa", weight: '1000g', price: 25.49, photo:"ham.png", category:"mieso", id:22, amount:1 },
-        { name:"Kurczak Cały", weight: '1000g', price: 16.49, photo:"chicken.png", category:"mieso", id:23, amount:1 },
-    ]
+    const deliveryPrice = 16.80;
+    const finalPrice = !props.ordered ? props.order.price + deliveryPrice : props.order.price;
     let statusColor, statusText;
     switch(props.order.status){
         case 0:
@@ -56,7 +54,7 @@ const OrderComponent = (props) => {
                     <p className='border-0'><span className="d-none d-sm-inline">Ilość</span> Produktów: <br />{props.order.amountOfProducts}</p>
                 </div>
                 <div className="col-6">
-                    <p className='border-0'>Cena Końcowa: <br />{props.order.price && (props.order.price+16.90).toFixed(2)} zł</p>
+                    <p className='border-0'>Cena Końcowa: <br />{finalPrice && (finalPrice).toFixed(2)} zł</p>
                 </div>
             </div>
             <div className={`row ${props.management ? "d-none":''} text-center`}>
