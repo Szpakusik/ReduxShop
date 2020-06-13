@@ -126,7 +126,7 @@ const FinalizeOrder = (props) => {
                 
                 <div className="col-md-5 col-lg-6 pl-md-1">
 
-                    <div class="row w-100 mx-auto">
+                    <div className="row w-100 mx-auto">
 
                         <div className={`row w-100 mx-auto ${myAccount.addresses}`}>
 
@@ -147,7 +147,7 @@ const FinalizeOrder = (props) => {
                         
                     </div>
                         {/* <ChooseAddress /> */}
-                        <PaymentComponent order={{amountOfProducts, date, price, status}} contactDetails={contactDetails} ordered={ordered} addresses={addresses} products={orderedProducts} />
+                        <PaymentComponent order={{amountOfProducts, date, price, status}} contactDetails={contactDetails} ordered={ordered} addresses={addresses} products={orderedProducts} logged={props.logged} />
                 </div>
 
             </div>

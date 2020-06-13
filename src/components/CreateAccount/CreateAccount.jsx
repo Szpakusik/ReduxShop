@@ -19,6 +19,11 @@ const CreateAccount = (props) => {
     const [city, setCity] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     
+    const cleanRegistration = () => {
+        document.querySelectorAll('input').forEach( ( input ) => {
+            input.value = '';
+        })
+    }
     const handleClick = ()=> {
 
         const validationStatus = validateRegister(firstName, secondName, phone, email, password, repeatedPassword, postCode, city, street )
@@ -39,10 +44,14 @@ const CreateAccount = (props) => {
             city: city,
         })
         .then(function (response) {
-          console.log(response);
+            console.log(response);
+            cleanRegistration();
+            setErrorMessage("Pomyślnie założyłeś konto! Zaloguj się klikając w prawym górnym rogu.")
         })
         .catch(function (error) {
-          console.log(error);
+            if(error.response.status === 409) setErrorMessage("Mamy już użytkownika o takim adresie email!")
+            else setErrorMessage("Coś poszło nie tak!")
+            console.log(error.response.data.message);
         });
         
       }
@@ -50,7 +59,7 @@ const CreateAccount = (props) => {
     return(
         <>
         
-        <div className={`row p-0 p-md-5 pl-0 ${createAccount.createAccount}`}>
+        <div id="register-div"className={`row p-0 p-md-5 pl-0 ${createAccount.createAccount}`}>
 
             <div className="row w-100 mb-2 mb-md-5 mx-auto">
 
@@ -67,8 +76,30 @@ const CreateAccount = (props) => {
                         <span className="h3">Jesteśmy</span>
                         <img src={require('./../../images/z-dowozem-text.png')} alt=""/>
                         <div className='py-4'>
-                            <p className="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam possimus explicabo illum asperiores dolore neque nam sequi inventore ex delectus mollitia ea reiciendis voluptatibus iure, ut debitis quibusdam consectetur quia?</p>
-                            <p className="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam possimus explicabo illum asperiores dolore neque nam sequi inventore ex delectus mollitia ea reiciendis voluptatibus iure, ut debitis quibusdam consectetur quia?</p>
+                            <p className="text-light">
+                                Chcemy sprawiać, aby życie było prostsze.
+                            </p>
+                            <p className="text-light">
+                                Bieganie po sklepach bywa bardzo czasochłonne,
+                                a promocje wypisane wielkimi czerwonymi literami
+                                często sprawiają, że zapominamy po co przyszliśmy.
+                                W czasach pandemii dochodzą do tego emocje,
+                                które można nazwać conajmniej dyskomfortem
+                                związanym z przebywaniem w miejscach
+                                o dużym zagęszczeniu ludzi.
+                            </p>
+                            <p className="text-light">
+                                Przywieziemy zakupy do Ciebie,
+                                a dzięki skupieniu działalności na gminie
+                                Morawica, oferujemy zupełnie
+                                niespotykany do tej pory czas dostawy
+                                wynoszący 2 godziny od momentu złożenia zamówienia.
+                            </p>
+                            <p className="text-light">
+                                Jesteśmy małym "warzywniakiem" w okolicy.
+                                Bliżej niż kiedykolwiek, bo dokładnie w twoim domu
+                                ( a nawet gdy Cię tam nie ma! )
+                            </p>
                         </div>
                         <span className="h3">A Ty?</span>
                     </div>
@@ -80,36 +111,36 @@ const CreateAccount = (props) => {
                         <div className="row pt-3 mt-4 border-top">
 
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
-                                <label htmlfor="name"><b>Imię</b></label><br />
-                                <input type="email" id="name" onChange={ e => { setFirstName(e.target.value); setErrorMessage('')} }/>
+                                <label htmlFor="name"><b>Imię</b></label><br />
+                                <input type="email" id="name" onBlur={()=>{window.scrollTo(0,0)}} onChange={ e => { setFirstName(e.target.value); setErrorMessage('')} }/>
                             </div>
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
-                                <label htmlfor="surname"><b>Nazwisko</b></label><br />
-                                <input type="text" id="surname" onChange={ e => { setSecondName(e.target.value); setErrorMessage('')} }/>
-                            </div>
-
-                        </div>
-                        <div className="row">
-
-                            <div className="col-sm-6 w-100 mt-2 mb-0"> 
-                                <label htmlfor="phone"><b>Numer telefonu</b></label><br />
-                                <input type="text" id="phone" onChange={ e => { setPhone(e.target.value); setErrorMessage('')} }/>
-                            </div>
-                            <div className="col-sm-6 w-100 mt-2 mb-0"> 
-                                <label htmlfor="email"><b>E-mail</b></label><br />
-                                <input type="text" id="email" onChange={ e => { setEmail(e.target.value); setErrorMessage('')} }/>
+                                <label htmlFor="surname"><b>Nazwisko</b></label><br />
+                                <input type="text" id="surname" onBlur={()=>{window.scrollTo(0,0)}} onChange={ e => { setSecondName(e.target.value); setErrorMessage('')} }/>
                             </div>
 
                         </div>
                         <div className="row">
 
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
-                                <label htmlfor="password"><b>Hasło</b></label><br />
-                                <input type="password" id="password" onChange={ e => { setPassword(e.target.value); setErrorMessage('')} }/>
+                                <label htmlFor="phone"><b>Numer telefonu</b></label><br />
+                                <input type="text" id="phone" onBlur={()=>{window.scrollTo(0,0)}} onChange={ e => { setPhone(e.target.value); setErrorMessage('')} }/>
                             </div>
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
-                                <label htmlfor="email"><b>Powtórz hasło</b></label><br />
-                                <input type="password" id="email" onChange={ e => { setRepeatedPassword(e.target.value); setErrorMessage('')} }/>
+                                <label htmlFor="email"><b>E-mail</b></label><br />
+                                <input type="text" id="email" onBlur={()=>{window.scrollTo(0,0)}} onChange={ e => { setEmail(e.target.value); setErrorMessage('')} }/>
+                            </div>
+
+                        </div>
+                        <div className="row">
+
+                            <div className="col-sm-6 w-100 mt-2 mb-0"> 
+                                <label htmlFor="password"><b>Hasło</b></label><br />
+                                <input type="password" id="password" onBlur={()=>{window.scrollTo(0,0)}} onChange={ e => { setPassword(e.target.value); setErrorMessage('')} }/>
+                            </div>
+                            <div className="col-sm-6 w-100 mt-2 mb-0"> 
+                                <label htmlFor="email"><b>Powtórz hasło</b></label><br />
+                                <input type="password" id="repeated-password" onBlur={()=>{window.scrollTo(0,0)}} onChange={ e => { setRepeatedPassword(e.target.value); setErrorMessage('')} }/>
                             </div>
 
                         </div>
@@ -119,16 +150,16 @@ const CreateAccount = (props) => {
                         <div className="row">
 
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
-                                <label htmlfor="post-code"><b>Kod pocztowy</b></label><br />
-                                <input type="text" id="post-code" onChange={ e => { setPostCode(e.target.value); setErrorMessage('')} }/>
+                                <label htmlFor="post-code"><b>Kod pocztowy</b></label><br />
+                                <input type="text" id="post-code" onBlur={()=>{window.scrollTo(0,0)}} onChange={ e => { setPostCode(e.target.value); setErrorMessage('')} }/>
                             </div>
                             <div className="col-sm-6 w-100 mt-2 mb-0"> 
-                                <label htmlfor="city"><b>Miejscowość</b></label><br />
-                                <input type="text" id="city" onChange={ e => { setCity(e.target.value); setErrorMessage('')} }/>
+                                <label htmlFor="city"><b>Miejscowość</b></label><br />
+                                <input type="text" id="city" onBlur={()=>{window.scrollTo(0,0)}} onChange={ e => { setCity(e.target.value); setErrorMessage('')} }/>
                             </div>
                             <div className="col-sm-12 w-100 mt-3 mb-0 text-left text-md-center"> 
-                                <label htmlfor="street"><b>Ulica i/lub numer domu</b></label><br />
-                                <input className='w-100' type="text" id="street" onChange={ e => { setStreet(e.target.value); setErrorMessage('')} } />
+                                <label htmlFor="street"><b>Ulica i/lub numer domu</b></label><br />
+                                <input className='w-100' type="text" id="street" onBlur={()=>{window.scrollTo(0,0)}} onChange={ e => { setStreet(e.target.value); setErrorMessage('')} } />
                             </div>
                             <p className="text-danger w-100 text-center pt-2">{errorMessage}</p>
                         </div>

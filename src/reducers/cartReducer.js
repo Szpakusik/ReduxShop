@@ -36,7 +36,6 @@ const cartReducer = (state = initState, action) => {
         // tempCart.push( tempObj );
 
         localStorage.setItem('cart', JSON.stringify( { products: [...tempCart, tempObj] } ) );
-        console.log( localStorage.cart )
 
         return {
           ...state,

@@ -101,4 +101,7 @@
     bottom: -10px;
     background: green;
     color: white;
+    @media only screen and (max-width: 440px){
+        left: 0;
+    }
 }

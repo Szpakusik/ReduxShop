@@ -129,12 +129,12 @@ const Address = (props) => {
                     {editingAddress ? dataAddressEditTag.postCode : dataAddressTag.posCtode}
                     {editingAddress ? dataAddressEditTag.city : dataAddressTag.city}                             
                     {editingAddress ? dataAddressEditTag.street : dataAddressTag.street}
-                    {editingAddress ? <button onClick={ () => handleDeleteAddress(address.id)} class="w-50 btn btn-outline-success mx-auto d-block">Usuń adres</button> : null}
+                    {editingAddress ? <button onClick={ () => handleDeleteAddress(address.id)} className="w-50 btn btn-outline-success mx-auto d-block">Usuń adres</button> : null}
                 </div>
                 <div className={`${infoDiv.editUserWrapper}`}>
                     <p className={`text-danger w-100 text-center pt-2 border-0 ${errorMessage ? '' : 'd-none'}`} style={{fontSize:"100%"}}>{errorMessage}</p>
-                    <button class={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={() => handleEditAddress(address.id)}>{editingAddress ? 'Anuluj' : 'Edytuj'}</button>
-                    {editingAddress ? <button class={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={ () => handleConfirmAddress(address.id)}>Zapisz</button> : null}  
+                    <button className={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={() => handleEditAddress(address.id)}>{editingAddress ? 'Anuluj' : 'Edytuj'}</button>
+                    {editingAddress ? <button className={`btn btn-outline-success ${infoDiv.editUserButton}`} onClick={ () => handleConfirmAddress(address.id)}>Zapisz</button> : null}  
                     
                 </div>
             </div>

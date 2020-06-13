@@ -8,7 +8,7 @@ import ShoppingListsDiv from './ShoppingListsDiv/ShoppingListsDiv';
 
 
 
-const MyAccount = ({user, editUser, editAddress, addAddress, setActiveAddress, deleteAddress}) => {
+const MyAccount = () => {
 
     return(
         <>
@@ -45,21 +45,5 @@ const MyAccount = ({user, editUser, editAddress, addAddress, setActiveAddress, d
     )
 
 }
-
-// const mapStateToProps = (state) => {
-//     return{
-//         user: state.loginReducer.user
-//     }
-// }
-
-// const mapDispatchToProps = (dispatch) => {
-//     return{
-//          editUser: ( name, surname, email, phone ) => { dispatch( { type: "EDIT_USER", name: name, surname: surname, email: email, phone: phone } ) },
-//          editAddress: ( id, city, postCode, street ) => { dispatch( { type: "EDIT_ADDRESS", id: id, city: city, postCode: postCode, street: street } ) },
-//          addAddress: ( city, postCode, street, ) => { dispatch( { type: "ADD_ADDRESS", city: city, postCode: postCode, street: street, } ) },
-//          setActiveAddress: (id) => { dispatch( { type: "CHANGE_ACTIVE_ADDRESS", id: id, } ) },
-//          deleteAddress:  (id) => { dispatch( { type: "DELETE_ADDRESS", id: id, } ) },
-//     }
-// }
 
 export default MyAccount

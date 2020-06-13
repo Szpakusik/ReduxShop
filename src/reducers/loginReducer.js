@@ -14,26 +14,11 @@ const initState = {
   logged: false,
   user: {
       id: 0,
-      name: "Jan",
-      surname: "Kowalski",
-      phone: "000-000-000",
-      email: "example@email.com",
-      addresses:[
-        {
-            id:0,
-            address: "Skrzelczyce 116",
-            post_code: "26-015",
-            city: "Pierzchnica",
-            active: 1,
-        },
-        {
-            id:1,
-            adress: "Skrzelczyce 143",
-            post_code: "26-026",
-            city: "Morawica",
-            active: 0,
-        }
-     ]
+      name: "",
+      surname: "",
+      phone: "",
+      email: "",
+      addresses:[],
   },
 }
 

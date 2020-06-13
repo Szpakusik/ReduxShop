@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-
-import { Link } from 'gatsby';
 import Navbar from 'react-bootstrap/lib/Navbar';
-import Nav from 'react-bootstrap/lib/Nav';
 import { connect } from 'react-redux';
 import { getCartPrice } from './../../utils/functions/cartFunctions';
 import { clientUrl } from '../../utils/content/url';
@@ -13,19 +9,15 @@ import headerStyles from './header.module.scss';
 
 const Header = ( props ) => {
 
+  const [ searchString, setSearchString ] = useState('');
   useEffect( () => {
-
+    if( localStorage.getItem('JWT') ) 
+      props.signIn();
     let localCart = JSON.parse( localStorage.getItem('cart') );
-
     if( props.cart.length === 0 && localCart && localCart.products.length > 0 ){
-
-      console.log(JSON.parse( localStorage.getItem('cart') ))
       props.fillCart( localCart.products );
-
     }
-
     localStorage.setItem('cart', JSON.stringify( { products: props.cart } ) );
-    // console.log(localStorage)
   } );
   const handleLogoClick = ( page )=>{
     props.setActiveCat(0);
@@ -59,17 +51,11 @@ const Header = ( props ) => {
     // setSearchString( value )
     props.setActiveCat(-1);
     props.sendSearchString( value )
-    console.log(searchString)
   }
 
-  const [ searchString, setSearchString ] = useState('');
-
-  let displayProperty = props.searchboxMobileActive ? "block" : "none" ;
   
   let price = getCartPrice(props.cart)
   let length = props.cart.length;
-
-  console.log(price)
 
   return (
     <header className={`header ${headerStyles.header}`}>
@@ -78,7 +64,7 @@ const Header = ( props ) => {
         <div className='container-fluid p-0 overflow-hidden d-none d-md-flex'>
           <Navbar.Brand className={`banner navbar-header col-xs-12 col-sm-4 ${headerStyles.banner}`}>
             <a className="navbar-brand text-sm-center btn" onClick={ () => {handleLogoClick('homepage')} } >
-              <img src={require('./../../images/logo-transparent2.png')} alt=""/>
+              <img src={require('./../../images/logo-transparent-com.png')} alt=""/>
             </a>
           </Navbar.Brand>
           <div className="col-md-3 col-lg-4 pr-lg-5 pl-sm-4 pl-0">
@@ -130,7 +116,7 @@ const Header = ( props ) => {
             <div className="row h-100">
 
               <div className="col-2 m-auto pt-2 pr-0 pl-2" onClick={ () => { handleMenuClick() } }>
-                <span class="material-icons text-success" >
+                <span className="material-icons text-success" >
                   menu
                 </span>
               </div>
@@ -177,7 +163,7 @@ const Header = ( props ) => {
 
       </nav>
 
-      <div className={`w-100 ${headerStyles.searchbarXS} d-${displayProperty} `}>
+      <div className={`w-100 ${headerStyles.searchbarXS} d-${props.searchboxMobileActive ? 'block' : 'none'} d-md-none`}>
             
         <input className="form-control mr-sm-2" type="search" placeholder="Wpisz nazwe produktu..." aria-label="Search" onChange={ e => handleChange(e.target.value) }/>
 
@@ -232,6 +218,10 @@ const mapDispatchToProps = ( dispatch ) => {
       setActiveCat: ( id )=>{ 
           dispatch( { type: "SET_CATEGORY", id: id } ) 
       },
+      signIn: ()=>{ 
+        dispatch( { type: "LOG_IN", isLogged: true } 
+      ) },
+
   }
 }
 

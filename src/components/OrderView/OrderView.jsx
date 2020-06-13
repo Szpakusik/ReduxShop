@@ -121,9 +121,9 @@ const OrderView = (props) => {
                                     </div>
                                     <div className={`${orderView.contactDetails} px-1 mt-2 bg-white border py-3 flex-wrap`}>
                                         <input onChange={ e => getFirstName(e.target.value)} value={firstName} className={`text-success mt-2 ${orderView.addressInfo}`} placeholder={`Imię`}></input>
-                                        <input onChange={ e => getLastName(e.target.value)} value={lastName} className={`text-success mt-2 ml-md-2 ${orderView.addressInfo}`} placeholder={`Nazwisko`}></input>
+                                        <input onChange={ e => getLastName(e.target.value)} value={lastName} className={`text-success mt-2 ml-sm-2 ${orderView.addressInfo}`} placeholder={`Nazwisko`}></input>
                                         <input onChange={ e => getEmail(e.target.value)} value={email} className={`text-success mt-2  ${orderView.addressInfo}`} placeholder={`Email*`}></input>
-                                        <input onChange={ e => getPhone(e.target.value)} value={phone} className={`text-success mt-2 ml-md-2 ${orderView.addressInfo}`} placeholder={`Telefon`}></input>
+                                        <input onChange={ e => getPhone(e.target.value)} value={phone} className={`text-success mt-2 ml-sm-2 ${orderView.addressInfo}`} placeholder={`Telefon`}></input>
                                     </div>
                                 </div>       
 

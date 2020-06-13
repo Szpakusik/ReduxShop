@@ -1,4 +1,4 @@
- import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import sideBar from './sideBar.module.scss';
 import CategoryElem from './categoryElem/CategoryElem';
 import { connect } from 'react-redux';
@@ -9,11 +9,8 @@ const SideBar = (props) => {
     global.window = {}
   }
 
-  
-
   // const [ displayProperty, setDisplayProperty ] = useState(props.showSidebarMobile ? "block" : "none");
-  const [ displayProperty, setDisplayProperty ] = useState('block');
-
+  const [ displayProperty, setDisplayProperty ] = useState('none');
   const [height, setDimensions] = useState(window.innerHeight)
 
   let sidebarStyle = window.innerWidth > 770 ? {
@@ -25,8 +22,13 @@ const SideBar = (props) => {
     setDimensions(window.innerHeight);
     setDisplayProperty( window.innerWidth > 770 ? 'block' : 
     props.showSidebarMobile ? 'block' : 'none' );
-    props.showSearchboxMobile(window.innerWidth < 770 ? props.searchboxMobileActive : false )
+    window.scrollTo(0,0)
+  }
 
+  const handleCategoryClick = (categoryId) => {
+    props.setActiveCat(categoryId);
+    props.sendSearchString(''); 
+    props.showSidebar( false );
   }
 
   useEffect(() => {
@@ -42,9 +44,12 @@ const SideBar = (props) => {
       display: 'block'
     } : {display: displayProperty};
     
-    setDisplayProperty( window.innerWidth > 770 ? 'block' : 
-    props.showSidebarMobile ? 'block' : 'none' )
-    console.log(displayProperty)
+    if(window.innerWidth > 770){
+      setDisplayProperty('block')
+    } 
+    else{
+      setDisplayProperty(props.showSidebarMobile ? 'block' : 'none')
+    }
   })
 
   return (
@@ -52,7 +57,7 @@ const SideBar = (props) => {
     <div style={sidebarStyle} className={`col-md-1 col-12 ${sideBar.sideBar}`}>
       <div className="row h-100">
         {props.categories && props.categories.map((category, index) => (
-          <CategoryElem activeTab={props.activeCategory} lp={index} length={props.categories.length} key={category.id} category={category} onClickFun={() => { props.setActiveCat(category.id) }} />
+          <CategoryElem activeTab={props.activeCategory} lp={index} length={props.categories.length} key={category.id} category={category} onClickFun={() => { handleCategoryClick(category.id) }} />
         ))}
 
       </div>
@@ -75,7 +80,13 @@ const mapDispatchToProps = (dispatch) => {
     setActiveCat: (id) => { dispatch({ type: "SET_CATEGORY", id: id }) },
     showSearchboxMobile: ( status )=>{
       dispatch( { type:"SHOW_SEARCHBOX_MOBILE", status: status } )
-  },
+    },
+    sendSearchString: ( searchString )=>{
+      dispatch({ type:"SET_SEARCH", searchString: searchString })
+    },
+    showSidebar: ( status )=>{
+      dispatch( { type:"SHOW_SIDEBAR", status: status } )
+    },
   }
 }
 

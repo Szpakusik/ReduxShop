@@ -28,23 +28,23 @@ const Product = ( props ) => {
   return(
 
     <div className={`container card col-6 col-sm-4 col-md-3 col-lg-2 text-dark float-left text-center ${product.product}`}>
-        <div className={`${product.photoContainer} row my-2`}>
-            <img class="card-img-top" src={require(`./../../images/${props.product.photo}`)} alt="Product" />
+        <div className={`${product.photoContainer} row my-2 px-2`}>
+            <img className="card-img-top" src={require(`./../../images/${props.product.photo}`)} alt="Product" />
         </div>
         
-        <p class={`card-title font-weight-bold m-0 ${product.title}`}>{props.product.name}</p>
-        <ul class="list-group list-group-flush border-0">
-            <li class="list-group-item">
+        <p className={`card-title font-weight-bold m-0 ${product.title}`}>{props.product.name}</p>
+        <ul className="list-group list-group-flush border-0">
+            <li className="list-group-item">
                 
                 <div className="row">
-                    <div className="col-6 px-2 text-secondary">{correctPrice}zł</div>
-                    <div className="col-6 px-2 text-secondary">{props.product.weight}</div>                   
+                    <div className="col-12 col-sm-6 px-2 text-secondary">{correctPrice}zł</div>
+                    <div className="col-12 col-sm-6 px-2 text-secondary">{props.product.weight}</div>                   
                 </div>
 
             </li>
-            <li class="list-group-item">
-                <button class="btn btn-outline-success my-1" onClick={ ( ) => { handleClick() }} >Dodaj do koszyka</button>
-                <input placeholder="1" type="number" onChange={ (e)=>{handleChange(e)}} className={`${product.numberInput} mt-1 text-center`}/>
+            <li className="list-group-item">
+                <button className="btn btn-outline-success my-1" onClick={ ( ) => { handleClick() }} >Dodaj <span className="d-none d-md-inline">do koszyka</span></button>
+                <input placeholder="1" type="number" onBlur={()=>{window.scrollTo(0,0)}} onChange={ (e)=>{handleChange(e)}} className={`${product.numberInput} mt-1 text-center`}/>
             </li>
         </ul>
     </div>

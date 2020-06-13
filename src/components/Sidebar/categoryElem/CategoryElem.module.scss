@@ -1,25 +1,16 @@
 .categoryElem{
 
         color: black;
-        // color: white;
         font-weight: bold;
-        // background-color: cornsilk;
         background-image: url(../../../images/clean_textile.png);
-        background-color: rgba( 128, 128, 128, 0.1);
-        height: 20%;
+        height: 16.66%;
         width: 100%;
-        // color: lightyellow;
-        // text-shadow: 0 0 3px #000;
         border-bottom: 1px solid lightgray;
         border-right: 1px solid lightgray;
         
         &:hover{
-                // background-color: #F7F9F9;
-                background-color: rgb(248, 236, 192);
-                // border: 0;
-                text-decoration: none;
-                // border: 1px solid orangered;
-                border-left: 0
+                border-right: 2px solid green;
+                color: green;
         }
 
         @media only screen and (max-width: 768px){
@@ -33,7 +24,14 @@
 }
 
 .active{
-        background-color: rgba($color: #fff, $alpha: 0.45);
-        // border-right: 0;
-        border-right: 1px dashed lightgray;
+        border-right: 2px solid green;
+        @media only screen and (max-width: 768px){
+                color: green;
+                border-right: 1px solid lightgray;
+                font-weight: 500;
+                &:hover{
+                        border-right: 1px solid lightgray;
+
+                }
+        }
 }
