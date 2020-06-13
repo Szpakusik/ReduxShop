@@ -25,6 +25,12 @@ const SideBar = (props) => {
     window.scrollTo(0,0)
   }
 
+  const handleCategoryClick = (categoryId) => {
+    props.setActiveCat(categoryId);
+    props.sendSearchString(''); 
+    props.showSidebar( false );
+  }
+
   useEffect(() => {
     let resizeId;
     window.addEventListener('resize', function() {
@@ -51,7 +57,7 @@ const SideBar = (props) => {
     <div style={sidebarStyle} className={`col-md-1 col-12 ${sideBar.sideBar}`}>
       <div className="row h-100">
         {props.categories && props.categories.map((category, index) => (
-          <CategoryElem activeTab={props.activeCategory} lp={index} length={props.categories.length} key={category.id} category={category} onClickFun={() => { props.setActiveCat(category.id); props.sendSearchString('') }} />
+          <CategoryElem activeTab={props.activeCategory} lp={index} length={props.categories.length} key={category.id} category={category} onClickFun={() => { handleCategoryClick(category.id) }} />
         ))}
 
       </div>
@@ -77,6 +83,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     sendSearchString: ( searchString )=>{
       dispatch({ type:"SET_SEARCH", searchString: searchString })
+    },
+    showSidebar: ( status )=>{
+      dispatch( { type:"SHOW_SIDEBAR", status: status } )
     },
   }
 }

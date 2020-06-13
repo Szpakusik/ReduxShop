@@ -27,7 +27,8 @@
         border-right: 2px solid green;
         @media only screen and (max-width: 768px){
                 color: green;
-                        border-right: 1px solid lightgray;
+                border-right: 1px solid lightgray;
+                font-weight: 500;
                 &:hover{
                         border-right: 1px solid lightgray;
 
