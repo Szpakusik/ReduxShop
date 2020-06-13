@@ -20,15 +20,9 @@ const CreateAccount = (props) => {
     const [errorMessage, setErrorMessage] = useState("");
     
     const cleanRegistration = () => {
-        setFirstName("");
-        setSecondName("");
-        setPhone("");
-        setEmail("");
-        setPassword("");
-        setRepeatedPassword("");
-        setStreet("");
-        setPostCode("");
-        setCity("");
+        document.querySelectorAll('input').forEach( ( input ) => {
+            input.value = '';
+        })
     }
     const handleClick = ()=> {
 
@@ -65,7 +59,7 @@ const CreateAccount = (props) => {
     return(
         <>
         
-        <div className={`row p-0 p-md-5 pl-0 ${createAccount.createAccount}`}>
+        <div id="register-div"className={`row p-0 p-md-5 pl-0 ${createAccount.createAccount}`}>
 
             <div className="row w-100 mb-2 mb-md-5 mx-auto">
 
@@ -82,8 +76,30 @@ const CreateAccount = (props) => {
                         <span className="h3">Jesteśmy</span>
                         <img src={require('./../../images/z-dowozem-text.png')} alt=""/>
                         <div className='py-4'>
-                            <p className="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam possimus explicabo illum asperiores dolore neque nam sequi inventore ex delectus mollitia ea reiciendis voluptatibus iure, ut debitis quibusdam consectetur quia?</p>
-                            <p className="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam possimus explicabo illum asperiores dolore neque nam sequi inventore ex delectus mollitia ea reiciendis voluptatibus iure, ut debitis quibusdam consectetur quia?</p>
+                            <p className="text-light">
+                                Chcemy sprawiać, aby życie było prostsze.
+                            </p>
+                            <p className="text-light">
+                                Bieganie po sklepach bywa bardzo czasochłonne,
+                                a promocje wypisane wielkimi czerwonymi literami
+                                często sprawiają, że zapominamy po co przyszliśmy.
+                                W czasach pandemii dochodzą do tego emocje,
+                                które można nazwać conajmniej dyskomfortem
+                                związanym z przebywaniem w miejscach
+                                o dużym zagęszczeniu ludzi.
+                            </p>
+                            <p className="text-light">
+                                Przywieziemy zakupy do Ciebie,
+                                a dzięki skupieniu działalności na gminie
+                                Morawica, oferujemy zupełnie
+                                niespotykany do tej pory czas dostawy
+                                wynoszący 2 godziny od momentu złożenia zamówienia.
+                            </p>
+                            <p className="text-light">
+                                Jesteśmy małym "warzywniakiem" w okolicy.
+                                Bliżej niż kiedykolwiek, bo dokładnie w twoim domu
+                                ( a nawet gdy Cię tam nie ma! )
+                            </p>
                         </div>
                         <span className="h3">A Ty?</span>
                     </div>
