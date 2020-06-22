@@ -20,6 +20,7 @@ Test account:
 * [Redux](https://redux.js.org/basics/usage-with-react) - Predictable state container
 * [Bootstrap 4](https://sass-lang.com/documentation) - CSS Framework
 * [Sass](https://sass-lang.com/documentation) - preprocesor CSS
+* [Gatsby.js](https://www.gatsbyjs.org/docs/) - Blazing fast modern site generator for React.
 
 ### Backend - [repository](https://github.com/WilczekCK/sellfast-api)
 * [Node.js](https://nodejs.org/en/docs/) - JavaScript runtime environment 
