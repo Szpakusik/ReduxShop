@@ -13,6 +13,9 @@ Test account:
 * Email: test.owo@test.pl
 * Password: testtest1
 
+### To be fixed:
+* Payu payment when not logged in.
+
 ## Built With
 
 ### Frontend
