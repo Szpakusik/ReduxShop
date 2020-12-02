@@ -59,7 +59,7 @@ const CartModal = ( props ) => {
                     <img class="card-img my-auto p-1 pl-2 bg-white" src={require(`./../../images/delivery-truck.png`)} alt="Product" />
                 </div>
                 <p className="text-dark align-middle my-auto m-0">
-                    Koszt dostawy - 16.80zł
+                    Koszt dostawy - 16.90zł
                 </p>
             </div> : ''
         }

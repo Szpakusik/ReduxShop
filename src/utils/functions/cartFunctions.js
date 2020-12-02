@@ -3,7 +3,7 @@
 export function getCartPrice(cart){
 
     let price;
-    const deliveryPrice = 16.80
+    const deliveryPrice = 16.90
     const getSum = (total, elem) => {
         return total + elem.price*elem.amount ;
     }

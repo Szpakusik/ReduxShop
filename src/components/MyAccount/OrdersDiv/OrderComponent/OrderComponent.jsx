@@ -10,7 +10,7 @@ const OrderComponent = (props) => {
         props.setActivePage('finalizeOrder');
         props.setTempOrder(props.order.orderId);
     }
-    const deliveryPrice = 16.80;
+    const deliveryPrice = 16.90;
     const finalPrice = !props.ordered ? props.order.price + deliveryPrice : props.order.price;
     let statusColor, statusText;
     switch(props.order.status){

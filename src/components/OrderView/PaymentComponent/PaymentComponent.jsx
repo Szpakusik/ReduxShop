@@ -11,7 +11,7 @@ const PaymentComponent = ({order, setTempOrder, price, addresses, cart, setActiv
     useEffect(() => {
         setErrorMessage('')
     })
-    let deliveryPrice = 16.80;
+    let deliveryPrice = 16.90;
     let totalPrice = parseFloat(price);
 
     const [errorMessage, setErrorMessage] = useState('');
