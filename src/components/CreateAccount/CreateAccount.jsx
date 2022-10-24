@@ -49,7 +49,7 @@ const CreateAccount = (props) => {
             setErrorMessage("Pomyślnie założyłeś konto! Zaloguj się klikając w prawym górnym rogu.")
         })
         .catch(function (error) {
-            if(error.response.status === 409) setErrorMessage("Mamy już użytkownika o takim adresie email!")
+            if(error.response && error.response.status === 409) setErrorMessage("Mamy już użytkownika o takim adresie email!")
             else setErrorMessage("Coś poszło nie tak!")
             console.log(error.response.data.message);
         });

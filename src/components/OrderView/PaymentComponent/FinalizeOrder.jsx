@@ -8,9 +8,10 @@ import PaymentComponent from '../PaymentComponent/PaymentComponent';
 import OrderProducts from '../OrderProducts/OrderProducts';
 import Address from '../../MyAccount/InfoDiv/Address';
 import AddNewAddress from '../../MyAccount/InfoDiv/AddNewAddress';
+import Loader from 'react-loader-spinner';
 import { serverUrl } from '../../../utils/content/url';
 import { connect } from 'react-redux';
-import { getCartPrice } from '../../../utils/functions/cartFunctions'
+import { getCartPrice } from '../../../utils/functions/cartFunctions';
 
 const FinalizeOrder = (props) => {
     const { addresses, setActiveAddress, cart, addAddress, contactDetails } = props;
@@ -85,25 +86,25 @@ const FinalizeOrder = (props) => {
 
     const selectedAddress = addresses.map(address => {
         if(address.active){
-        return <Address         
-         management={false}   
-         ordered={ordered}
-         key={address.id}
-         userAddresses={addresses}
-         address={address}
-         setActiveAddress={setActiveAddress} 
-    />}
-});
+            return <Address         
+                management={false}   
+                ordered={ordered}
+                key={address.id}
+                userAddresses={addresses}
+                address={address}
+                setActiveAddress={setActiveAddress} />
+        }
+    });
 
     const userAddresses = addresses.map(address => 
         <Address         
-         management={false}   
-         ordered={ordered}
-         key={address.id}
-         userAddresses={addresses}
-         address={address}
-         setActiveAddress={setActiveAddress}
-         /> );
+            management={false}   
+            ordered={ordered}
+            key={address.id}
+            userAddresses={addresses}
+            address={address}
+            setActiveAddress={setActiveAddress} />
+    );
 
     return (
         <div className={`${myAccount.index} mb-5`}>
@@ -137,7 +138,10 @@ const FinalizeOrder = (props) => {
                                 </div>
 
                                 <div className={`px-1 mt-2 bg-white border pt-3`}>
-                                    {ordered ? selectedAddress : userAddresses}
+                                    {ordered ? 
+                                        addresses ? selectedAddress : < Loader type="TailSpin" height="25" width="25" className="my-4 mx-auto"/>
+                                        : userAddresses
+                                    }
                                     <AddNewAddress ordered={ordered} addAddress={addAddress}/>
                                 </div>
 

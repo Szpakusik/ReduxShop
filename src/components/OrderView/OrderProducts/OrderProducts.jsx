@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { getCartPrice } from '../../../utils/functions/cartFunctions'
 import orderProducts from './orderProducts.module.scss';
+import Loader from 'react-loader-spinner';
 
 const OrderProducts = ( props ) => {
 
@@ -51,7 +52,9 @@ const OrderProducts = ( props ) => {
                                 </i></>}
                             </div>
                         )
-                    }): null
+                    }) : <div className="row">
+                            <Loader type="TailSpin" height="25" width="25" className="my-4 mx-auto"/>
+                        </div>
                 }
             </div>
         </div>

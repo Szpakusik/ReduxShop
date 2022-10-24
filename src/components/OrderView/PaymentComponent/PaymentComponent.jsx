@@ -6,6 +6,7 @@ import { serverUrl } from '../../../utils/content/url';
 import { tranformCartForOrder, getCartPrice } from '../../../utils/functions/cartFunctions';
 import { connect } from 'react-redux';
 import { validateTemporaryUser } from '../../../utils/functions/validationFunctions';
+import Loader from 'react-loader-spinner';
 
 const PaymentComponent = ({order, setTempOrder, price, addresses, cart, setActivePage, ordered, contactDetails, clearCart, logged, user}) => {
     useEffect(() => {
@@ -153,14 +154,20 @@ const PaymentComponent = ({order, setTempOrder, price, addresses, cart, setActiv
         </div>
     )
 }else{
-    return(
+    console.log(order)
+    return (
     <div className="row w-100 mx-auto">
         <div className="mt-2 text-center w-100">
             <div className="card-header radius-none transparent-darker">
                 <span className="h4 card-title text-white">Szczegóły zamówienia</span>
             </div>
+
+            { order.price === 0 ? 
+            <div className={`px-3 mt-2 bg-white border`}>
+                < Loader type="TailSpin" height="25" width="25" className="my-4 mx-auto"/>
+            </div> :
             < OrderComponent order={order} ordered={ordered} management={ false } contactDetails={contactDetails} logged={logged}/>
-            
+            }
             <div>
             </div>          
         </div>
