@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'gatsby';
 import SideBar from '../Sidebar/SideBar';
 import MainContent from '../MainContent/MainContent';
 import CartModal from '../CartModal/CartModal';
